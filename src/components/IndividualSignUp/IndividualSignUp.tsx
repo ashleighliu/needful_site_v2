@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Group,
   Text,
@@ -11,14 +11,14 @@ import {
   Select,
   NumberInput,
   Image,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import Apple from '../../assets/Apple.svg';
-import FacebookBlue from '../../assets/FacebookBlue.svg';
-import Google from '../../assets/Google.svg';
-import classes from './IndividualSignUp.module.css';
-import { useNavigate } from 'react-router-dom';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import Apple from "../../assets/Apple.svg";
+import FacebookBlue from "../../assets/FacebookBlue.svg";
+import Google from "../../assets/Google.svg";
+import classes from "./IndividualSignUp.module.css";
+import { useNavigate } from "react-router-dom";
 
 type SignUpFormFields = {
   email: string;
@@ -34,9 +34,9 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
   const [gender, setGender] = useState<string | null>(null);
   const navigate = useNavigate();
   const form = useForm({
-    mode: 'uncontrolled',
+    mode: "uncontrolled",
     initialValues: {
-      email: '',
+      email: "",
     },
   });
 
@@ -44,7 +44,7 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
   const [formError, setFormError] = useState(false);
 
   function signUserUp(values: SignUpFormFields) {
-    createUserWithEmailAndPassword(auth, values.email, 'fixedpassword1')
+    createUserWithEmailAndPassword(auth, values.email, "fixedpassword1")
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -66,7 +66,7 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
             radius="sm"
             styles={{
               input: {
-                height: '50px',
+                height: "50px",
               },
             }}
             w={250}
@@ -78,20 +78,30 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
             radius="sm"
             styles={{
               input: {
-                height: '50px',
+                height: "50px",
               },
             }}
             w={250}
           />
         </Grid.Col>
       </Grid>
-      <Fieldset legend={<Text size="xs">Email Address</Text>} radius="sm" pt={0} pb={10} mt={5}>
+      <Fieldset
+        legend={<Text size="xs">Email Address</Text>}
+        radius="sm"
+        pt={0}
+        pb={10}
+        mt={5}
+      >
         <TextInput
           placeholder="Email Address"
-          key={form.key('email')}
-          {...form.getInputProps('email')}
+          key={form.key("email")}
+          {...form.getInputProps("email")}
           variant="unstyled"
-          error={formError ? 'This email address is already in use. Please log in instead.' : false}
+          error={
+            formError
+              ? "This email address is already in use. Please log in instead."
+              : false
+          }
         />
       </Fieldset>
       <Radio.Group value={gender} onChange={setGender} mt={5}>
@@ -111,7 +121,11 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
               </Radio.Card>
             </Grid.Col>
             <Grid.Col span={6}>
-              <Radio.Card className={classes.root} radius="sm" value="individual">
+              <Radio.Card
+                className={classes.root}
+                radius="sm"
+                value="individual"
+              >
                 <Group wrap="nowrap" align="flex-start">
                   <Radio.Indicator />
                   <Center>
@@ -125,12 +139,26 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
       </Radio.Group>
       <Grid align="flex-end" mt={5}>
         <Grid.Col span={6}>
-          <Fieldset legend={<Text size="xs">Country</Text>} radius="sm" pt={0} pb={10}>
-            <Select placeholder="Country" data={['Canada', 'United States']} variant="unstyled" />
+          <Fieldset
+            legend={<Text size="xs">Country</Text>}
+            radius="sm"
+            pt={0}
+            pb={10}
+          >
+            <Select
+              placeholder="Country"
+              data={["Canada", "United States"]}
+              variant="unstyled"
+            />
           </Fieldset>
         </Grid.Col>
         <Grid.Col span={6}>
-          <Fieldset legend={<Text size="xs">Phone #</Text>} radius="sm" pt={0} pb={10}>
+          <Fieldset
+            legend={<Text size="xs">Phone #</Text>}
+            radius="sm"
+            pt={0}
+            pb={10}
+          >
             <NumberInput
               placeholder="Phone #"
               prefix="+1 "
@@ -144,28 +172,30 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
       </Grid>
       <Center>
         <Center>
-          <Button
-            mt={20}
-            radius="sm"
-            fullWidth
-            type="submit"
-            onClick={() => {
-              // Trigger form submission manually
-              form.submit();
-            }}
-          >
+          <Button mt={20} radius="sm" fullWidth type="submit">
             CONTINUE
           </Button>
         </Center>
       </Center>
       <Center>
-        <Button mt={10} radius="sm" variant="outline" fullWidth onClick={() => navigate('/login')}>
+        <Button
+          mt={10}
+          radius="sm"
+          variant="outline"
+          fullWidth
+          onClick={() => navigate("/login")}
+        >
           BACK TO LOGIN
         </Button>
       </Center>
       <Center>
         <Text className={classes.divider}>
-          <Text inherit component="span" className={classes.dividerText} fz="sm">
+          <Text
+            inherit
+            component="span"
+            className={classes.dividerText}
+            fz="sm"
+          >
             or continue with
           </Text>
         </Text>
