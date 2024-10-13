@@ -27,10 +27,13 @@ export function MediaButtons() {
       />
       <Image
         src={Instagram}
+        style={{ width: "38px", height: "38px" }} // Adjust size as needed
         onClick={() => window.open("https://www.instagram.com/needful.app/")}
       />
+
       <Image
         src={Youtube}
+        style={{ width: "38px", height: "38px" }}
         onClick={() => window.open("https://youtube.com/needfulapp/", "_blank")}
       />
     </Group>
