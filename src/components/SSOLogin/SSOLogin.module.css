@@ -1,0 +1,51 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  .sidebar {
+    background-color: #00a884;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Align items to the bottom */
+    align-items: flex-end; /* Align items to the right */
+    padding: 20px; /* Add some padding for spacing */
+  }
+  
+  .radio {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: border-color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .radio[data-checked='true'] {
+    border-color: #00a884;
+  }
+  
+  .radioGroup {
+    margin-top: 20px;
+  }
+  
+  .input {
+    margin-bottom: 10px;
+  }
+  
+  .button {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .logoContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Move image to the right */
+    margin-top: 1200px;
+  }
+  
+  .logo {
+    margin-bottom: 20px; /* Space from the bottom */
+  }
