@@ -3,8 +3,15 @@ import Features from "../../assets/Features.svg";
 import NeedfulIconAnimated from "../../assets/NeedfulIconAnimated.mp4";
 import MobilePreview from "../../assets/MobilePreview.svg";
 import NeedfulExplainerVideo from "../../assets/NeedfulExplainerVideo.mp4";
+import { MutableRefObject, ReactNode } from "react";
 
-export function IntroductionSection() {
+type IntroductionSectionProps = {
+  targetRef: MutableRefObject<HTMLDivElement>;
+};
+
+export function IntroductionSection(props: IntroductionSectionProps) {
+  const { targetRef } = props;
+
   return (
     <Box mt={100}>
       {/* Add a title above the explainer video */}
@@ -17,7 +24,7 @@ export function IntroductionSection() {
       </Center>
 
       {/* Add the explainer video */}
-      <Center>
+      <Center ref={targetRef}>
         <video
           controls
           src={NeedfulExplainerVideo}
