@@ -1,5 +1,5 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useState } from 'react';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -11,16 +11,19 @@ import {
   PasswordInput,
   Text,
   TextInput,
-} from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { IconArrowRight } from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
-import Apple from '../../assets/Apple.svg';
-import FacebookBlue from '../../assets/FacebookBlue.svg';
-import Google from '../../assets/Google.svg';
-import NeedfulLogo from '../../assets/NeedfulLogo.svg';
-import Slogan from '../../assets/Slogan.svg';
-import classes from './Login.module.css';
+} from "@mantine/core";
+import { useForm } from "@mantine/form";
+import { IconArrowRight } from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
+import Apple from "../../assets/Apple.svg";
+import FacebookBlue from "../../assets/FacebookBlue.svg";
+import Google from "../../assets/Google.svg";
+import NeedfulLogo from "../../assets/NeedfulLogo.svg";
+import Slogan from "../../assets/Slogan.svg";
+import classes from "./Login.module.css";
+import express from "express";
+import session from "express-session";
+import Cookies from "universal-cookie";
 
 type LoginFormFields = {
   email: string;
@@ -30,15 +33,15 @@ type LoginFormFields = {
 
 export function Login() {
   const form = useForm({
-    mode: 'uncontrolled',
+    mode: "uncontrolled",
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       keep: false,
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
     },
   });
 
@@ -52,10 +55,13 @@ export function Login() {
   function logUserIn(values: LoginFormFields) {
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
+        const cookies = new Cookies();
+        cookies.set("username", userCredential.user, { path: "/" });
+        console.log(cookies.get("username"));
         // Signed in
         const user = userCredential.user;
         console.log(userCredential);
-        navigate('/');
+        navigate("/");
       })
       .catch(() => {
         setFormError(true);
@@ -66,8 +72,14 @@ export function Login() {
     <Box>
       <Grid align="center">
         <Grid.Col span={5}>
-          <Image h={50} m="lg" w="auto" src={NeedfulLogo} onClick={() => navigate('/')} />
-          <Center style={{ height: '80vh' }}>
+          <Image
+            h={50}
+            m="lg"
+            w="auto"
+            src={NeedfulLogo}
+            onClick={() => navigate("/")}
+          />
+          <Center style={{ height: "80vh" }}>
             <Box>
               <Center>
                 <form onSubmit={form.onSubmit((values) => logUserIn(values))}>
@@ -76,29 +88,36 @@ export function Login() {
                   </Text>
                   <TextInput
                     placeholder="Email Address"
-                    key={form.key('email')}
+                    key={form.key("email")}
                     w={300}
-                    {...form.getInputProps('email')}
+                    {...form.getInputProps("email")}
                     error={formError}
                   />
                   <PasswordInput
                     placeholder="Password"
-                    key={form.key('password')}
+                    key={form.key("password")}
                     mt={10}
                     w={300}
-                    {...form.getInputProps('password')}
+                    {...form.getInputProps("password")}
                     error={
-                      formError ? 'Your email or password was incorrect. Please try again.' : false
+                      formError
+                        ? "Your email or password was incorrect. Please try again."
+                        : false
                     }
                   />
                   <Checkbox
                     label="Keep me logged in"
-                    key={form.key('keep')}
+                    key={form.key("keep")}
                     mt={10}
-                    {...form.getInputProps('keep')}
+                    {...form.getInputProps("keep")}
                   />
                   <Group mt={10}>
-                    <Button type="submit" radius="sm" w={150} rightSection={<IconArrowRight />}>
+                    <Button
+                      type="submit"
+                      radius="sm"
+                      w={150}
+                      rightSection={<IconArrowRight />}
+                    >
                       LOGIN
                     </Button>
                     <Text fz="xs">Forgot your password?</Text>
@@ -109,7 +128,7 @@ export function Login() {
                       radius="sm"
                       variant="outline"
                       w={300}
-                      onClick={() => navigate('/signup')}
+                      onClick={() => navigate("/signup")}
                     >
                       CREATE NEW ACCOUNT
                     </Button>
@@ -118,7 +137,12 @@ export function Login() {
               </Center>
               <Center mt={40}>
                 <Text className={classes.divider}>
-                  <Text inherit component="span" className={classes.dividerText} fz="sm">
+                  <Text
+                    inherit
+                    component="span"
+                    className={classes.dividerText}
+                    fz="sm"
+                  >
                     or continue with
                   </Text>
                 </Text>
@@ -136,20 +160,20 @@ export function Login() {
                   radius="sm"
                   variant="outline"
                   w={300}
-                  onClick={() => navigate('/sso-login')}
+                  onClick={() => navigate("/sso-login")}
                 >
                   LOG IN WITH SSO
                 </Button>
               </Center>
               <Center mt={20}>
                 <Text>
-                  Need an account?{' '}
-                  <Text<'a'>
+                  Need an account?{" "}
+                  <Text<"a">
                     c="#00A884"
                     className={classes.link}
                     component="a"
                     fw={600}
-                    onClick={() => navigate('/signup')}
+                    onClick={() => navigate("/signup")}
                   >
                     Create one
                   </Text>
@@ -161,10 +185,11 @@ export function Login() {
         <Grid.Col
           span={7}
           style={{
-            backgroundColor: 'light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))',
+            backgroundColor:
+              "light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))",
           }}
         >
-          <Center style={{ height: '100vh' }}>
+          <Center style={{ height: "100vh" }}>
             <Box>
               <Center>
                 <Image src={Slogan} />
