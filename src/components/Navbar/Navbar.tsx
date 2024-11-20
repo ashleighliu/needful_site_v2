@@ -10,9 +10,9 @@ export function Navbar() {
       <Grid.Col span={6}>
         <Group>
           <Image m={20} h={50} w="auto" src={NeedfulLogo} onClick={() => navigate('/')} />
-          <Text c="#555555">Home</Text>
-          <Text c="#555555">About</Text>
-          <Text c="#555555" onClick={() => navigate('/contact')}>
+          <Text c="#555555" onClick={() => navigate('/home')} style={{cursor: "pointer"}}>Home</Text>
+          <Text c="#555555" onClick={() => navigate('/About')} style={{cursor: "pointer"}}>About</Text>
+          <Text c="#555555" onClick={() => navigate('/contact')} style={{cursor: "pointer"}}>
             Contact
           </Text>
         </Group>
