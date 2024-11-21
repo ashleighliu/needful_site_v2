@@ -1,33 +1,69 @@
-import '@mantine/core/styles.css';
-import { initializeApp } from 'firebase/app';
-import { MantineProvider } from '@mantine/core';
-import { Router } from './Router';
-import { theme } from './theme';
+import { useEffect } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import "@mantine/core/styles.css";
+import { auth } from "./services/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { MantineProvider } from "@mantine/core";
+import store from "./store/store";
+import { Router } from "./Router";
+import { theme } from "./theme";
 
-export default function App() {
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+import {
+  selectIsLoggedIn,
+  setIsLoggedIn,
+  setUserInfo,
+  setIsAudioDownloaded,
+  getUserInfo,
+} from "./store/slices/userSlice";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: 'AIzaSyA1wsBytaA_dPxXVIta6_bLZlaQSlYl7SQ',
-    authDomain: 'needful-6cfc6.firebaseapp.com',
-    databaseURL: 'https://needful-6cfc6-default-rtdb.firebaseio.com',
-    projectId: 'needful-6cfc6',
-    storageBucket: 'needful-6cfc6.appspot.com',
-    messagingSenderId: '370296357131',
-    appId: '1:370296357131:web:5d76449267af1d099ba20e',
-    measurementId: 'G-MB3FFBW6GP',
+import AuthService from "./services/authService";
+
+function AuthWrapper() {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const currentUserInfo = useSelector(getUserInfo);
+
+  const setCurrentUserInfo = async (userId: string) => {
+    const currentUserInfo = await AuthService.getCurrentUserData(userId);
+    if (currentUserInfo) {
+      console.log("UserInfo ====================> ", currentUserInfo);
+      dispatch(setUserInfo(currentUserInfo));
+    } else {
+      console.log("Failed to retrieve user info");
+    }
   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  // const analytics = getAnalytics(app);
+  const handleAuthStateChanged = async (user: any) => {
+    if (user && user.email) {
+      const now = new Date();
+      // const appStartTime = now.toISOString();
+      // dispatch(setAppStartTime(appStartTime));
+      dispatch(setIsLoggedIn(true));
+      await setCurrentUserInfo(user.uid);
+      // await setCurrentTasks(user.email);
+      // await setMeditationHistorys(user.email);
+    } else {
+      dispatch(setIsLoggedIn(false));
+    }
+  };
 
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, handleAuthStateChanged);
+
+    return () => {
+      unsubscribeAuth();
+    };
+  }, []);
+
+  return <Router />;
+}
+
+export default function App() {
   return (
-    <MantineProvider theme={theme}>
-      <Router />
-    </MantineProvider>
+    <Provider store={store}>
+      <MantineProvider theme={theme}>
+        <AuthWrapper />
+      </MantineProvider>
+    </Provider>
   );
 }
