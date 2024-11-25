@@ -47,13 +47,13 @@ function AuthWrapper() {
     }
   };
 
-  useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, handleAuthStateChanged);
+  // useEffect(() => {
+  //   const unsubscribeAuth = onAuthStateChanged(auth, handleAuthStateChanged);
 
-    return () => {
-      unsubscribeAuth();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribeAuth();
+  //   };
+  // }, []);
 
   return <Router />;
 }
