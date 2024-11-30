@@ -1,12 +1,13 @@
 .wrapper {
-  background-color: #F1F7EF;
+  background-color: #f1f7ef;
   height: rem(800px);
   width: 400px;
   padding: var(--mantine-spacing-md);
   padding-top: 0;
   display: flex;
   flex-direction: column;
-  border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-right: rem(1px) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }
 
 .section {
@@ -37,7 +38,10 @@
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
 
   &:hover {
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    background-color: light-dark(
+      var(--mantine-color-gray-0),
+      var(--mantine-color-dark-6)
+    );
     color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   }
 
@@ -71,15 +75,15 @@
 .divider {
   border-bottom: 1px solid #000000;
   margin: 0 30px 10px 0;
-} 
+}
 
 .title {
   margin: 40px 0 30px 0;
 }
 
-.notebook {
+.taskbook {
   width: 100%;
-  margin-left: 30px
+  margin-left: 30px;
 }
 
 .tagIndicator {
@@ -102,7 +106,10 @@
   background-color: var(--mantine-color-gray-2);
 
   &:hover {
-    background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-6));
+    background-color: light-dark(
+      var(--mantine-color-gray-3),
+      var(--mantine-color-dark-6)
+    );
     color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   }
 
@@ -124,7 +131,7 @@
 }
 
 :root {
-  --rs-calendar-today-text: #FFFFFF !important;
-  --rs-calendar-today-bg: #00A884 !important;
-  --rs-input-focus-border: #00A884 !important;
+  --rs-calendar-today-text: #ffffff !important;
+  --rs-calendar-today-bg: #00a884 !important;
+  --rs-input-focus-border: #00a884 !important;
 }

@@ -14,6 +14,8 @@ import {
   setUserInfo,
   setIsAudioDownloaded,
   getUserInfo,
+  setIsAuthLoading,
+  initializeFromCache,
 } from "./store/slices/userSlice";
 
 import AuthService from "./services/authService";
@@ -24,10 +26,26 @@ function AuthWrapper() {
   const currentUserInfo = useSelector(getUserInfo);
 
   const setCurrentUserInfo = async (userId: string) => {
+    const cachedUser = localStorage.getItem("userInfo");
+    if (cachedUser) {
+      const parsedUser = JSON.parse(cachedUser);
+      const cacheTimestamp = localStorage.getItem("userInfoTimestamp");
+      const now = Date.now();
+
+      // Check if cache is less than 1 hour old
+      if (cacheTimestamp && now - parseInt(cacheTimestamp) < 3600000) {
+        dispatch(setUserInfo(parsedUser));
+        return;
+      }
+    }
+
     const currentUserInfo = await AuthService.getCurrentUserData(userId);
     if (currentUserInfo) {
       console.log("UserInfo ====================> ", currentUserInfo);
       dispatch(setUserInfo(currentUserInfo));
+
+      localStorage.setItem("userInfo", JSON.stringify(currentUserInfo));
+      localStorage.setItem("userInfoTimestamp", Date.now().toString());
     } else {
       console.log("Failed to retrieve user info");
     }
@@ -35,16 +53,16 @@ function AuthWrapper() {
 
   const handleAuthStateChanged = async (user: any) => {
     if (user && user.email) {
-      const now = new Date();
-      // const appStartTime = now.toISOString();
-      // dispatch(setAppStartTime(appStartTime));
+      dispatch(initializeFromCache());
       dispatch(setIsLoggedIn(true));
       await setCurrentUserInfo(user.uid);
-      // await setCurrentTasks(user.email);
-      // await setMeditationHistorys(user.email);
     } else {
       dispatch(setIsLoggedIn(false));
+      localStorage.removeItem("userInfo");
+      localStorage.removeItem("userInfoTimestamp");
     }
+
+    dispatch(setIsAuthLoading(false));
   };
 
   useEffect(() => {

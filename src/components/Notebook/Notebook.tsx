@@ -1,13 +1,28 @@
-import { TextInput, Title, Checkbox, Center, Flex, rem, Text, UnstyledButton } from '@mantine/core';
-import classes from './Notebook.module.css';
-import { KeyboardEvent, Dispatch, SetStateAction, useRef } from 'react';
-import { CustomIcon } from '../CustomIcon/CustomIcon';
-import { Note } from '../Note/Note';
-import { NoteEntry, tags } from '../Home/Home';
-import { IconPlus } from '@tabler/icons-react';
-import { NavIcon } from '../NavIcon/NavIcon';
-import LogoWhite from '../../assets/LogoWhite.svg';
-import WhiteTag from '../../assets/WhiteTag.svg';
+import {
+  TextInput,
+  Title,
+  Checkbox,
+  Center,
+  Flex,
+  rem,
+  Text,
+  UnstyledButton,
+  Collapse,
+  ActionIcon,
+  Box,
+  Group,
+} from "@mantine/core";
+import classes from "./Notebook.module.css";
+import { KeyboardEvent, Dispatch, SetStateAction, useRef } from "react";
+import { CustomIcon } from "../CustomIcon/CustomIcon";
+import { Note } from "../Note/Note";
+import { NoteEntry, tags } from "../Home/Home";
+import { IconPlayerPlay, IconPlus } from "@tabler/icons-react";
+import { NavIcon } from "../NavIcon/NavIcon";
+import LogoWhite from "../../assets/LogoWhite.svg";
+import WhiteTag from "../../assets/WhiteTag.svg";
+import { useDisclosure } from "@mantine/hooks";
+import { Button } from "rsuite";
 
 type NotebookProps = {
   activeIcon: string;
@@ -19,7 +34,14 @@ type NotebookProps = {
 };
 
 export function Notebook(props: NotebookProps) {
-  const { activeIcon, activeTag, notes, setActiveIcon, setActiveTag, setNotes } = props;
+  const {
+    activeIcon,
+    activeTag,
+    notes,
+    setActiveIcon,
+    setActiveTag,
+    setNotes,
+  } = props;
 
   const newTask = useRef<HTMLInputElement>(null);
 
@@ -32,22 +54,28 @@ export function Notebook(props: NotebookProps) {
       key={tag.label}
       className={classes.mainLink}
       data-active={tag.label === activeTag || undefined}
-      onClick={
-        () => {
-          setActiveTag(tag.label);
-          setActiveIcon(tag.icon);
-        }
-      }
+      onClick={() => {
+        setActiveTag(tag.label);
+        setActiveIcon(tag.icon);
+      }}
     >
       <div className={classes.mainLinkInner}>
-        {tag.label === "All" && tag.label === activeTag ? <CustomIcon icon={LogoWhite}/> : <CustomIcon icon={tag.icon}/>}
+        {tag.label === "All" && tag.label === activeTag ? (
+          <CustomIcon icon={LogoWhite} />
+        ) : (
+          <CustomIcon icon={tag.icon} />
+        )}
         <span>{tag.label}</span>
       </div>
     </UnstyledButton>
   ));
 
   function isExceptedTag() {
-    return activeTag === "Untagged" || activeTag === "All" || activeTag === "Archived"
+    return (
+      activeTag === "Untagged" ||
+      activeTag === "All" ||
+      activeTag === "Archived"
+    );
   }
 
   function addNote(event: KeyboardEvent) {
@@ -75,6 +103,8 @@ export function Notebook(props: NotebookProps) {
     input.value = "";
   }
 
+  const [opened, { toggle }] = useDisclosure(false);
+
   return (
     <>
       <div className={classes.wrapper}>
@@ -83,8 +113,17 @@ export function Notebook(props: NotebookProps) {
             <UnstyledButton className={classes.addButton} onClick={focusTask}>
               <Center>
                 <Flex align="center">
-                  <IconPlus style={{ width: rem(12), height: rem(12), marginRight: "5px" }} stroke={2.5} />
-                  <Text fw={550} fz="xs">New Task</Text>
+                  <IconPlus
+                    style={{
+                      width: rem(12),
+                      height: rem(12),
+                      marginRight: "5px",
+                    }}
+                    stroke={2.5}
+                  />
+                  <Text fw={550} fz="xs">
+                    New Task
+                  </Text>
                 </Flex>
               </Center>
             </UnstyledButton>
@@ -104,11 +143,14 @@ export function Notebook(props: NotebookProps) {
               data-active={"Archived" === activeTag || undefined}
               onClick={() => setActiveTag("Archived")}
             >
-            <div className={classes.mainLinkInner}>
-              <NavIcon image={"archived"} fill={"Archived" === activeTag ? "white" : "black"}/>
-              <span style={{ marginLeft: "5px" }}>{"Archived"}</span>
-            </div>
-          </UnstyledButton>
+              <div className={classes.mainLinkInner}>
+                <NavIcon
+                  image={"archived"}
+                  fill={"Archived" === activeTag ? "white" : "black"}
+                />
+                <span style={{ marginLeft: "5px" }}>{"Archived"}</span>
+              </div>
+            </UnstyledButton>
           </div>
         </div>
       </div>
@@ -117,10 +159,10 @@ export function Notebook(props: NotebookProps) {
           {`${isExceptedTag() ? activeTag : activeTag.substring(0, activeTag.length - 1)} Needfuls`}
         </Title>
         <div className={classes.divider} />
-        <div className={classes.tagIndicator}>
-          <CustomIcon icon={activeIcon}/>
+        {/* <div className={classes.tagIndicator}>
+          <CustomIcon icon={activeIcon} />
           <span>{activeTag}</span>
-        </div>
+        </div> */}
         {notes.map((note) => {
           if (activeTag === "All") {
             return (
@@ -147,29 +189,49 @@ export function Notebook(props: NotebookProps) {
             );
           }
         })}
-        <Checkbox
-          disabled
-          mt={25}
-          label={
-            <TextInput
-              placeholder="Write a task..."
-              styles={{
-                input: {
-                  border: "none",
-                  outline: "none",
-                },
-              }}
-              unstyled
-              onKeyDown={addNote}
-              ref={newTask}
-            />
-          }
-          styles={{
-            root: {
-              width: "1000px",
-            },
-          }}
-        />
+        <Flex align={"center"} gap={"sm"}>
+          <Flex align={"center"} gap={"sm"}>
+            <Checkbox />
+            <Text size="lg">Work on landing page</Text>
+          </Flex>
+
+          <Button onClick={toggle}>click</Button>
+        </Flex>
+        <Box>
+          <Collapse in={opened}>
+            <Flex align={"center"} gap={"sm"}>
+              <ActionIcon radius={"xl"} color="green">
+                <IconPlayerPlay size={"1.2rem"} color="white" />
+              </ActionIcon>
+              <Text size="xs" color="green">
+                00:34
+              </Text>
+            </Flex>
+          </Collapse>
+        </Box>
+        {/* <Checkbox
+            disabled
+            mt={25}
+            label={
+              <TextInput
+                placeholder="Write a task..."
+                styles={{
+                  input: {
+                    border: "none",
+                    outline: "none",
+                  },
+                }}
+                unstyled
+                onKeyDown={addNote}
+                ref={newTask}
+              />
+            }
+            styles={{
+              root: {
+                width: "1000px",
+              },
+            }}
+          /> */}
       </div>
     </>
   );
