@@ -39,15 +39,18 @@ const getCurrentTasks = async (email: string) => {
 
     return [
       ...response.tasks,
-      {
-        id: Math.random().toString(36).substr(2, 9),
-        task: "",
-        dueDate: null,
-        completed: false,
-        label: null,
-        audioPath: "",
-        hasAudio: false,
-      },
+      // {
+      //   id: Math.random().toString(36).substr(2, 9),
+      //   task: "",
+      //   dueDate: null,
+      //   completed: false,
+      //   label: null,
+      //   audioPath: "",
+      //   hasAudio: false,
+      //   localAudioPath: "",
+      //   duration: 0,
+      //   transcript: "",
+      // },
     ];
   } catch (error) {
     console.log(error);

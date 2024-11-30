@@ -1,13 +1,27 @@
-import { TextInput, Flex, Text, UnstyledButton, Menu, rem } from '@mantine/core';
-import classes from './TaskCalendar.module.css';
-import {useRef, useEffect, useState, SetStateAction, Dispatch, KeyboardEvent } from 'react';
-import { CustomIcon } from '../CustomIcon/CustomIcon';
-import { NoteEntry, tags } from '../Home/Home';
-import { Calendar } from 'rsuite';
-import WhiteTag from '../../assets/WhiteTag.svg';
-import { IconCalendar, IconCaretDownFilled } from '@tabler/icons-react';
-import { DatePickerInput } from '@mantine/dates';
-import 'rsuite/Calendar/styles/index.css';
+import {
+  TextInput,
+  Flex,
+  Text,
+  UnstyledButton,
+  Menu,
+  rem,
+} from "@mantine/core";
+import classes from "./TaskCalendar.module.css";
+import {
+  useRef,
+  useEffect,
+  useState,
+  SetStateAction,
+  Dispatch,
+  KeyboardEvent,
+} from "react";
+import { CustomIcon } from "../CustomIcon/CustomIcon";
+import { TaskEntry, tags } from "../Home/Home";
+import { Calendar } from "rsuite";
+import WhiteTag from "../../assets/WhiteTag.svg";
+import { IconCalendar, IconCaretDownFilled } from "@tabler/icons-react";
+import { DatePickerInput } from "@mantine/dates";
+import "rsuite/Calendar/styles/index.css";
 
 function isSameDay(d1: Date, d2: Date) {
   const y1 = d1.getFullYear();
@@ -20,15 +34,15 @@ function isSameDay(d1: Date, d2: Date) {
 }
 
 type TaskCalendarProps = {
-  notes: NoteEntry[];
-  setNotes: Dispatch<SetStateAction<NoteEntry[]>>;
-}
+  tasks: TaskEntry[];
+  setTasks: Dispatch<SetStateAction<TaskEntry[]>>;
+};
 
 export function TaskCalendar(props: TaskCalendarProps) {
-  const { notes, setNotes } = props;
+  const { tasks, setTasks } = props;
   const [currentDate, setCurrentDate] = useState(new Date());
   const [correctedDate, setCorrectedDate] = useState<null | Date>(null);
-  const [activeTag, setActiveTag] = useState('Untagged');
+  const [activeTag, setActiveTag] = useState("Untagged");
   const [activeIcon, setActiveIcon] = useState(WhiteTag);
   const [pass, setPass] = useState(false);
   const calendarRef = useRef(null);
@@ -45,7 +59,10 @@ export function TaskCalendar(props: TaskCalendarProps) {
 
   useEffect(() => {
     if (calendarRef && calendarRef.current) {
-      (calendarRef.current as HTMLElement).addEventListener("dblclick", onDoubleClick);
+      (calendarRef.current as HTMLElement).addEventListener(
+        "dblclick",
+        onDoubleClick
+      );
     }
   }, []);
 
@@ -54,7 +71,7 @@ export function TaskCalendar(props: TaskCalendarProps) {
     setActiveTag(label);
   }
 
-  function addNote(event: KeyboardEvent) {
+  function addTask(event: KeyboardEvent) {
     if (event.code !== "Enter") {
       return;
     }
@@ -63,8 +80,8 @@ export function TaskCalendar(props: TaskCalendarProps) {
       return;
     }
     let exists = false;
-    notes.forEach((note) => {
-      if (note.text === input.value && note.tag === activeTag) {
+    tasks.forEach((task) => {
+      if (task.text === input.value && task.tag === activeTag) {
         exists = true;
         return;
       }
@@ -75,14 +92,19 @@ export function TaskCalendar(props: TaskCalendarProps) {
     const icon = activeTag === "All" ? WhiteTag : activeIcon;
     const tag = activeTag === "All" ? "Untagged" : activeTag;
     const text = input.value;
-    setNotes([{ icon, tag, text, deadline: correctedDate ?? currentDate }, ...notes]);
+    setTasks([
+      { icon, tag, text, deadline: correctedDate ?? currentDate },
+      ...tasks,
+    ]);
     input.value = "";
     setCorrectedDate(null);
     setPass(false);
   }
 
   function renderCell(date: Date) {
-    const today = notes.filter((note) => note.deadline != null && isSameDay(date, note.deadline));
+    const today = tasks.filter(
+      (task) => task.deadline != null && isSameDay(date, task.deadline)
+    );
     const display = today.filter((_, index) => index < 2);
 
     const moreCount = today.length - display.length;
@@ -90,18 +112,18 @@ export function TaskCalendar(props: TaskCalendarProps) {
       <div>
         <Menu trigger="hover">
           <Menu.Target>
-            <div style={{ fontSize: "12px" }}>
-              {`+${moreCount} More`}
-            </div>
+            <div style={{ fontSize: "12px" }}>{`+${moreCount} More`}</div>
           </Menu.Target>
           <Menu.Dropdown>
-            {today.map((note) => {
-              return <Menu.Item key={note.text} component="div">
-                <Flex>
-                  <CustomIcon icon={note.icon}/>
-                  <span style={{ fontSize: "12px" }}>{note.text}</span>
-                </Flex>
-              </Menu.Item>
+            {today.map((task) => {
+              return (
+                <Menu.Item key={task.text} component="div">
+                  <Flex>
+                    <CustomIcon icon={task.icon} />
+                    <span style={{ fontSize: "12px" }}>{task.text}</span>
+                  </Flex>
+                </Menu.Item>
+              );
             })}
           </Menu.Dropdown>
         </Menu>
@@ -113,17 +135,17 @@ export function TaskCalendar(props: TaskCalendarProps) {
         opened={pass && isSameDay(date, currentDate)}
         styles={{
           item: {
-            backgroundColor: "white"
+            backgroundColor: "white",
           },
         }}
       >
         <Menu.Target>
           <div>
-            {display.map((note) => (
-              <div key={note.text}>
+            {display.map((task) => (
+              <div key={task.text}>
                 <Flex>
-                  <CustomIcon icon={note.icon}/>
-                  <span style={{ fontSize: "12px" }}>{note.text}</span>
+                  <CustomIcon icon={task.icon} />
+                  <span style={{ fontSize: "12px" }}>{task.text}</span>
                 </Flex>
               </div>
             ))}
@@ -142,12 +164,12 @@ export function TaskCalendar(props: TaskCalendarProps) {
                   },
                 }}
                 unstyled
-                onKeyDown={addNote}
+                onKeyDown={addTask}
               />
               <Menu shadow="md" width={200}>
                 <Menu.Target>
                   <UnstyledButton>
-                    <CustomIcon icon={activeIcon}/>
+                    <CustomIcon icon={activeIcon} />
                   </UnstyledButton>
                 </Menu.Target>
                 <Menu.Dropdown>
@@ -155,16 +177,31 @@ export function TaskCalendar(props: TaskCalendarProps) {
                     if (tag.label === "All") {
                       return null;
                     }
-                    return <Menu.Item leftSection={<CustomIcon icon={tag.icon}/>} onClick={() => selectTag(tag.icon, tag.label)} key={tag.label}>
-                      {tag.label}
-                    </Menu.Item>
+                    return (
+                      <Menu.Item
+                        leftSection={<CustomIcon icon={tag.icon} />}
+                        onClick={() => selectTag(tag.icon, tag.label)}
+                        key={tag.label}
+                      >
+                        {tag.label}
+                      </Menu.Item>
+                    );
                   })}
                 </Menu.Dropdown>
               </Menu>
             </Flex>
             <DatePickerInput
-              leftSection={<IconCalendar style={{ width: rem(18), height: rem(18) }} stroke={1.5} />}
-              rightSection={<IconCaretDownFilled style={{ width: rem(12), height: rem(12) }} />}
+              leftSection={
+                <IconCalendar
+                  style={{ width: rem(18), height: rem(18) }}
+                  stroke={1.5}
+                />
+              }
+              rightSection={
+                <IconCaretDownFilled
+                  style={{ width: rem(12), height: rem(12) }}
+                />
+              }
               placeholder="Due Date"
               size="xs"
               onChange={(date) => setCorrectedDate(date)}
@@ -216,7 +253,11 @@ export function TaskCalendar(props: TaskCalendarProps) {
           </div>
         </div>
       </div>
-      <Calendar onSelect={onSelectDate} ref={calendarRef} renderCell={renderCell}/>
+      <Calendar
+        onSelect={onSelectDate}
+        ref={calendarRef}
+        renderCell={renderCell}
+      />
     </>
   );
 }

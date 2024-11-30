@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { selectIsLoggedIn } from "../store/slices/userSlice";
+import {
+  selectIsLoggedIn,
+  selectIsAuthLoading,
+} from "../store/slices/userSlice";
+import { Loader, Center, Container } from "@mantine/core";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -9,9 +13,19 @@ interface ProtectedRouteProps {
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const location = useLocation();
+  const isAuthLoading = useSelector(selectIsAuthLoading);
+
+  if (isAuthLoading) {
+    return (
+      <Container style={{ minWidth: "100%", minHeight: "100vh" }}>
+        <Center style={{ minHeight: "100vh" }}>
+          <Loader color="blue" />
+        </Center>
+      </Container>
+    );
+  }
 
   if (!isLoggedIn) {
-    // Redirect to login page with the return url
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

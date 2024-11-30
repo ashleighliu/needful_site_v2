@@ -9,8 +9,9 @@ const InitDocument = {
 };
 
 const userSliceIniState = {
-  isLoggedIn: null,
+  isLoggedIn: false,
   isAudioDownloaded: null,
+  isAuthLoading: true,
   userInfo: {},
 };
 

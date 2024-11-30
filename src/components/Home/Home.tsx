@@ -18,12 +18,12 @@ import Logo from "../../assets/Logo.svg";
 import classes from "./Home.module.css";
 import { useEffect, useState } from "react";
 import { NavIcon } from "../NavIcon/NavIcon";
-import { Notebook } from "../Notebook/Notebook";
+import { Taskbook } from "../Taskbook/Taskbook";
 import { TaskCalendar } from "../TaskCalendar/TaskCalendar";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { setUserTasks } from "../../store/slices/taskSlice";
+import { setUserTasks, getUserTasks } from "../../store/slices/taskSlice";
 import { getUserInfo } from "../../store/slices/userSlice";
 import TaskService from "../../services/taskService";
 import { Placeholder } from "rsuite";
@@ -43,11 +43,16 @@ export const tags = [
   { icon: WhiteTag, label: "Untagged" },
 ];
 
-export type NoteEntry = {
-  icon: string;
-  tag: string;
-  text: string;
-  deadline: Date | null;
+export type TaskEntry = {
+  audioPath?: string | null;
+  completed: boolean;
+  dueDate?: string | null;
+  duration?: string | null;
+  hasAudio: boolean;
+  id: string;
+  label: string;
+  task: string;
+  transcript?: string | null;
 };
 
 export function Home() {
@@ -56,9 +61,10 @@ export function Home() {
   const [active, setActive] = useState("Home");
   const [activeTag, setActiveTag] = useState("All");
   const [activeIcon, setActiveIcon] = useState(Logo);
-  const [notes, setNotes] = useState<NoteEntry[]>([]);
+  const [tasks, setTasks] = useState<TaskEntry[]>([]);
 
   const userInfo = useSelector(getUserInfo);
+  const userTasks = useSelector(getUserTasks);
 
   const setCurrentTasks = async (email: string) => {
     const currentTasks = await TaskService.getCurrentTasks(email);
@@ -85,6 +91,10 @@ export function Home() {
   };
 
   useEffect(() => {
+    console.log(
+      "Here is the user's email ====================>",
+      userInfo.email
+    );
     if (userInfo.email) {
       setCurrentTasks(userInfo.email);
     }
@@ -102,7 +112,7 @@ export function Home() {
           image={link.icon}
           fill={link.label === active ? "white" : "black"}
         />
-        <Text size={"sm"} ml={5} fw={700}>
+        <Text size={"sm"} ml={5} fw={500}>
           {link.label}
         </Text>
       </div>
@@ -132,7 +142,7 @@ export function Home() {
             />
           }
           h={40}
-          fw={700}
+          fw={500}
           styles={{
             section: { pointerEvents: "none" },
           }}
@@ -142,18 +152,9 @@ export function Home() {
           <div className={classes.mainLinks}>{mainLinks}</div>
         </div>
       </div>
-      {active === "Home" && (
-        <Notebook
-          activeIcon={activeIcon}
-          activeTag={activeTag}
-          notes={notes}
-          setActiveIcon={setActiveIcon}
-          setActiveTag={setActiveTag}
-          setNotes={setNotes}
-        />
-      )}
+      {active === "Home" && <Taskbook />}
       {active === "Calendar" && (
-        <TaskCalendar notes={notes} setNotes={setNotes} />
+        <TaskCalendar tasks={tasks} setTasks={setTasks} />
       )}
     </Flex>
   );
