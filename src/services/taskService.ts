@@ -1,6 +1,6 @@
 import { httpService } from "./httpService";
 
-const updateTasks = async (tasks, email) => {
+const updateTasks = async (tasks: any, email: string) => {
   try {
     const payload = { tasks, email };
     const response = await httpService({
@@ -20,6 +20,7 @@ const updateTasks = async (tasks, email) => {
         hasAudio: false,
         localAudioPath: "",
         duration: 0,
+        transcript: "",
       },
     ];
   } catch (error) {
@@ -39,18 +40,18 @@ const getCurrentTasks = async (email: string) => {
 
     return [
       ...response.tasks,
-      // {
-      //   id: Math.random().toString(36).substr(2, 9),
-      //   task: "",
-      //   dueDate: null,
-      //   completed: false,
-      //   label: null,
-      //   audioPath: "",
-      //   hasAudio: false,
-      //   localAudioPath: "",
-      //   duration: 0,
-      //   transcript: "",
-      // },
+      {
+        id: Math.random().toString(36).substr(2, 9),
+        task: "",
+        dueDate: null,
+        completed: false,
+        label: null,
+        audioPath: "",
+        hasAudio: false,
+        localAudioPath: "",
+        duration: 0,
+        transcript: "",
+      },
     ];
   } catch (error) {
     console.log(error);

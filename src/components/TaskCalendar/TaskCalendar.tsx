@@ -72,38 +72,42 @@ export function TaskCalendar(props: TaskCalendarProps) {
   }
 
   function addTask(event: KeyboardEvent) {
-    if (event.code !== "Enter") {
-      return;
-    }
-    const input = event.target as HTMLInputElement;
-    if (input.value === "") {
-      return;
-    }
-    let exists = false;
-    tasks.forEach((task) => {
-      if (task.text === input.value && task.tag === activeTag) {
-        exists = true;
-        return;
-      }
-    });
-    if (exists) {
-      return;
-    }
-    const icon = activeTag === "All" ? WhiteTag : activeIcon;
-    const tag = activeTag === "All" ? "Untagged" : activeTag;
-    const text = input.value;
-    setTasks([
-      { icon, tag, text, deadline: correctedDate ?? currentDate },
-      ...tasks,
-    ]);
-    input.value = "";
-    setCorrectedDate(null);
-    setPass(false);
+    // if (event.code !== "Enter") {
+    //   return;
+    // }
+    // const input = event.target as HTMLInputElement;
+    // if (input.value === "") {
+    //   return;
+    // }
+    // let exists = false;
+    // tasks.forEach((task) => {
+    //   if (task.task === input.value && task.label === activeTag) {
+    //     exists = true;
+    //     return;
+    //   }
+    // });
+    // if (exists) {
+    //   return;
+    // }
+    // const icon = activeTag === "All" ? WhiteTag : activeIcon;
+    // const label = activeTag === "All" ? "Untagged" : activeTag;
+    // const task = input.value;
+    // setTasks([
+    //   {
+    //     label,
+    //     task,
+    //     dueDate: correctedDate?.toISOString() ?? currentDate.toISOString(),
+    //   },
+    //   ...tasks,
+    // ]);
+    // input.value = "";
+    // setCorrectedDate(null);
+    // setPass(false);
   }
 
   function renderCell(date: Date) {
     const today = tasks.filter(
-      (task) => task.deadline != null && isSameDay(date, task.deadline)
+      (task) => task.dueDate != null && isSameDay(date, new Date(task.dueDate))
     );
     const display = today.filter((_, index) => index < 2);
 
@@ -117,10 +121,10 @@ export function TaskCalendar(props: TaskCalendarProps) {
           <Menu.Dropdown>
             {today.map((task) => {
               return (
-                <Menu.Item key={task.text} component="div">
+                <Menu.Item key={task.task} component="div">
                   <Flex>
-                    <CustomIcon icon={task.icon} />
-                    <span style={{ fontSize: "12px" }}>{task.text}</span>
+                    <CustomIcon icon={task.task} />
+                    <span style={{ fontSize: "12px" }}>{task.task}</span>
                   </Flex>
                 </Menu.Item>
               );
@@ -142,10 +146,10 @@ export function TaskCalendar(props: TaskCalendarProps) {
         <Menu.Target>
           <div>
             {display.map((task) => (
-              <div key={task.text}>
+              <div key={task.task}>
                 <Flex>
-                  <CustomIcon icon={task.icon} />
-                  <span style={{ fontSize: "12px" }}>{task.text}</span>
+                  <CustomIcon icon={task.task} />
+                  <span style={{ fontSize: "12px" }}>{task.task}</span>
                 </Flex>
               </div>
             ))}

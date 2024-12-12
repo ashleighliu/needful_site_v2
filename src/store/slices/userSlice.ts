@@ -32,13 +32,14 @@ const userSlice = createSlice({
   },
 });
 
-export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
+export const selectIsLoggedIn = (state: any) => state.user.isLoggedIn;
 
-export const selectIsAuthLoading = (state) => state.user.isAuthLoading;
+export const selectIsAuthLoading = (state: any) => state.user.isAuthLoading;
 
-export const getUserInfo = (state) => state.user.userInfo;
+export const getUserInfo = (state: any) => state.user.userInfo;
 
-export const getIsAudioDownloaded = (state) => state.user.isAudioDownloaded;
+export const getIsAudioDownloaded = (state: any) =>
+  state.user.isAudioDownloaded;
 
 export const {
   setIsLoggedIn,

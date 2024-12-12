@@ -80,7 +80,7 @@ const getCurrentUserData = async (userId: string) => {
   }
 };
 
-const updateUserProfile = async (userData) => {
+const updateUserProfile = async (userData: any) => {
   try {
     const payload = {
       userId: userData.userId,
@@ -110,7 +110,7 @@ const updateUserProfile = async (userData) => {
   }
 };
 
-const mappingUserData = (userDataFromBackend) => {
+const mappingUserData = (userDataFromBackend: any) => {
   const userData = {
     userId: userDataFromBackend.userId || null,
     fullName: userDataFromBackend.full_name || null,

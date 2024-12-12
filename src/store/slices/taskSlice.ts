@@ -17,7 +17,7 @@ const taskSlice = createSlice({
   },
 });
 
-export const getUserTasks = (state) => state.task.tasks;
+export const getUserTasks = (state: any) => state.task.tasks;
 
 export const { setUserTasks } = taskSlice.actions;
 

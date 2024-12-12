@@ -97,12 +97,12 @@ export function Taskbook() {
     }
   };
 
-  const handleDueDateChange = async (id: string, dueDate: string) => {
+  const handleDueDateChange = async (id: string, dueDate: string | null) => {
     const updatedTasks = userTasks.map((t: TaskEntry) =>
       t.id === id ? { ...t, dueDate } : t
     );
 
-    const updatedTask = userTasks.find((t: TaskEntry) => t.id === id);
+    const updatedTask = updatedTasks.find((t: TaskEntry) => t.id === id);
 
     if (updatedTask && updatedTask.task.trim() !== "") {
       await updateTasks(updatedTasks);
@@ -114,7 +114,7 @@ export function Taskbook() {
       t.id === id ? { ...t, task: taskValue } : t
     );
 
-    const updatedTask = userTasks.find((t: TaskEntry) => t.id === id);
+    const updatedTask = updatedTasks.find((t: TaskEntry) => t.id === id);
 
     if (updatedTask && updatedTask.task.trim() !== "") {
       await updateTasks(updatedTasks);
@@ -126,7 +126,7 @@ export function Taskbook() {
       t.id === id ? { ...t, label: taskLabel } : t
     );
 
-    const updatedTask = userTasks.find((t: TaskEntry) => t.id === id);
+    const updatedTask = updatedTasks.find((t: TaskEntry) => t.id === id);
 
     if (updatedTask && updatedTask.task.trim() !== "") {
       await updateTasks(updatedTasks);
@@ -348,7 +348,7 @@ export function Taskbook() {
               />
             );
           }
-          if (activeTag === task.label) {
+          if (activeTag === task.label || task.task === "") {
             return (
               <Task
                 task={task}
