@@ -71,7 +71,7 @@ export const tags: Tag[] = [
 interface TaskProps {
   task: TaskEntry;
   // onTaskUpdate?: (updatedTask: TaskEntry) => void;
-  handleDueDateChange: (id: string, dueDate: string) => void;
+  handleDueDateChange: (id: string, dueDate: string | null) => void;
   handleTaskValueChange: (id: string, taskValue: string) => void;
   handleTaskLabelChange: (id: string, taskLabel: string) => void;
 }
@@ -133,8 +133,7 @@ export function Task({
         url: testAudio,
         height: 70,
         normalize: true,
-        width:
-          containerRef.current?.getBoundingClientRect().width * 0.75 || "70%",
+        width: "70%",
         peaks: [
           [
             0.1, 0.2, 0.3, 0.1, 0.5, 0.2, 0.4, 0.1, 0.2, 0.2, 0.1, 0.2, 0.6,
@@ -173,9 +172,9 @@ export function Task({
   useEffect(() => {
     const handleResize = () => {
       if (wavesurferRef.current && containerRef.current) {
-        wavesurferRef.current.setWidth(
-          containerRef.current.getBoundingClientRect().width
-        );
+        // wavesurferRef.current.setWidth(
+        //   containerRef.current.getBoundingClientRect().width
+        // );
       }
     };
 
@@ -187,10 +186,10 @@ export function Task({
   useEffect(() => {
     if (opened && wavesurferRef.current && containerRef.current) {
       setTimeout(() => {
-        wavesurferRef.current?.setWidth(
-          containerRef.current?.getBoundingClientRect().width || "100%"
-        );
-        wavesurferRef.current?.drawBuffer();
+        // wavesurferRef.current?.setWidth(
+        //   containerRef.current?.getBoundingClientRect().width || "100%"
+        // );
+        // wavesurferRef.current?.drawBuffer();
       }, 100);
     }
   }, [opened]);
@@ -277,6 +276,7 @@ export function Task({
               }}
               onBlur={() => onTaskValueChange(task.id, taskValue)}
               readOnly={checked}
+              placeholder={task.task === "" ? "Write a task..." : ""}
             />
             {!checked && task.hasAudio && (
               <UnstyledButton onClick={() => setOpened(!opened)}>
@@ -321,10 +321,10 @@ export function Task({
                 <UnstyledButton>
                   <CustomIcon
                     icon={getIcons(task.label)}
-                    style={{
-                      opacity: checked ? 0.5 : 1,
-                      transition: "opacity 0.2s ease",
-                    }}
+                    // styles={{
+                    //   opacity: checked ? 0.5 : 1,
+                    //   transition: "opacity 0.2s ease",
+                    // }}
                   />
                 </UnstyledButton>
               </Menu.Target>
