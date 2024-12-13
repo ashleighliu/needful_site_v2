@@ -4,9 +4,8 @@ import { Container, Title, Text, Stack, Box } from "@mantine/core";
 export function PrivacyPolicy() {
   return (
     <Container size="lg" py="xl" mt={100}>
-      {/* Terms & Conditions Section */}
       <Stack>
-        {/* Privacy Policy Section */}
+        {/* Header Section */}
         <Box>
           <Title
             order={1}
@@ -16,216 +15,241 @@ export function PrivacyPolicy() {
               color: "#00A884",
             }}
           >
-            Privacy Policy
+            Privacy Policy for Needful
           </Title>
 
+          <Text fw={500} mb="xs">
+            Effective Date: January 1, 2025
+          </Text>
+
           <Text mb="md">
-            Thank you for choosing needful (the "App"). This Privacy Policy is
-            meant to help you understand what data we collect, why we collect
-            it, and how we use it. We value your trust in us and are committed
-            to protecting your privacy.
+            Thank you for using Needful. At Needful, your privacy is our
+            priority. This Privacy Policy explains how we collect, use, and
+            protect your information when you use our app, website, and related
+            services.
           </Text>
 
           <Text mb="lg">
-            By using the App, you consent to the collection and use of
-            information in accordance with this Privacy Policy. If you do not
-            agree with any part of this Privacy Policy, please do not use the
-            App.
+            By using Needful, you agree to the collection and use of your
+            information in accordance with this Privacy Policy.
           </Text>
         </Box>
+
+        {/* Information We Collect */}
         <Box>
           <Title order={2} size="h3" mb="md">
-            1. Information we collect
+            1. Information We Collect
           </Title>
 
           <Stack>
             <Box>
-              <Text fw={500}>a. Personal Information:</Text>
-              <Text>
-                We may collect personal information such as your name, email
-                address, and payment information when you register or make
-                purchases within the App.
-              </Text>
+              <Title order={3} size="h4" mb="sm">
+                1.1 Information You Provide to Us
+              </Title>
+              <Stack>
+                <Text>
+                  • Account Information: When you sign up, we collect your name,
+                  email address, and other necessary details.
+                </Text>
+                <Text>
+                  • Profile Information: If you choose, you can provide
+                  additional information to personalize your experience.
+                </Text>
+                <Text>
+                  • Communications: If you contact us or participate in surveys,
+                  we collect the information you share.
+                </Text>
+              </Stack>
             </Box>
 
             <Box>
-              <Text fw={500}>b. Usage Information:</Text>
-              <Text>
-                We may collect information about how you use the App, including
-                your interactions with features, content, and advertisements.
-              </Text>
+              <Title order={3} size="h4" mb="sm">
+                1.2 Information We Automatically Collect
+              </Title>
+              <Stack>
+                <Text>
+                  • Usage Data: We collect information about your interactions
+                  with Needful, such as features used, session duration, and
+                  errors.
+                </Text>
+                <Text>
+                  • Device Information: Includes IP address, browser type,
+                  device type, and operating system.
+                </Text>
+              </Stack>
             </Box>
 
             <Box>
-              <Text fw={500}>c. Device Information:</Text>
-              <Text>
-                We may collect information about your device, including its
-                model, operating system, unique device identifiers, and mobile
-                network information.
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fw={500}>d. Log Data:</Text>
-              <Text>
-                Like many apps, we automatically collect log data when you use
-                the App. This may include your IP address, browser type, device
-                type, the pages of our App that you visit, and other statistics.
-              </Text>
+              <Title order={3} size="h4" mb="sm">
+                1.3 Information from Third-Party Services
+              </Title>
+              <Stack>
+                <Text>
+                  • Social Sign-Ins: If you sign in using Facebook, Google, or
+                  other services, we receive basic profile details such as your
+                  name and email address.
+                </Text>
+                <Text>
+                  • Third-Party Integrations: Information shared through
+                  integrations or permissions you grant.
+                </Text>
+              </Stack>
             </Box>
           </Stack>
         </Box>
+
+        {/* How We Use Your Information */}
         <Box>
           <Title order={2} size="h3" mb="md">
             2. How We Use Your Information
           </Title>
-
           <Stack>
-            <Box>
-              <Text fw={500}>a. To Provide and Improve the App:</Text>
-              <Text>
-                We use the information we collect to operate, maintain, and
-                improve the App's functionality, features, and performance.
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fw={500}>b. To Personalize Your Experience:</Text>
-              <Text>
-                We may use your information to tailor your experience within the
-                App, including providing personalized content, recommendations,
-                and advertisements.
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fw={500}>c. To Communicate With You:</Text>
-              <Text>
-                We may use your email address to send you important updates,
-                newsletters, and promotional offers. You can opt-out of
-                receiving promotional emails at any time.
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fw={500}>d. To Protect Our Rights:</Text>
-              <Text>
-                We may use your information to investigate, prevent, or take
-                action regarding illegal activities, violations of our terms of
-                service, or as otherwise required by law.
-              </Text>
-            </Box>
+            <Text>• Provide, improve, and personalize the Needful app.</Text>
+            <Text>
+              • Communicate updates, product announcements, and support.
+            </Text>
+            <Text>• Ensure compliance with legal obligations.</Text>
+            <Text>
+              • Monitor and improve the performance and security of our
+              services.
+            </Text>
           </Stack>
         </Box>
+
+        {/* How We Share Your Information */}
         <Box>
           <Title order={2} size="h3" mb="md">
             3. How We Share Your Information
           </Title>
-
+          <Text mb="md">
+            We do not sell your personal information. We may share your
+            information in the following cases:
+          </Text>
           <Stack>
-            <Box>
-              <Text fw={500}>a. Third-Party Service Providers:</Text>
-              <Text>
-                We may share your information with third-party service providers
-                who help us operate, maintain, and improve the App. These
-                service providers are bound by confidentiality agreements and
-                are prohibited from using your information for any other
-                purpose.
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fw={500}>b. Legal Requirements:</Text>
-              <Text>
-                We may disclose your information in response to lawful requests
-                by public authorities, including to meet national security or
-                law enforcement requirements.
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fw={500}>c. Business Transfers:</Text>
-              <Text>
-                In the event of a merger, acquisition, or sale of all or a
-                portion of our assets, your information may be transferred as
-                part of the transaction.
-              </Text>
-            </Box>
+            <Text>
+              • Service Providers: Trusted third parties help us operate,
+              maintain, or analyze Needful. They are bound by confidentiality
+              agreements.
+            </Text>
+            <Text>
+              • Legal Compliance: When required to comply with laws,
+              regulations, or legal proceedings.
+            </Text>
+            <Text>
+              • Business Transfers: In case of a merger, acquisition, or sale of
+              assets, your data may be transferred as part of the transaction.
+            </Text>
           </Stack>
         </Box>
+
+        {/* Your Privacy Choices */}
         <Box>
           <Title order={2} size="h3" mb="md">
-            4. Your Choices
+            4. Your Privacy Choices
           </Title>
-
           <Stack>
-            <Box>
-              <Text fw={500}>a. Opt-Out:</Text>
-              <Text>
-                You may opt-out of receiving promotional emails by following the
-                instructions provided in the email. Please note that even if you
-                opt-out of receiving promotional emails, we may still send you
-                important updates about the App.
-              </Text>
-            </Box>
-
-            <Box>
-              <Text fw={500}>b. Do Not Track:</Text>
-              <Text>
-                Some web browsers offer a "Do Not Track" ("DNT") signal. Because
-                there is no common understanding of how to interpret DNT
-                signals, the App does not currently respond to DNT signals.
-              </Text>
-            </Box>
+            <Text>
+              • Access and Update: You can update or correct your information
+              directly within the app or by contacting us at admin@needful.site.
+            </Text>
+            <Text>
+              • Delete Account: If you wish to delete your account and data,
+              contact us at admin@needful.site
+            </Text>
+            <Text>
+              • Opt-Out of Communications: You can unsubscribe from promotional
+              emails at any time by following the link in the email.
+            </Text>
           </Stack>
         </Box>
+
+        {/* Data Retention */}
         <Box>
           <Title order={2} size="h3" mb="md">
-            5. Data Security
+            5. Data Retention
           </Title>
           <Text>
-            We take reasonable measures to protect your information from
-            unauthorized access, use, or disclosure. However, no method of
-            transmission over the internet or electronic storage is 100% secure,
-            and we cannot guarantee absolute security.
+            We retain your personal information for as long as necessary to
+            provide the services and fulfill the purposes described in this
+            Privacy Policy unless a longer retention period is required by law.
+          </Text>
+        </Box>
+
+        {/* Data Security */}
+        <Box>
+          <Title order={2} size="h3" mb="md">
+            6. Data Security
+          </Title>
+          <Text>
+            We use industry-standard measures to protect your information.
+            However, no online platform is 100% secure. Please notify us
+            immediately if you suspect unauthorized access to your account.
+          </Text>
+        </Box>
+
+        {/* Third-Party Links */}
+        <Box>
+          <Title order={2} size="h3" mb="md">
+            7. Third-Party Links
+          </Title>
+          <Text>
+            Needful may include links to third-party websites or services. This
+            Privacy Policy does not apply to those third parties. Please review
+            their privacy policies independently.
           </Text>
         </Box>
 
         {/* Children's Privacy */}
         <Box>
           <Title order={2} size="h3" mb="md">
-            6. Children's Privacy
+            8. Children's Privacy
           </Title>
           <Text>
-            The App is not intended for children under the age of 13. We do not
-            knowingly collect personal information from children under the age
-            of 13. If you are a parent or guardian and believe that your child
-            has provided us with personal information, please contact us
-            immediately so that we can take appropriate action.
+            Needful is not directed at individuals under the age of 13 (or the
+            applicable age in your jurisdiction). We do not knowingly collect
+            personal information from children without parental consent.
           </Text>
         </Box>
 
-        {/* Changes to Privacy Policy */}
+        {/* Your Rights */}
         <Box>
           <Title order={2} size="h3" mb="md">
-            7. Changes to This Privacy Policy
+            9. Your Rights
           </Title>
-          <Text>
-            We may update this Privacy Policy from time to time. We will notify
-            you of any changes by posting the new Privacy Policy on this page.
-            You are advised to review this Privacy Policy periodically for any
-            changes.
+          <Text mb="md">
+            Depending on your location, you may have the following rights:
+          </Text>
+          <Stack>
+            <Text>• Request access to or deletion of your personal data.</Text>
+            <Text>• Object to or restrict the processing of your data.</Text>
+            <Text>• Data portability rights.</Text>
+          </Stack>
+          <Text mt="md">
+            To exercise these rights, contact us at admin@needful.site
           </Text>
         </Box>
 
-        {/* Contact Information */}
+        {/* Changes to This Privacy Policy */}
         <Box>
           <Title order={2} size="h3" mb="md">
-            8. Contact Us
+            10. Changes to This Privacy Policy
           </Title>
           <Text>
-            If you have any questions or concerns about this Privacy Policy,
-            please contact us at support@needful.site.
+            We may update this Privacy Policy from time to time. Significant
+            changes will be communicated to you through the app or by email.
+            Continued use of Needful after any updates constitutes your
+            agreement to the revised Privacy Policy.
+          </Text>
+        </Box>
+
+        {/* Contact Us */}
+        <Box>
+          <Title order={2} size="h3" mb="md">
+            11. Contact Us
+          </Title>
+          <Text>
+            If you have any questions or concerns about this Privacy Policy or
+            our practices, contact us at: admin@needful.site
           </Text>
         </Box>
       </Stack>
