@@ -6,6 +6,7 @@ import { LoginPage } from "./pages/Login.page";
 import { SignUpPage } from "./pages/SignUp.page";
 import { WelcomePage } from "./pages/Welcome.page";
 import { ContactPage } from "./pages/Contact.page";
+import { PrivacyPolicyPage } from "./pages/PrivacyPolicy.page";
 import { SSOLoginPage } from "./pages/SSOLogin.page";
 import { VerifyEmailPage } from "./pages/VerifyEmail.page";
 import { HomePage } from "./pages/Home.page";
@@ -49,6 +50,14 @@ const router = createBrowserRouter([
     element: (
       <PublicRoute>
         <ContactPage />
+      </PublicRoute>
+    ),
+  },
+  {
+    path: "/privacy",
+    element: (
+      <PublicRoute>
+        <PrivacyPolicyPage />
       </PublicRoute>
     ),
   },
