@@ -172,7 +172,7 @@ export function PrivacyPolicy() {
               </Title>
               <Stack>
                 <Text>You can delete your account through the following methods:</Text>
-                <Text>• In-App: Settings > Account > Delete Account</Text>
+                <Text>• In-App: Settings - Account - Delete Account</Text>
                 <Text>• Email: Send a deletion request to admin@needful.site</Text>
                 <Text>• Support: Contact our support team through the app's help section</Text>
               </Stack>
