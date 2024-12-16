@@ -145,21 +145,67 @@ export function PrivacyPolicy() {
         {/* Your Privacy Choices */}
         <Box>
           <Title order={2} size="h3" mb="md">
-            4. Your Privacy Choices
+            4. Your Privacy Choices and Account Deletion
           </Title>
           <Stack>
-            <Text>
-              • Access and Update: You can update or correct your information
-              directly within the app or by contacting us at admin@needful.site.
-            </Text>
-            <Text>
-              • Delete Account: If you wish to delete your account and data,
-              contact us at admin@needful.site
-            </Text>
-            <Text>
-              • Opt-Out of Communications: You can unsubscribe from promotional
-              emails at any time by following the link in the email.
-            </Text>
+            {/* General Privacy Choices */}
+            <Box>
+              <Title order={3} size="h4" mb="sm">
+                4.1 General Privacy Options
+              </Title>
+              <Stack>
+                <Text>
+                  • Access and Update: You can update or correct your information
+                  directly within the app or by contacting us at admin@needful.site.
+                </Text>
+                <Text>
+                  • Opt-Out of Communications: You can unsubscribe from promotional
+                  emails at any time by following the link in the email.
+                </Text>
+              </Stack>
+            </Box>
+
+            {/* Account Deletion Process */}
+            <Box>
+              <Title order={3} size="h4" mb="sm">
+                4.2 Account Deletion Process
+              </Title>
+              <Stack>
+                <Text>You can delete your account through the following methods:</Text>
+                <Text>• In-App: Settings > Account > Delete Account</Text>
+                <Text>• Email: Send a deletion request to admin@needful.site</Text>
+                <Text>• Support: Contact our support team through the app's help section</Text>
+              </Stack>
+            </Box>
+
+            {/* Data Deletion Details */}
+            <Box>
+              <Title order={3} size="h4" mb="sm">
+                4.3 Data Deletion Scope
+              </Title>
+              <Stack>
+                <Text>When you delete your account, we will remove:</Text>
+                <Text>• All personal account information</Text>
+                <Text>• User preferences and settings</Text>
+                <Text>• App usage history</Text>
+                <Text>• Content and data you've created</Text>
+                <Text>• Authentication information</Text>
+              </Stack>
+            </Box>
+
+            {/* Retention Period */}
+            <Box>
+              <Title order={3} size="h4" mb="sm">
+                4.4 Data Retention Period
+              </Title>
+              <Stack>
+                <Text>After requesting account deletion:</Text>
+                <Text>• Your account will be deactivated immediately</Text>
+                <Text>• Account data will be permanently deleted within 30 days</Text>
+                <Text>• Backup data will be removed within 90 days</Text>
+                <Text>• Some anonymized usage data may be retained for analytics purposes</Text>
+              </Stack>
+            </Box>
           </Stack>
         </Box>
 
