@@ -133,7 +133,7 @@ export function Task({
         url: testAudio,
         height: 70,
         normalize: true,
-        width: "70%",
+        width: 600,
         peaks: [
           [
             0.1, 0.2, 0.3, 0.1, 0.5, 0.2, 0.4, 0.1, 0.2, 0.2, 0.1, 0.2, 0.6,
