@@ -153,9 +153,7 @@ export function Home() {
         </div>
       </div>
       {active === "Home" && <Taskbook />}
-      {active === "Calendar" && (
-        <TaskCalendar tasks={tasks} setTasks={setTasks} />
-      )}
+      {active === "Calendar" && <TaskCalendar />}
     </Flex>
   );
 }
