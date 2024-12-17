@@ -4,7 +4,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { auth } from "./firebase";
 
 // let baseURL = process.env.REACT_APP_GOOGLE_CLOUD_API_BASE_URL;
-const baseURL = "http://3.16.22.200:8000/api/";
+const baseURL = "https://5e40-3-16-22-200.ngrok-free.app/api/";
 
 // if (IS_LOCAL_ENV) baseURL = process.env.REACT_APP_DEV_API_BASE_URL;
 
