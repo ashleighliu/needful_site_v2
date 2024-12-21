@@ -1,5 +1,6 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Box,
   Button,
@@ -21,9 +22,9 @@ import Google from "../../assets/Google.svg";
 import NeedfulLogo from "../../assets/NeedfulLogo.svg";
 import Slogan from "../../assets/Slogan.svg";
 import classes from "./Login.module.css";
-import express from "express";
-import session from "express-session";
-import Cookies from "universal-cookie";
+
+import AuthService from "../../services/authService";
+import { setUserInfo } from "../../store/slices/userSlice";
 
 type LoginFormFields = {
   email: string;
@@ -32,6 +33,8 @@ type LoginFormFields = {
 };
 
 export function Login() {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -53,17 +56,21 @@ export function Login() {
   const [formError, setFormError] = useState(false);
 
   function logUserIn(values: LoginFormFields) {
+    setIsLoading(true);
     signInWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
-        const cookies = new Cookies();
-        cookies.set("username", userCredential.user, { path: "/" });
-        console.log(cookies.get("username"));
+      .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log(userCredential);
-        navigate("/");
+        const userData = await AuthService.getCurrentUserData(
+          userCredential.user.uid
+        );
+        dispatch(setUserInfo(userData));
+        setIsLoading(false);
+        navigate("/home");
       })
       .catch(() => {
+        setIsLoading(false);
         setFormError(true);
       });
   }
@@ -117,6 +124,7 @@ export function Login() {
                       radius="sm"
                       w={150}
                       rightSection={<IconArrowRight />}
+                      loading={isLoading}
                     >
                       LOGIN
                     </Button>

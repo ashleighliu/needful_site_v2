@@ -1,13 +1,4 @@
-import {
-  Box,
-  Center,
-  Flex,
-  Grid,
-  Group,
-  Image,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Box, Center, Flex, Image, Text, Title } from "@mantine/core";
 
 type AdvantageProps = {
   image: string;

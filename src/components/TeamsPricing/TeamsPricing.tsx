@@ -3,7 +3,6 @@ import {
   Title,
   Text,
   Box,
-  Grid,
   Button,
   Collapse,
   Flex,
