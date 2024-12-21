@@ -1,24 +1,29 @@
-import { Text, Container, Center, Image, Box, Flex, Grid } from '@mantine/core';
-import { MediaButtons } from '../MediaButtons/MediaButtons';
-import AppStore from '../../assets/AppStore.svg';
-import GooglePlay from '../../assets/GooglePlay.png';
-import Canada from '../../assets/Canada.svg';
-import Location from '../../assets/Location.svg';
-import NeedfulLogo from '../../assets/NeedfulLogo.svg';
-import Phone from '../../assets/Phone.svg';
-import classes from './Footer.module.css';
+import { Text, Container, Center, Image, Box, Flex, Grid } from "@mantine/core";
+import { MediaButtons } from "../MediaButtons/MediaButtons";
+import AppStore from "../../assets/AppStore.svg";
+import GooglePlay from "../../assets/GooglePlay.png";
+import Canada from "../../assets/Canada.svg";
+import Location from "../../assets/Location.svg";
+import NeedfulLogo from "../../assets/NeedfulLogo.svg";
+import Phone from "../../assets/Phone.svg";
+import classes from "./Footer.module.css";
 
 export function Footer() {
   return (
     <footer className={classes.footer}>
-      <Grid>
-        <Grid.Col span={6}>
+      <Grid grow>
+        <Grid.Col span="auto">
           <Box>
             <Center>
-              <Image src={NeedfulLogo} w={300}/>
+              <Image src={NeedfulLogo} w={300} />
             </Center>
             <Center>
-              <Text c='#888888' size="sm" fw={600} className={classes.description}>
+              <Text
+                c="#888888"
+                size="sm"
+                fw={600}
+                className={classes.description}
+              >
                 Doing by being
               </Text>
             </Center>
@@ -27,16 +32,18 @@ export function Footer() {
             </Center>
           </Box>
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span="auto" visibleFrom="md">
           <div className={classes.groups}>
             <div className={classes.wrapper} key="Contact">
-              <Text c='#404040' className={classes.title}>Contact</Text>
+              <Text c="#404040" className={classes.title}>
+                Contact
+              </Text>
               <Flex>
                 <Center>
-                  <Image src={Location} h={20} w={20} mr={5}/>
+                  <Image src={Location} h={20} w={20} mr={5} />
                 </Center>
-                <Text<'a'>
-                  c='#888888'
+                <Text<"a">
+                  c="#888888"
                   className={classes.link}
                   component="a"
                   href="/"
@@ -45,15 +52,15 @@ export function Footer() {
                   Toronto
                 </Text>
                 <Center>
-                <Image src={Canada} h={20} w={20} ml={5}/>
+                  <Image src={Canada} h={20} w={20} ml={5} />
                 </Center>
               </Flex>
               <Flex>
                 <Center>
-                  <Image src={Phone} h={17} w={17} mr={10}/>
+                  <Image src={Phone} h={17} w={17} mr={10} />
                 </Center>
-                <Text<'a'>
-                  c='#888888'
+                <Text<"a">
+                  c="#888888"
                   className={classes.link}
                   component="a"
                   href="/"
@@ -64,9 +71,11 @@ export function Footer() {
               </Flex>
             </div>
             <div className={classes.wrapper} key="Useful links">
-              <Text c='#404040' className={classes.title}>Useful links</Text>
-              <Text<'a'>
-                c='#888888'
+              <Text c="#404040" className={classes.title}>
+                Useful links
+              </Text>
+              <Text<"a">
+                c="#888888"
                 className={classes.link}
                 component="a"
                 href="/"
@@ -74,8 +83,8 @@ export function Footer() {
               >
                 Resources
               </Text>
-              <Text<'a'>
-                c='#888888'
+              <Text<"a">
+                c="#888888"
                 className={classes.link}
                 component="a"
                 href="/"
@@ -83,8 +92,8 @@ export function Footer() {
               >
                 Get a tour
               </Text>
-              <Text<'a'>
-                c='#888888'
+              <Text<"a">
+                c="#888888"
                 className={classes.link}
                 component="a"
                 href="/"
@@ -94,7 +103,7 @@ export function Footer() {
               </Text>
             </div>
             <div>
-              <Image src={AppStore} onClick={() => {}} h={50} mb={10}/>
+              <Image src={AppStore} onClick={() => {}} h={50} mb={10} />
               <Image src={GooglePlay} onClick={() => {}} h={50} />
             </div>
           </div>
@@ -102,11 +111,11 @@ export function Footer() {
       </Grid>
       <Container className={classes.afterFooter}>
         <Center>
-          <Text c='#888888' size="sm">
+          <Text c="#888888" size="sm">
             © 2024 Needful. All rights reserved.
           </Text>
         </Center>
       </Container>
     </footer>
   );
-};
+}

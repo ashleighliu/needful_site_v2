@@ -1,0 +1,16 @@
+.fullWidth {
+    width: 600px;
+}
+
+@media screen and (max-width: 800px) {
+    .title {
+        color: #404040;
+        font-size: 24px;
+    }
+    .body {
+        font-size: 18px;
+    }
+    .fullWidth {
+        width: 350px;
+    }
+}

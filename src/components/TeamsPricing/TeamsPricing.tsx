@@ -1,65 +1,76 @@
-import { Center, Title, Text, Box, Grid, Button, Collapse } from '@mantine/core';
-import { Advantage } from '../Advantage/Advantage';
-import { TeamsPricingDetails } from '../TeamsPricingDetails/TeamsPricingDetails';
-import { useDisclosure } from '@mantine/hooks';
-import BarChart from '../../assets/BarChart.svg';
-import Harmony from '../../assets/Harmony.svg';
-import Lightbulb from '../../assets/Lightbulb.svg';
-import Speech from '../../assets/Speech.svg';
+import {
+  Center,
+  Title,
+  Text,
+  Box,
+  Grid,
+  Button,
+  Collapse,
+  Flex,
+} from "@mantine/core";
+import { Advantage } from "../Advantage/Advantage";
+import { TeamsPricingDetails } from "../TeamsPricingDetails/TeamsPricingDetails";
+import { useDisclosure } from "@mantine/hooks";
+import BarChart from "../../assets/BarChart.svg";
+import Harmony from "../../assets/Harmony.svg";
+import Lightbulb from "../../assets/Lightbulb.svg";
+import Speech from "../../assets/Speech.svg";
+import classes from "./TeamsPricing.module.css";
 
 export function TeamsPricing() {
   const [opened, { toggle }] = useDisclosure(false);
-  
+
   return (
     <Box mt={50}>
       <Center>
         <Box>
           <Center>
-            <Title order={2} style={{ color: '#404040' }}>
+            <Title order={2} className={classes.title}>
               Needful for Teams
             </Title>
           </Center>
-          <Center w={600}>
-            <Text c='#555555' size='md'>
-              Provide a mental wellness benefit to your team members that will pay dividends in engagement, satisfaction, and collaboration
+          <Center className={classes.fullWidth}>
+            <Text c="#555555" className={classes.body}>
+              Provide a mental wellness benefit to your team members that will
+              pay dividends in engagement, satisfaction, and collaboration
             </Text>
           </Center>
         </Box>
       </Center>
       <Center mt={50}>
-        <Grid gutter='xl' ml={300} mr={300}>
-          <Grid.Col span={6}>
-            <Advantage 
+        <Flex gap="xl" ml={300} mr={300} wrap="wrap">
+          <Box>
+            <Advantage
               image={Harmony}
-              title='Enhance Well-Being'
-              description='Reduced stress, improved mental health, increased satisfaction'
+              title="Enhance Well-Being"
+              description="Reduced stress, improved mental health, increased satisfaction"
             />
-          </Grid.Col>
-          <Grid.Col span={6}>
+          </Box>
+          <Box>
             <Advantage
               image={BarChart}
-              title='Boost Productivity'
-              description='Better focus, efficient time management, enhanced creativity and abstract thinking'
+              title="Boost Productivity"
+              description="Better focus, efficient time management, enhanced creativity and abstract thinking"
             />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Advantage 
+          </Box>
+          <Box>
+            <Advantage
               image={Speech}
-              title='Improve Engagement'
-              description='Increase motivation, improve communication and collaboration'
+              title="Improve Engagement"
+              description="Increase motivation, improve communication and collaboration"
             />
-          </Grid.Col>
-          <Grid.Col span={6}>
+          </Box>
+          <Box>
             <Advantage
               image={Lightbulb}
-              title='Culture Innovation'
-              description='Create the optimal conditions for innovation by encouraging outside-the-box thinking'
+              title="Culture Innovation"
+              description="Create the optimal conditions for innovation by encouraging outside-the-box thinking"
             />
-          </Grid.Col>
-        </Grid>
+          </Box>
+        </Flex>
       </Center>
       <Center mt={50}>
-        <Button fz='md' h={50} onClick={toggle} radius='xl' w={250}>
+        <Button fz="md" h={50} onClick={toggle} radius="xl" w={250}>
           {opened ? "Collapse Pricing" : "Expand Pricing"}
         </Button>
       </Center>

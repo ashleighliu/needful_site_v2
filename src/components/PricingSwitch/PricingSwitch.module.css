@@ -1,5 +1,5 @@
 .switch {
-  border-radius: 9999px;
+  border-radius: 35px;
   border: solid;
   border-color: #555555;
   padding-left: 0.50rem;
@@ -35,4 +35,10 @@
 
 .icon {
   margin-right: 20px;
+}
+
+@media screen and (max-width: 800px) {
+  .tab {
+    width: 100%;
+  }
 }
