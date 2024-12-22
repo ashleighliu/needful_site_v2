@@ -2,6 +2,7 @@ import { Box, Button, Center, Grid, Image, Text, Title } from "@mantine/core";
 import Features from "../../assets/Features.svg";
 import NeedfulIconAnimated from "../../assets/NeedfulIconAnimated.mp4";
 import MobilePreview from "../../assets/MobilePreview.svg";
+import YellowBubbles from "../../assets/YellowBubbles.svg";
 import classes from "./IntroductionSection.module.css";
 
 export function IntroductionSection() {
@@ -64,6 +65,12 @@ export function IntroductionSection() {
           </Center>
         </Grid.Col>
         <Grid.Col span={6}>
+          <Image
+            src={YellowBubbles}
+            className={classes.bubbles}
+            h="auto"
+            w={1000}
+          />
           <Center className={classes.marginRightIntroduction}>
             <Box>
               <Title order={2} className={classes.title}>

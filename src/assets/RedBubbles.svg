@@ -1,0 +1,19 @@
+<svg width="528" height="823" viewBox="0 0 528 823" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M337.529 673C523.941 673 675.058 522.344 675.058 336.5C675.058 150.656 523.941 0 337.529 0C151.117 0 0 150.656 0 336.5C0 522.344 151.117 673 337.529 673Z" fill="url(#paint0_radial_1903_3648)"/>
+<path d="M454.455 822.14C554.763 822.14 636.079 741.072 636.079 641.07C636.079 541.068 554.763 460 454.455 460C354.147 460 272.832 541.068 272.832 641.07C272.832 741.072 354.147 822.14 454.455 822.14Z" fill="url(#paint1_radial_1903_3648)"/>
+<path d="M245.248 673C327.513 673 394.202 606.514 394.202 524.5C394.202 442.486 327.513 376 245.248 376C162.982 376 96.2935 442.486 96.2935 524.5C96.2935 606.514 162.982 673 245.248 673Z" fill="url(#paint2_radial_1903_3648)"/>
+<defs>
+<radialGradient id="paint0_radial_1903_3648" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(337.529 336.5) scale(337.529 336.5)">
+<stop stop-color="#EBCDDA"/>
+<stop offset="1" stop-color="white"/>
+</radialGradient>
+<radialGradient id="paint1_radial_1903_3648" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(454.456 641.07) scale(181.624 181.07)">
+<stop stop-color="#EBCDDA"/>
+<stop offset="1" stop-color="white"/>
+</radialGradient>
+<radialGradient id="paint2_radial_1903_3648" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(245.248 524.5) scale(148.954 148.5)">
+<stop stop-color="#EBCDDA"/>
+<stop offset="1" stop-color="white"/>
+</radialGradient>
+</defs>
+</svg>

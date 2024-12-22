@@ -15,7 +15,7 @@ export function Banner() {
           src={BannerBackground}
         />
       </Box>
-      <Box ml={100}>
+      <Box className={classes.banner}>
         <Box className={classes.verticalAlign}>
           <Title className={classes.title} order={1}>
             Meditation for Clarity, Vision, and Execution

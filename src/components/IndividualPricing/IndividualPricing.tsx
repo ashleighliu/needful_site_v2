@@ -26,29 +26,29 @@ export function IndividualPricing() {
         </Box>
       </Center>
       <Center mt={50}>
-        <Flex gap="xl" ml={300} mr={300} wrap="wrap">
-          <Box>
+        <Flex justify="center" gap="xl" ml={300} mr={300} wrap="wrap">
+          <Box maw={550}>
             <Advantage
               image={Bullseye}
               title="Increase Concentration"
               description="Improve focus and reduce distraction using the integrated attention training technique (ATT) offered by the Needful meditation interface"
             />
           </Box>
-          <Box>
+          <Box maw={550}>
             <Advantage
               image={Cloud}
               title="Achieve Clarity"
               description="Quiet the mind and cultivate deeper awareness, clearing brain fog and accessing clear and creative thinking from runway to 50,000 ft."
             />
           </Box>
-          <Box>
+          <Box maw={550}>
             <Advantage
               image={Infinity}
               title="Increase Resilience"
               description="Tap into a repeatable way to handle obstacles and overcome adversity, while finding meaning and handling uncertainty in life and work"
             />
           </Box>
-          <Box>
+          <Box maw={550}>
             <Advantage
               image={Harmony}
               title="Improve Mental Wellness"

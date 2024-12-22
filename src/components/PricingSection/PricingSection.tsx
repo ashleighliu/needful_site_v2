@@ -1,8 +1,9 @@
-import { Center, Box } from "@mantine/core";
+import { Center, Box, Image } from "@mantine/core";
 import { useState } from "react";
 import { TeamsPricing } from "../TeamsPricing/TeamsPricing";
 import { IndividualPricing } from "../IndividualPricing/IndividualPricing";
 import { PricingSwitch } from "../PricingSwitch/PricingSwitch";
+import RedBubbles from "../../assets/RedBubbles.svg";
 import classes from "./PricingSection.module.css";
 
 const tabs = [
@@ -15,6 +16,7 @@ export function PricingSection() {
 
   return (
     <Box mt={200}>
+      <Image src={RedBubbles} className={classes.bubbles} h="auto" w={1000} />
       <Center>
         <PricingSwitch
           activeTab={activeTab}

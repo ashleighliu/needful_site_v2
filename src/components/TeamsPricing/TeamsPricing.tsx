@@ -37,29 +37,29 @@ export function TeamsPricing() {
         </Box>
       </Center>
       <Center mt={50}>
-        <Flex gap="xl" ml={300} mr={300} wrap="wrap">
-          <Box>
+        <Flex justify="center" gap="xl" ml={300} mr={300} wrap="wrap">
+          <Box maw={550}>
             <Advantage
               image={Harmony}
               title="Enhance Well-Being"
               description="Reduced stress, improved mental health, increased satisfaction"
             />
           </Box>
-          <Box>
+          <Box maw={550}>
             <Advantage
               image={BarChart}
               title="Boost Productivity"
               description="Better focus, efficient time management, enhanced creativity and abstract thinking"
             />
           </Box>
-          <Box>
+          <Box maw={550}>
             <Advantage
               image={Speech}
               title="Improve Engagement"
               description="Increase motivation, improve communication and collaboration"
             />
           </Box>
-          <Box>
+          <Box maw={550}>
             <Advantage
               image={Lightbulb}
               title="Culture Innovation"

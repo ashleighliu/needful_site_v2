@@ -17,6 +17,10 @@
   object-fit: contain;
 }
 
+.banner {
+  margin-left: 100px;
+}
+
 @media screen and (max-width: 800px) {
   .background {
     display: none;
@@ -24,5 +28,9 @@
 
   .fullHeight {
     height: 100vh;
+  }
+
+  .banner {
+    margin-left: 40px;
   }
 }

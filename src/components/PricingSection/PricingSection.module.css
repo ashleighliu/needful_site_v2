@@ -1,37 +1,5 @@
-.marginRightIntroduction {
-    margin-right: 300px;
-}
-
-.marginLeft {
-    margin-right: 300px;
-}
-
-.body {
-    margin-top: 50px;
-}
-
-@media screen and (max-width: 800px) {
-    .icon {
-        width: 200px;
-        height: auto;
-    }
-
-    .toggle {
-        width: 200px;
-        height: auto;
-    }
-    
-    .title {
-        color: #404040;
-        font-size: 24px;
-    }
-    
-    .body {
-        font-size: 18px;
-        margin-top: 10px;
-    }
-
-    .marginRightIntroduction {
-        margin-right: 25px;
-    }
+.bubbles {
+    position: absolute;
+    transform: translate(100%, -50%);
+    z-index: -1;
 }
