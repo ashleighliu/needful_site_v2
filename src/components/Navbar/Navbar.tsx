@@ -21,6 +21,16 @@ export function Navbar() {
           <Text c="#555555" visibleFrom="md">
             Home
           </Text>
+          <Text
+            c="#555555"
+            visibleFrom="md"
+            onClick={() =>
+              window.open("https://www.needful.site/blog", "_blank")
+            }
+          >
+            Blog
+          </Text>
+
           <Text c="#555555" visibleFrom="md">
             About
           </Text>
