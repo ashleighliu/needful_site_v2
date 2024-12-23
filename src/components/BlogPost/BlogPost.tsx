@@ -1,5 +1,13 @@
 import { Link, useParams } from "react-router-dom";
-import { Center, Image, Title, Text, Box, Container } from "@mantine/core";
+import {
+  Center,
+  Image,
+  Title,
+  Text,
+  Box,
+  Container,
+  Grid,
+} from "@mantine/core";
 import { blogEntries } from "../Blog/Blog";
 import classes from "./BlogPost.module.css";
 
@@ -30,6 +38,31 @@ export function BlogPost() {
           {entry.content}
         </Text>
       </article>
+
+      <section className={classes.moreBlogsSection}>
+        <Title order={2} className={classes.moreBlogsTitle}>
+          Check out more blogs:
+        </Title>
+        <Grid gutter="lg">
+          {blogEntries
+            .filter((blog) => blog.id !== entry.id)
+            .map((blog) => (
+              <Grid.Col key={blog.id}>
+                <Link to={`/blog/${blog.id}`} className={classes.blogLink}>
+                  <Box className={classes.blogCard}>
+                    <Image
+                      className={classes.blogImage}
+                      src={blog.image}
+                      alt={blog.title}
+                    />
+                    <Text className={classes.blogTitle}>{blog.title}</Text>
+                    <Text className={classes.blogExcerpt}>{blog.excerpt}</Text>
+                  </Box>
+                </Link>
+              </Grid.Col>
+            ))}
+        </Grid>
+      </section>
     </Container>
   );
 }
