@@ -1,4 +1,4 @@
-import { Title, Text, Box } from "@mantine/core";
+import { Title, Text, Box, Flex } from "@mantine/core";
 import { DownloadButtons } from "../DownloadButtons/DownloadButtons";
 import BannerBackground from "../../assets/BannerBackground.mp4";
 import classes from "./Banner.module.css";
@@ -15,7 +15,7 @@ export function Banner() {
           src={BannerBackground}
         />
       </Box>
-      <Box className={classes.banner}>
+      <Flex className={classes.banner}>
         <Box className={classes.verticalAlign}>
           <Title className={classes.title} order={1}>
             Meditation for Clarity, Vision, and Execution
@@ -26,7 +26,7 @@ export function Banner() {
           </Text>
           <DownloadButtons />
         </Box>
-      </Box>
+      </Flex>
     </Box>
   );
 }

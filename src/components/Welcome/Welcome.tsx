@@ -1,6 +1,6 @@
-import { Box, Center, Flex, Image, Text, Title } from '@mantine/core';
-import AppStore from '../../assets/AppStore.svg';
-import GooglePlay from '../../assets/GooglePlay.png';
+import { Box, Center, Flex, Image, Text, Title } from "@mantine/core";
+import AppStore from "../../assets/AppStore.svg";
+import GooglePlay from "../../assets/GooglePlay.svg";
 
 export function Welcome() {
   return (

@@ -1,7 +1,7 @@
 import { Text, Container, Center, Image, Box, Flex, Grid } from "@mantine/core";
 import { MediaButtons } from "../MediaButtons/MediaButtons";
 import AppStore from "../../assets/AppStore.svg";
-import GooglePlay from "../../assets/GooglePlay.png";
+import GooglePlay from "../../assets/GooglePlay.svg";
 import Canada from "../../assets/Canada.svg";
 import Location from "../../assets/Location.svg";
 import NeedfulLogo from "../../assets/NeedfulLogo.svg";
