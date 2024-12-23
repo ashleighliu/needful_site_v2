@@ -16,7 +16,13 @@ export function PricingSection() {
 
   return (
     <Box mt={200}>
-      <Image src={RedBubbles} className={classes.bubbles} h="auto" w={1000} />
+      <Image
+        src={RedBubbles}
+        className={classes.bubbles}
+        h="auto"
+        w={1000}
+        visibleFrom="md"
+      />
       <Center>
         <PricingSwitch
           activeTab={activeTab}
