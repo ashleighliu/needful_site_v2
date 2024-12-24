@@ -5,6 +5,7 @@ import NeedfulExplainerVideo from "../../assets/NeedfulExplainerVideo.mp4";
 import ExplainerVideoThumbnail from "../../assets/ExplainerVideoThumbnail.svg";
 import MobilePreview from "../../assets/MobilePreview.svg";
 import YellowBubbles from "../../assets/YellowBubbles.svg";
+import GreenBubbles from "../../assets/GreenBubbles.svg";
 import classes from "./IntroductionSection.module.css";
 import NeedfulIconAnimated from "../../assets/NeedfulIconAnimated.mp4";
 
@@ -12,7 +13,27 @@ export function IntroductionSection() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
-    <Box mt={100}>
+    <Box mt={100} style={{ position: "relative", overflow: "hidden" }}>
+      <Box
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+          width: "auto",
+          height: "100%",
+          zIndex: -1, // Ensures it is behind all other elements
+        }}
+      >
+        <Image
+          src={GreenBubbles}
+          alt="Green Bubbles"
+          style={{
+            maxWidth: "500px",
+            height: "auto",
+          }}
+        />
+      </Box>
+
       {/* Video Section */}
       <Center mb={50}>
         <Box style={{ textAlign: "center" }}>
@@ -82,10 +103,10 @@ export function IntroductionSection() {
       </Grid>
 
       {/* Other sections remain unchanged */}
-      <Grid align="center" mt={200}>
+      <Grid align="center" mt={50}>
         <Grid.Col span={6}>
           <Center className={classes.marginRightIntroduction}>
-            <Image src={MobilePreview} />
+            <Image ml={300} src={MobilePreview} />
           </Center>
         </Grid.Col>
         <Grid.Col span={6}>
@@ -104,7 +125,7 @@ export function IntroductionSection() {
           </Center>
         </Grid.Col>
       </Grid>
-      <Grid align="center" mt={200}>
+      <Grid align="center" mt={100}>
         <Grid.Col span={6}>
           <Center>
             <Image src={Features} />
@@ -133,7 +154,22 @@ export function IntroductionSection() {
         </Grid.Col>
       </Grid>
       <Center mt={100}>
-        <Button fz="md" radius="xl" variant="outline" h={50} w={250}>
+        <Button
+          fz="md"
+          radius="xl"
+          h={50}
+          w={250}
+          styles={{
+            root: {
+              backgroundColor: "#00A884", // Button background color
+              color: "white", // Text color
+              border: "none", // Remove outline
+              "&:hover": {
+                backgroundColor: "#005f00", // Darker green for hover effect
+              },
+            },
+          }}
+        >
           Get a Tour
         </Button>
       </Center>

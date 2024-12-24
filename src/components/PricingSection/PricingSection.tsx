@@ -15,14 +15,8 @@ export function PricingSection() {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
 
   return (
-    <Box mt={200}>
-      <Image
-        src={RedBubbles}
-        className={classes.bubbles}
-        h="auto"
-        w={1000}
-        visibleFrom="md"
-      />
+    <Box mt={200} style={{ position: "relative", overflow: "hidden" }}>
+      {/* Pricing Content */}
       <Center>
         <PricingSwitch
           activeTab={activeTab}

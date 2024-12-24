@@ -10,6 +10,7 @@ import {
 import { Advantage } from "../Advantage/Advantage";
 import { TeamsPricingDetails } from "../TeamsPricingDetails/TeamsPricingDetails";
 import { useDisclosure } from "@mantine/hooks";
+import { IconArrowUp, IconArrowDown } from "@tabler/icons-react"; // Import icons
 import BarChart from "../../assets/BarChart.svg";
 import Harmony from "../../assets/Harmony.svg";
 import Lightbulb from "../../assets/Lightbulb.svg";
@@ -70,7 +71,17 @@ export function TeamsPricing() {
       </Center>
       <Center mt={50}>
         <Button fz="md" h={50} onClick={toggle} radius="xl" w={250}>
-          {opened ? "Collapse Pricing" : "Expand Pricing"}
+          {opened ? (
+            <>
+              Collapse Pricing{" "}
+              <IconArrowUp size={16} style={{ marginLeft: 8 }} />
+            </>
+          ) : (
+            <>
+              Expand Pricing{" "}
+              <IconArrowDown size={16} style={{ marginLeft: 8 }} />
+            </>
+          )}
         </Button>
       </Center>
       <Collapse in={opened} transitionDuration={500}>
