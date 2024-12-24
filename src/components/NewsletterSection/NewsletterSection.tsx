@@ -24,37 +24,47 @@ export function NewsletterSection() {
   });
 
   return (
-    <Flex align="center" justify="center" mt={100} wrap="wrap" gap={100}>
-      <Box>
-        <Center>
-          <Box>
-            <Title style={{ color: "#404040" }}>Stay up to date!</Title>
-            <Text c="#555555" fw={500} size="sm">
-              Subscribe to our newsletter to get inbox notifications
-            </Text>
-          </Box>
-        </Center>
-      </Box>
-      <Box className={classes.marginLeft}>
+    <Box
+      style={{
+        border: "2px solid #00A884", // Green border
+        borderRadius: "15px", // Rounded corners
+        padding: "60px 60px", // Padding for spacing
+        width: "fit-content", // Adjust width dynamically to fit content
+        margin: "50px auto", // Center the section
+      }}
+    >
+      <Flex align="center" justify="center" wrap="wrap" gap={50}>
         <Box>
-          <Text c="#555555" fw={600} mb={20} size="sm">
-            Sign up to our newsletter
-          </Text>
-          <form onSubmit={() => {}}>
-            <Group>
-              <TextInput
-                placeholder="Enter your email"
-                key={form.key("email")}
-                {...form.getInputProps("email")}
-                w={350}
-              />
-              <Button type="submit" h={40} radius="md" w={150}>
-                Subscribe
-              </Button>
-            </Group>
-          </form>
+          <Center>
+            <Box>
+              <Title style={{ color: "#404040" }}>Stay up to date!</Title>
+              <Text c="#555555" fw={500} size="sm">
+                Subscribe to our newsletter to get inbox notifications
+              </Text>
+            </Box>
+          </Center>
         </Box>
-      </Box>
-    </Flex>
+        <Box className={classes.marginLeft}>
+          <Box>
+            <Text c="#555555" fw={600} mb={20} size="sm">
+              Sign up to our newsletter
+            </Text>
+            <form onSubmit={() => {}}>
+              <Group>
+                <TextInput
+                  placeholder="Enter your email"
+                  key={form.key("email")}
+                  {...form.getInputProps("email")}
+                  w={350}
+                />
+                <Button type="submit" h={40} radius="md" w={150}>
+                  Subscribe
+                </Button>
+              </Group>
+            </form>
+          </Box>
+        </Box>
+      </Flex>
+    </Box>
   );
 }
