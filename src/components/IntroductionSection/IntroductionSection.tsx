@@ -1,13 +1,57 @@
+import { useState } from "react";
 import { Box, Button, Center, Grid, Image, Text, Title } from "@mantine/core";
 import Features from "../../assets/Features.svg";
-import NeedfulIconAnimated from "../../assets/NeedfulIconAnimated.mp4";
+import NeedfulExplainerVideo from "../../assets/NeedfulExplainerVideo.mp4";
+import ExplainerVideoThumbnail from "../../assets/ExplainerVideoThumbnail.svg";
 import MobilePreview from "../../assets/MobilePreview.svg";
 import YellowBubbles from "../../assets/YellowBubbles.svg";
 import classes from "./IntroductionSection.module.css";
+import NeedfulIconAnimated from "../../assets/NeedfulIconAnimated.mp4";
 
 export function IntroductionSection() {
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
   return (
     <Box mt={100}>
+      {/* Video Section */}
+      <Center mb={50}>
+        <Box style={{ textAlign: "center" }}>
+          <Title order={2} style={{ color: "#00A884", marginBottom: "8px" }}>
+            Discover Needful
+          </Title>
+          <Text size="sm" style={{ color: "#555555", marginBottom: "16px" }}>
+            Watch the video and start your wellness & success journey now
+          </Text>
+          {!isVideoPlaying ? (
+            <Image
+              src={ExplainerVideoThumbnail}
+              alt="Needful Explainer Video Thumbnail"
+              className={classes.thumbnail}
+              onClick={() => setIsVideoPlaying(true)}
+              style={{
+                cursor: "pointer",
+                width: "600px",
+                height: "auto",
+                borderRadius: "8px",
+              }}
+            />
+          ) : (
+            <video
+              src={NeedfulExplainerVideo}
+              controls
+              autoPlay
+              className={classes.video}
+              style={{
+                width: "600px",
+                height: "auto",
+                borderRadius: "8px",
+              }}
+            />
+          )}
+        </Box>
+      </Center>
+
+      {/* Existing Introduction Section */}
       <Grid align="center">
         <Grid.Col span={6}>
           <Center>
@@ -36,6 +80,8 @@ export function IntroductionSection() {
           </Center>
         </Grid.Col>
       </Grid>
+
+      {/* Other sections remain unchanged */}
       <Grid align="center" mt={200}>
         <Grid.Col span={6}>
           <Center className={classes.marginRightIntroduction}>
