@@ -60,10 +60,10 @@ import Logo from "../../assets/Logo.svg";
 // Define tags array
 export const tags: Tag[] = [
   { label: "All", icon: WhiteTag },
-  { label: "Actions", icon: GreenTag },
-  { label: "Projects", icon: MagentaTag },
-  { label: "Ideas", icon: YellowTag },
-  { label: "Thoughts", icon: BlueTag },
+  { label: "Ideas", icon: GreenTag },
+  { label: "Actions", icon: MagentaTag },
+  { label: "Thoughts", icon: YellowTag },
+  { label: "Projects", icon: BlueTag },
   { label: "Questions", icon: BlackTag },
   { label: "Untagged", icon: WhiteTag },
 ];
