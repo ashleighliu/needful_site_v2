@@ -24,15 +24,7 @@ export function NewsletterSection() {
   });
 
   return (
-    <Box
-      style={{
-        border: "2px solid #00A884", // Green border
-        borderRadius: "15px", // Rounded corners
-        padding: "60px 60px", // Padding for spacing
-        width: "fit-content", // Adjust width dynamically to fit content
-        margin: "50px auto", // Center the section
-      }}
-    >
+    <Box className={classes.newsletter}>
       <Flex align="center" justify="center" wrap="wrap" gap={50}>
         <Box>
           <Center>

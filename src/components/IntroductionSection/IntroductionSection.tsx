@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, Center, Grid, Image, Text, Title } from "@mantine/core";
+import { Box, Button, Center, Flex, Image, Text, Title } from "@mantine/core";
 import Features from "../../assets/Features.svg";
 import NeedfulExplainerVideo from "../../assets/NeedfulExplainerVideo.mp4";
 import ExplainerVideoThumbnail from "../../assets/ExplainerVideoThumbnail.svg";
@@ -49,12 +49,6 @@ export function IntroductionSection() {
               alt="Needful Explainer Video Thumbnail"
               className={classes.thumbnail}
               onClick={() => setIsVideoPlaying(true)}
-              style={{
-                cursor: "pointer",
-                width: "600px",
-                height: "auto",
-                borderRadius: "8px",
-              }}
             />
           ) : (
             <video
@@ -62,19 +56,14 @@ export function IntroductionSection() {
               controls
               autoPlay
               className={classes.video}
-              style={{
-                width: "600px",
-                height: "auto",
-                borderRadius: "8px",
-              }}
             />
           )}
         </Box>
       </Center>
 
       {/* Existing Introduction Section */}
-      <Grid align="center">
-        <Grid.Col span={6}>
+      <Flex justify="center" align="center" wrap="wrap" gap="xl">
+        <Box className={classes.segment}>
           <Center>
             <video
               className={classes.icon}
@@ -84,8 +73,8 @@ export function IntroductionSection() {
               src={NeedfulIconAnimated}
             />
           </Center>
-        </Grid.Col>
-        <Grid.Col span={6}>
+        </Box>
+        <Box className={classes.segment}>
           <Center className={classes.marginRightIntroduction}>
             <Box>
               <Title order={2} className={classes.title}>
@@ -99,17 +88,17 @@ export function IntroductionSection() {
               </Text>
             </Box>
           </Center>
-        </Grid.Col>
-      </Grid>
+        </Box>
+      </Flex>
 
       {/* Other sections remain unchanged */}
-      <Grid align="center" mt={50}>
-        <Grid.Col span={6}>
+      <Flex justify="center" align="center" wrap="wrap" mt={50} gap="xl">
+        <Box className={classes.segment}>
           <Center className={classes.marginRightIntroduction}>
-            <Image ml={300} src={MobilePreview} />
+            <Image className={classes.offsetImage} src={MobilePreview} />
           </Center>
-        </Grid.Col>
-        <Grid.Col span={6}>
+        </Box>
+        <Box className={classes.segment}>
           <Center className={classes.marginRightIntroduction}>
             <Box>
               <Title order={2} className={classes.title}>
@@ -123,15 +112,15 @@ export function IntroductionSection() {
               </Text>
             </Box>
           </Center>
-        </Grid.Col>
-      </Grid>
-      <Grid align="center" mt={100}>
-        <Grid.Col span={6}>
+        </Box>
+      </Flex>
+      <Flex justify="center" align="center" wrap="wrap" mt={100} gap="xl">
+        <Box className={classes.segment}>
           <Center>
             <Image src={Features} />
           </Center>
-        </Grid.Col>
-        <Grid.Col span={6}>
+        </Box>
+        <Box className={classes.segment}>
           <Image
             src={YellowBubbles}
             className={classes.bubbles}
@@ -151,8 +140,8 @@ export function IntroductionSection() {
               </Text>
             </Box>
           </Center>
-        </Grid.Col>
-      </Grid>
+        </Box>
+      </Flex>
       <Center mt={100}>
         <Button
           fz="md"

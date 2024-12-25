@@ -1,4 +1,4 @@
-import { Center, Image, Title, Text, Box, Grid } from "@mantine/core";
+import { Center, Image, Title, Text, Box, Flex } from "@mantine/core";
 import AppPreviews from "../../assets/AppPreviews.svg";
 import RedBubbles from "../../assets/RedBubbles.svg";
 import classes from "./InformationSection.module.css";
@@ -28,13 +28,13 @@ export function InformationSection() {
       </Box>
 
       {/* Information Section Content */}
-      <Grid align="center" gutter="xl">
-        <Grid.Col span={6}>
+      <Flex justify="center" align="center" wrap="wrap" gap="xl">
+        <Box className={classes.segment}>
           <Center ml={100}>
             <Image className={classes.icon} src={AppPreviews} />
           </Center>
-        </Grid.Col>
-        <Grid.Col span={6}>
+        </Box>
+        <Box className={classes.segment}>
           <Center className={classes.marginRightIntroduction}>
             <Box>
               <Title
@@ -60,8 +60,8 @@ export function InformationSection() {
               </Text>
             </Box>
           </Center>
-        </Grid.Col>
-      </Grid>
+        </Box>
+      </Flex>
     </Box>
   );
 }

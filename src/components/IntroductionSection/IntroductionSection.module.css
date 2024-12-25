@@ -2,10 +2,6 @@
     margin-right: 300px;
 }
 
-.marginLeft {
-    margin-right: 300px;
-}
-
 .body {
     margin-top: 50px;
 }
@@ -14,6 +10,27 @@
     position: absolute;
     transform: translateX(-100%);
     z-index: -1;
+}
+
+.offsetImage {
+    margin-left: 300px;
+}
+
+.segment {
+    width: 45%;
+}
+
+.thumbnail {
+    cursor: pointer;
+    width: 500px;
+    height: auto;
+    border-radius: 8px;
+}
+
+.video {
+    width: 500px;
+    height: auto;
+    border-radius: 8px;
 }
 
 @media screen and (max-width: 800px) {
@@ -34,5 +51,21 @@
 
     .marginRightIntroduction {
         margin-right: 25px;
+    }
+
+    .offsetImage {
+        margin-left: 0px;
+    }
+
+    .segment {
+        width: 70%;
+    }
+
+    .thumbnail {
+        width: 100%;
+    }
+
+    .video {
+        width: 100%;
     }
 }
