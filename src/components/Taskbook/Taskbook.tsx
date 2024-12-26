@@ -255,7 +255,7 @@ export function Taskbook() {
                   image={"archived"}
                   fill={"Archived" === activeTag ? "white" : "black"}
                 />
-                <span style={{ marginLeft: "5px" }}>Past Needfuls</span>
+                <span style={{ marginLeft: "5px" }}>Needfuls to Review</span>
               </div>
             </UnstyledButton>
           </div>
