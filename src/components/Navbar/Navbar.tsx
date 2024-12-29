@@ -43,9 +43,10 @@ export function Navbar() {
           </Text>
         </Group>
       </Grid.Col>
-      <Grid.Col span={6} visibleFrom="md">
+      <Grid.Col span={6}>
         <Flex gap="md" justify="flex-end" m={20}>
           <Button
+            visibleFrom="md"
             h={45}
             radius="md"
             variant="outline"
@@ -55,11 +56,15 @@ export function Navbar() {
           </Button>
           <Button
             h={45}
-            w={200}
+            // Conditionally adjust width based on screen size
+            w={useMediaQuery("(max-width: 768px)") ? 150 : 200}
             radius="md"
             onClick={() => navigate("/signup")}
           >
-            Try Needful for Free
+            {/* Conditionally render button text based on screen size */}
+            {useMediaQuery("(max-width: 768px)")
+              ? "Try for Free"
+              : "Try Needful for Free"}
           </Button>
         </Flex>
       </Grid.Col>
