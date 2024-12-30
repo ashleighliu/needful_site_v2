@@ -133,6 +133,19 @@ export function Taskbook() {
     }
   };
 
+  const handleTaskCompleteChange = async (id: string, completed: boolean) => {
+    console.log("========================>", completed);
+    const updatedTasks = userTasks.map((t: TaskEntry) =>
+      t.id === id ? { ...t, completed } : t
+    );
+
+    const updatedTask = updatedTasks.find((t: TaskEntry) => t.id === id);
+
+    if (updatedTask && updatedTask.task.trim() !== "") {
+      await updateTasks(updatedTasks);
+    }
+  };
+
   useEffect(() => {
     if (userInfo.email) {
       setCurrentTasks(userInfo.email);
@@ -345,6 +358,7 @@ export function Taskbook() {
                 handleDueDateChange={handleDueDateChange}
                 handleTaskValueChange={handleTaskValueChange}
                 handleTaskLabelChange={handleTaskLabelChange}
+                handleTaskCompleteChange={handleTaskCompleteChange}
               />
             );
           }
@@ -356,6 +370,7 @@ export function Taskbook() {
                 handleDueDateChange={handleDueDateChange}
                 handleTaskValueChange={handleTaskValueChange}
                 handleTaskLabelChange={handleTaskLabelChange}
+                handleTaskCompleteChange={handleTaskCompleteChange}
               />
             );
           }
@@ -367,6 +382,7 @@ export function Taskbook() {
                 handleDueDateChange={handleDueDateChange}
                 handleTaskValueChange={handleTaskValueChange}
                 handleTaskLabelChange={handleTaskLabelChange}
+                handleTaskCompleteChange={handleTaskCompleteChange}
               />
             );
           }
@@ -382,6 +398,7 @@ export function Taskbook() {
                 handleDueDateChange={handleDueDateChange}
                 handleTaskValueChange={handleTaskValueChange}
                 handleTaskLabelChange={handleTaskLabelChange}
+                handleTaskCompleteChange={handleTaskCompleteChange}
               />
             );
           }
