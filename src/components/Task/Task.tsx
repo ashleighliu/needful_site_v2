@@ -61,10 +61,10 @@ import TaskService from "@/services/taskService";
 // Define tags array
 export const tags: Tag[] = [
   { label: "All", icon: WhiteTag },
-  { label: "Actions", icon: GreenTag },
-  { label: "Projects", icon: MagentaTag },
-  { label: "Ideas", icon: YellowTag },
-  { label: "Thoughts", icon: BlueTag },
+  { label: "Ideas", icon: GreenTag },
+  { label: "Actions", icon: MagentaTag },
+  { label: "Thoughts", icon: YellowTag },
+  { label: "Projects", icon: BlueTag },
   { label: "Questions", icon: BlackTag },
   { label: "Untagged", icon: WhiteTag },
 ];
@@ -103,13 +103,13 @@ export function Task({
 
   const getIcons = (label: string | null) => {
     switch (label) {
-      case "Actions":
-        return GreenTag;
-      case "Projects":
-        return MagentaTag;
       case "Ideas":
-        return YellowTag;
+        return GreenTag;
+      case "Actions":
+        return MagentaTag;
       case "Thoughts":
+        return YellowTag;
+      case "Projects":
         return BlueTag;
       case "Questions":
         return BlackTag;

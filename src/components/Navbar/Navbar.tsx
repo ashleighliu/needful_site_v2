@@ -1,31 +1,11 @@
-import { Button, Flex, Grid, Group, Image, Menu, Text } from "@mantine/core";
-import { IconLogout, IconUser } from "@tabler/icons-react";
+import { Button, Flex, Grid, Group, Image, Text } from "@mantine/core";
 import NeedfulLogo from "../../assets/NeedfulLogo.svg";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  selectIsLoggedIn,
-  setIsLoggedIn,
-  setUserInfo,
-} from "../../store/slices/userSlice";
-import { getAuth, signOut } from "firebase/auth";
+import { useMediaQuery } from "@mantine/hooks";
 
 export function Navbar() {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const auth = getAuth();
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-      dispatch(setIsLoggedIn(false));
-      dispatch(setUserInfo(null));
-      navigate("/");
-    } catch (error) {
-      console.error("Error signing out: ", error);
-    }
-  };
+  const isMobile = useMediaQuery(`(max-width: 800px)`);
 
   return (
     <Grid align="center">
@@ -33,82 +13,60 @@ export function Navbar() {
         <Group>
           <Image
             m={20}
-            h={50}
+            h={isMobile ? 30 : 50}
             w="auto"
             src={NeedfulLogo}
             onClick={() => navigate("/")}
-            style={{ cursor: "pointer" }}
           />
-          <Text
-            c="#555555"
-            onClick={() => navigate("/home")}
-            style={{ cursor: "pointer" }}
-          >
+          <Text c="#555555" visibleFrom="md">
             Home
           </Text>
           <Text
             c="#555555"
-            onClick={() => navigate("/about")}
-            style={{ cursor: "pointer" }}
+            visibleFrom="md"
+            onClick={() =>
+              window.open("https://www.needful.site/blog", "_blank")
+            }
           >
+            Blog
+          </Text>
+
+          <Text c="#555555" visibleFrom="md">
             About
           </Text>
           <Text
             c="#555555"
+            visibleFrom="md"
             onClick={() => navigate("/contact")}
-            style={{ cursor: "pointer" }}
           >
             Contact
           </Text>
         </Group>
       </Grid.Col>
       <Grid.Col span={6}>
-        {isLoggedIn ? (
-          <Flex gap="md" justify="flex-end" m={20}>
-            <Menu shadow="md" width={200}>
-              <Menu.Target>
-                <Button variant="subtle" leftSection={<IconUser size={14} />}>
-                  My Account
-                </Button>
-              </Menu.Target>
-
-              <Menu.Dropdown>
-                <Menu.Item
-                  leftSection={<IconUser size={14} />}
-                  onClick={() => navigate("/profile")}
-                >
-                  Profile
-                </Menu.Item>
-                <Menu.Item
-                  color="red"
-                  leftSection={<IconLogout size={14} />}
-                  onClick={handleLogout}
-                >
-                  Logout
-                </Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
-          </Flex>
-        ) : (
-          <Flex gap="md" justify="flex-end" m={20}>
-            <Button
-              h={45}
-              radius="md"
-              variant="outline"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </Button>
-            <Button
-              h={45}
-              w={200}
-              radius="md"
-              onClick={() => navigate("/signup")}
-            >
-              Try Needful for Free
-            </Button>
-          </Flex>
-        )}
+        <Flex gap="md" justify="flex-end" m={20}>
+          <Button
+            visibleFrom="md"
+            h={45}
+            radius="md"
+            variant="outline"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </Button>
+          <Button
+            h={45}
+            // Conditionally adjust width based on screen size
+            w={useMediaQuery("(max-width: 768px)") ? 150 : 200}
+            radius="md"
+            onClick={() => navigate("/signup")}
+          >
+            {/* Conditionally render button text based on screen size */}
+            {useMediaQuery("(max-width: 768px)")
+              ? "Try for Free"
+              : "Try Needful for Free"}
+          </Button>
+        </Flex>
       </Grid.Col>
     </Grid>
   );

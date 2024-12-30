@@ -1,0 +1,153 @@
+
+/* src/pages/blog/blog.css */
+
+.blog-container {
+  font-family: Arial, sans-serif;
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.blog-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.blog-header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.blog-header p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.blog-main {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.blog-post {
+  margin-bottom: 40px;
+}
+
+.blog-post h2 {
+  font-size: 1.8em;
+  color: #222;
+}
+
+.blog-post .post-date {
+  font-size: 0.9em;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.blog-post p {
+  margin-bottom: 15px;
+}
+
+.blog-footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9em;
+  color: #777;
+}
+
+/* Individual Blog Post Styles */
+.postContainer {
+  margin: 0 auto;
+  padding: 40px 20px;
+  max-width: 1000px;
+  font-family: Arial, sans-serif;
+}
+
+.postHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.postTitle {
+  font-size: 3em;
+  font-weight: bold;
+  color: #333;
+}
+
+.postDate {
+  font-size: 1em;
+  color: #888;
+  margin-top: 10px;
+}
+
+.postImage {
+  width: 100%;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.postContentContainer {
+  margin-top: 30px;
+}
+
+.postContent {
+  font-size: 1.2em;
+  line-height: 1.8;
+  color: #555;
+}
+
+/* More Blogs Section */
+.moreBlogsSection {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+}
+
+.moreBlogsTitle {
+  text-align: center;
+  font-size: 1.8em;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.blogLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.blogCard {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blogCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.blogImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.blogTitle {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 15px 10px 10px;
+  color: #404040;
+}
+
+.blogExcerpt {
+  font-size: 0.9em;
+  color: #555;
+  margin: 0 10px 15px;
+}

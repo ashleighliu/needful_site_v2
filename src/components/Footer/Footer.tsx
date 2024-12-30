@@ -1,16 +1,7 @@
-import {
-  Text,
-  Container,
-  Center,
-  Image,
-  Box,
-  Flex,
-  Grid,
-  Anchor,
-} from "@mantine/core";
+import { Text, Container, Center, Image, Box, Flex, Grid } from "@mantine/core";
 import { MediaButtons } from "../MediaButtons/MediaButtons";
 import AppStore from "../../assets/AppStore.svg";
-import GooglePlay from "../../assets/GooglePlay.png";
+import GooglePlay from "../../assets/GooglePlay.svg";
 import Canada from "../../assets/Canada.svg";
 import Location from "../../assets/Location.svg";
 import NeedfulLogo from "../../assets/NeedfulLogo.svg";
@@ -20,8 +11,8 @@ import classes from "./Footer.module.css";
 export function Footer() {
   return (
     <footer className={classes.footer}>
-      <Grid>
-        <Grid.Col span={6}>
+      <Grid grow>
+        <Grid.Col span="auto">
           <Box>
             <Center>
               <Image src={NeedfulLogo} w={300} />
@@ -41,7 +32,7 @@ export function Footer() {
             </Center>
           </Box>
         </Grid.Col>
-        <Grid.Col span={6}>
+        <Grid.Col span="auto" visibleFrom="md">
           <div className={classes.groups}>
             <div className={classes.wrapper} key="Contact">
               <Text c="#404040" className={classes.title}>
@@ -120,17 +111,9 @@ export function Footer() {
       </Grid>
       <Container className={classes.afterFooter}>
         <Center>
-          <Text c="#888888" size="sm" mr={8}>
+          <Text c="#888888" size="sm">
             © 2024 Needful. All rights reserved.
           </Text>
-          <Anchor
-            href="https://needful.site/privacy"
-            target="_blank"
-            underline="always"
-            size="sm"
-          >
-            Privacy Policy
-          </Anchor>
         </Center>
       </Container>
     </footer>

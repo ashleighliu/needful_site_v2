@@ -1,0 +1,32 @@
+.paper {
+    width: 1200px;
+    height: 250px;
+}
+
+.price {
+    border-bottom-left-radius: 24px;
+    border-top-left-radius: 24px;
+}
+
+@media screen and (max-width: 800px) {
+    .paper {
+        width: 400px;
+        height: auto;
+    }
+
+    .price {
+        border-top-right-radius: 24px;
+        border-top-left-radius: 24px;
+        border-bottom-left-radius: 0px;
+        padding: 20px 0 20px 0;
+    }
+
+    .center {
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+}

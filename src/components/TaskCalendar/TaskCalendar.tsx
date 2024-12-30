@@ -77,13 +77,13 @@ export function TaskCalendar() {
 
   const getIcons = (label: string | null) => {
     switch (label) {
-      case "Actions":
-        return GreenTag;
-      case "Projects":
-        return MagentaTag;
       case "Ideas":
-        return YellowTag;
+        return GreenTag;
+      case "Actions":
+        return MagentaTag;
       case "Thoughts":
+        return YellowTag;
+      case "Projects":
         return BlueTag;
       case "Questions":
         return BlackTag;

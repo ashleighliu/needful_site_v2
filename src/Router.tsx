@@ -11,6 +11,8 @@ import { SSOLoginPage } from "./pages/SSOLogin.page";
 import { VerifyEmailPage } from "./pages/VerifyEmail.page";
 import { HomePage } from "./pages/Home.page";
 import { GrantAccessFormPage } from "./pages/GrantAccessForm.page";
+import { BlogPage } from "./pages/Blog.page";
+import { BlogPostPage } from "./pages/BlogPost.page";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,22 @@ const router = createBrowserRouter([
     element: (
       <PublicRoute>
         <VerifyEmailPage />
+      </PublicRoute>
+    ),
+  },
+  {
+    path: "/blog",
+    element: (
+      <PublicRoute>
+        <BlogPage />
+      </PublicRoute>
+    ),
+  },
+  {
+    path: "/blog/:post",
+    element: (
+      <PublicRoute>
+        <BlogPostPage />
       </PublicRoute>
     ),
   },

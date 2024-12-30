@@ -35,10 +35,10 @@ const links = [
 
 export const tags = [
   { icon: Logo, label: "All" },
-  { icon: GreenTag, label: "Actions" },
-  { icon: MagentaTag, label: "Projects" },
-  { icon: YellowTag, label: "Ideas" },
-  { icon: BlueTag, label: "Thoughts" },
+  { icon: GreenTag, label: "Ideas" },
+  { icon: MagentaTag, label: "Actions" },
+  { icon: YellowTag, label: "Thoughts" },
+  { icon: BlueTag, label: "Projects" },
   { icon: BlackTag, label: "Questions" },
   { icon: WhiteTag, label: "Untagged" },
 ];
