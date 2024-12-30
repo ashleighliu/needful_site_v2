@@ -56,6 +56,7 @@ import BlueTag from "../../assets/BlueTag.svg";
 import BlackTag from "../../assets/BlackTag.svg";
 import WhiteTag from "../../assets/WhiteTag.svg";
 import Logo from "../../assets/Logo.svg";
+import TaskService from "@/services/taskService";
 
 // Define tags array
 export const tags: Tag[] = [
@@ -74,6 +75,7 @@ interface TaskProps {
   handleDueDateChange: (id: string, dueDate: string | null) => void;
   handleTaskValueChange: (id: string, taskValue: string) => void;
   handleTaskLabelChange: (id: string, taskLabel: string) => void;
+  handleTaskCompleteChange: (id: string, completed: boolean) => void;
 }
 
 export function Task({
@@ -81,10 +83,11 @@ export function Task({
   handleDueDateChange,
   handleTaskValueChange,
   handleTaskLabelChange,
+  handleTaskCompleteChange,
 }: TaskProps) {
   // State management
   const [opened, setOpened] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(task.completed);
   const [isPlaying, setIsPlaying] = useState(false);
   const [dueDate, setDueDate] = useState<Date | null>(
     task.dueDate ? new Date(task.dueDate) : null
@@ -119,46 +122,62 @@ export function Task({
     }
   };
 
+  const getRecordURL = async (audioPath: string | null) => {
+    if (audioPath) {
+      const presignedAudioUrl = await TaskService.getPresignedUrl(
+        audioPath,
+        "get"
+      );
+      return presignedAudioUrl;
+    }
+    return "";
+  };
+
   // Initialize WaveSurfer
   useEffect(() => {
-    if (waveformRef.current && !wavesurferRef.current) {
-      wavesurferRef.current = WaveSurfer.create({
-        container: waveformRef.current,
-        waveColor: "#000000",
-        progressColor: "#00FF00",
-        barWidth: 3,
-        cursorWidth: 0,
-        barRadius: 1,
-        barGap: 2,
-        url: testAudio,
-        height: 70,
-        normalize: true,
-        width: 600,
-        peaks: [
-          [
-            0.1, 0.2, 0.3, 0.1, 0.5, 0.2, 0.4, 0.1, 0.2, 0.2, 0.1, 0.2, 0.6,
-            0.9, 1, 0.8, 0.6, 0.7, 0.4, 0.7, 0.6, 0.4, 0.2, 0.1, 0.4, 0.6, 0.5,
-            0.2, 0.6, 0.7, 0.6, 0.3, 0.4, 0.2, 0.1, 0.2, 0.4, 0.7, 0.2, 0.4,
-            0.2, 0.1, 0.1, 0.2, 0.1, 0.1, 0.2, 0.3, 0.1, 0.5, 0.2, 0.4, 0.1,
-            0.2, 0.2, 0.1, 0.2, 0.6, 0.9, 1, 0.8, 0.6, 0.7, 0.4, 0.7, 0.6, 0.4,
-            0.2, 0.1, 0.4, 0.6, 0.5, 0.2, 0.6, 0.7, 0.6, 0.3, 0.4, 0.2, 0.1,
-            0.2, 0.4, 0.7, 0.2, 0.4, 0.2, 0.1, 0.1, 0.2, 0.1, 0.1, 0.2, 0.3,
-            0.1, 0.5, 0.2, 0.4, 0.1, 0.2, 0.2, 0.1, 0.2, 0.6, 0.9, 1, 0.8, 0.6,
-            0.7, 0.4, 0.7, 0.6, 0.4, 0.2, 0.1, 0.4, 0.6, 0.5, 0.2, 0.6, 0.7,
-            0.6, 0.3, 0.4, 0.2, 0.1, 0.2, 0.4, 0.7, 0.2, 0.4, 0.2, 0.1, 0.1,
-            0.2, 0.1,
+    const initializeWaveSurfer = async () => {
+      const recordURL: string = await getRecordURL(task.audioPath || null);
+      if (waveformRef.current && !wavesurferRef.current) {
+        wavesurferRef.current = WaveSurfer.create({
+          container: waveformRef.current,
+          waveColor: "#000000",
+          progressColor: "#00FF00",
+          barWidth: 3,
+          cursorWidth: 0,
+          barRadius: 1,
+          barGap: 2,
+          url: recordURL,
+          height: 70,
+          normalize: true,
+          width: 600,
+          peaks: [
+            [
+              0.1, 0.2, 0.3, 0.1, 0.5, 0.2, 0.4, 0.1, 0.2, 0.2, 0.1, 0.2, 0.6,
+              0.9, 1, 0.8, 0.6, 0.7, 0.4, 0.7, 0.6, 0.4, 0.2, 0.1, 0.4, 0.6,
+              0.5, 0.2, 0.6, 0.7, 0.6, 0.3, 0.4, 0.2, 0.1, 0.2, 0.4, 0.7, 0.2,
+              0.4, 0.2, 0.1, 0.1, 0.2, 0.1, 0.1, 0.2, 0.3, 0.1, 0.5, 0.2, 0.4,
+              0.1, 0.2, 0.2, 0.1, 0.2, 0.6, 0.9, 1, 0.8, 0.6, 0.7, 0.4, 0.7,
+              0.6, 0.4, 0.2, 0.1, 0.4, 0.6, 0.5, 0.2, 0.6, 0.7, 0.6, 0.3, 0.4,
+              0.2, 0.1, 0.2, 0.4, 0.7, 0.2, 0.4, 0.2, 0.1, 0.1, 0.2, 0.1, 0.1,
+              0.2, 0.3, 0.1, 0.5, 0.2, 0.4, 0.1, 0.2, 0.2, 0.1, 0.2, 0.6, 0.9,
+              1, 0.8, 0.6, 0.7, 0.4, 0.7, 0.6, 0.4, 0.2, 0.1, 0.4, 0.6, 0.5,
+              0.2, 0.6, 0.7, 0.6, 0.3, 0.4, 0.2, 0.1, 0.2, 0.4, 0.7, 0.2, 0.4,
+              0.2, 0.1, 0.1, 0.2, 0.1,
+            ],
           ],
-        ],
-      });
+        });
 
-      // Event listeners
-      wavesurferRef.current.on("play", () => setIsPlaying(true));
-      wavesurferRef.current.on("pause", () => setIsPlaying(false));
-      wavesurferRef.current.on("finish", () => {
-        setIsPlaying(false);
-        wavesurferRef.current?.setTime(0);
-      });
-    }
+        // Event listeners
+        wavesurferRef.current.on("play", () => setIsPlaying(true));
+        wavesurferRef.current.on("pause", () => setIsPlaying(false));
+        wavesurferRef.current.on("finish", () => {
+          setIsPlaying(false);
+          wavesurferRef.current?.setTime(0);
+        });
+      }
+    };
+
+    initializeWaveSurfer();
 
     return () => {
       if (wavesurferRef.current) {
@@ -226,6 +245,7 @@ export function Task({
   const handleCheckboxChange = (checked: boolean) => {
     setChecked(checked);
     setOpened(false);
+    handleTaskCompleteChange(task.id, checked);
     // if (onTaskUpdate) {
     //   onTaskUpdate({
     //     ...task,
