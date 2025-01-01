@@ -36,7 +36,7 @@ export function NewsletterSection() {
             </Box>
           </Center>
         </Box>
-        <Box className={classes.marginLeft}>
+        <Box>
           <Box>
             <Text c="#555555" fw={600} mb={20} size="sm">
               Sign up to our newsletter
@@ -47,7 +47,7 @@ export function NewsletterSection() {
                   placeholder="Enter your email"
                   key={form.key("email")}
                   {...form.getInputProps("email")}
-                  w={350}
+                  className={classes.input}
                 />
                 <Button type="submit" h={40} radius="md" w={150}>
                   Subscribe

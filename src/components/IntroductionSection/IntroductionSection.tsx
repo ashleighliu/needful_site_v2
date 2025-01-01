@@ -43,21 +43,23 @@ export function IntroductionSection() {
           <Text size="sm" style={{ color: "#555555", marginBottom: "16px" }}>
             Watch the video and start your wellness & success journey now
           </Text>
-          {!isVideoPlaying ? (
-            <Image
-              src={ExplainerVideoThumbnail}
-              alt="Needful Explainer Video Thumbnail"
-              className={classes.thumbnail}
-              onClick={() => setIsVideoPlaying(true)}
-            />
-          ) : (
-            <video
-              src={NeedfulExplainerVideo}
-              controls
-              autoPlay
-              className={classes.video}
-            />
-          )}
+          <Center>
+            {!isVideoPlaying ? (
+              <Image
+                src={ExplainerVideoThumbnail}
+                alt="Needful Explainer Video Thumbnail"
+                className={classes.thumbnail}
+                onClick={() => setIsVideoPlaying(true)}
+              />
+            ) : (
+              <video
+                src={NeedfulExplainerVideo}
+                controls
+                autoPlay
+                className={classes.video}
+              />
+            )}
+          </Center>
         </Box>
       </Center>
 

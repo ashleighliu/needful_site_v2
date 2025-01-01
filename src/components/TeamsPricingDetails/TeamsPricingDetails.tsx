@@ -2,6 +2,7 @@ import { Button, Center, Flex, Paper, Stack, Text, Title } from "@mantine/core";
 import { Bullet } from "../Bullet/Bullet";
 import { theme } from "../../theme";
 import classes from "./TeamsPricingDetails.module.css";
+import { IconArrowRight } from "@tabler/icons-react";
 
 export function TeamsPricingDetails() {
   if (!theme.colors || !theme.colors.brand) {
@@ -32,13 +33,24 @@ export function TeamsPricingDetails() {
                   </Title>
                 </Center>
                 <Center>
-                  <Title style={{ color: "#404040" }}>$479</Title>
+                  <Title style={{ color: "#404040", display: "inline" }}>
+                    $479
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        color: "#404040",
+                        marginLeft: "4px",
+                      }}
+                    >
+                      /month
+                    </span>
+                  </Title>
                 </Center>
-                <Center>
+                {/* <Center>
                   <Text c="#555555" size="sm">
                     billed annually
                   </Text>
-                </Center>
+                </Center> */}
                 <Button h={40} mt={25} w={300}>
                   Get Started
                 </Button>
@@ -66,10 +78,36 @@ export function TeamsPricingDetails() {
         </Paper>
       </Center>
       <Center mt={50} className={classes.center}>
-        <Title order={2} style={{ color: "#404040" }} className={classes.title}>
-          Managing over 10 employees?{" "}
-          <Text inherit component="span" c={theme.colors.brand[6]}>
-            Get a custom rate for your business!
+        <Title
+          order={2}
+          style={{ color: "#404040", fontSize: "20px" }}
+          className={classes.title}
+        >
+          Is your team greater than 10 members?{" "}
+          <Text
+            inherit
+            component="span"
+            c={theme.colors.brand[6]}
+            style={{
+              textDecoration: "none",
+              transition: "text-decoration 0.3s ease",
+              fontSize: "20px", // Adjust font size here
+            }}
+            onMouseEnter={(
+              e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+            ) => {
+              (e.target as HTMLSpanElement).style.textDecoration = "underline";
+            }}
+            onMouseLeave={(
+              e: React.MouseEvent<HTMLSpanElement, MouseEvent>
+            ) => {
+              (e.target as HTMLSpanElement).style.textDecoration = "none";
+            }}
+          >
+            Get a custom rate for your organization!
+            <IconArrowRight
+              style={{ marginLeft: "8px", verticalAlign: "middle" }}
+            />
           </Text>
         </Title>
       </Center>

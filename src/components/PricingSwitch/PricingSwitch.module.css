@@ -38,6 +38,10 @@
 }
 
 @media screen and (max-width: 800px) {
+  .switch {
+    width: 80%;
+  }
+
   .tab {
     width: 100%;
   }

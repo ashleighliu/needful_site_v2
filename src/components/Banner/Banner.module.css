@@ -26,12 +26,20 @@
     display: none;
   }
 
+  .title {
+    text-align: center;
+  }
+
+  .subtitle {
+    text-align: center;
+  }
+
   .fullHeight {
     height: 100vh;
   }
 
   .banner {
     width: 100%;
-    align-items: center;
+    margin-left: 0px;
   }
 }
