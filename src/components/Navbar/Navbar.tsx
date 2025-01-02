@@ -2,10 +2,28 @@ import { Button, Flex, Grid, Group, Image, Text } from "@mantine/core";
 import NeedfulLogo from "../../assets/NeedfulLogo.svg";
 import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mantine/hooks";
+import { useState } from "react";
 
 export function Navbar() {
   const navigate = useNavigate();
   const isMobile = useMediaQuery(`(max-width: 800px)`);
+
+  // State for hover styles
+  const [hoveredTab, setHoveredTab] = useState<string | null>(null);
+
+  // Inline styles for default and hover effect
+  const tabStyle = {
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+  };
+
+  const tabHoverStyle = {
+    ...tabStyle,
+    textDecoration: "underline",
+    textDecorationColor: "#00A884", // Green underline
+    textDecorationThickness: "3px", // Thicker underline
+    textUnderlineOffset: "25px", // Space between text and underline
+  };
 
   return (
     <Grid align="center">
@@ -18,10 +36,19 @@ export function Navbar() {
             src={NeedfulLogo}
             onClick={() => navigate("/")}
           />
-          <Text c="#555555" visibleFrom="md">
+          <Text
+            style={hoveredTab === "home" ? tabHoverStyle : tabStyle}
+            onMouseEnter={() => setHoveredTab("home")}
+            onMouseLeave={() => setHoveredTab(null)}
+            c="#555555"
+            visibleFrom="md"
+          >
             Home
           </Text>
           <Text
+            style={hoveredTab === "blog" ? tabHoverStyle : tabStyle}
+            onMouseEnter={() => setHoveredTab("blog")}
+            onMouseLeave={() => setHoveredTab(null)}
             c="#555555"
             visibleFrom="md"
             onClick={() =>
@@ -31,10 +58,19 @@ export function Navbar() {
             Blog
           </Text>
 
-          <Text c="#555555" visibleFrom="md">
+          <Text
+            style={hoveredTab === "about" ? tabHoverStyle : tabStyle}
+            onMouseEnter={() => setHoveredTab("about")}
+            onMouseLeave={() => setHoveredTab(null)}
+            c="#555555"
+            visibleFrom="md"
+          >
             About
           </Text>
           <Text
+            style={hoveredTab === "contact" ? tabHoverStyle : tabStyle}
+            onMouseEnter={() => setHoveredTab("contact")}
+            onMouseLeave={() => setHoveredTab(null)}
             c="#555555"
             visibleFrom="md"
             onClick={() => navigate("/contact")}
