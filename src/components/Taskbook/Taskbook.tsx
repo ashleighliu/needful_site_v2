@@ -52,6 +52,7 @@ export function Taskbook() {
   const dispatch = useDispatch();
   const newTask = useRef<HTMLInputElement>(null);
   const [activeTag, setActiveTag] = useState("All");
+  const { title, showDate } = getTitle();
 
   const userInfo = useSelector(getUserInfo);
   const userTasks = useSelector(getUserTasks);
@@ -184,9 +185,12 @@ export function Taskbook() {
 
   function getTitle() {
     if (activeTag === "Archived") {
-      return "Needfuls to Review";
+      return { title: "Needfuls to Review", showDate: false };
     }
-    return `${isExceptedTag() ? activeTag : activeTag.substring(0, activeTag.length - 1)} Needfuls`;
+    return {
+      title: `${isExceptedTag() ? activeTag : activeTag.substring(0, activeTag.length - 1)} Needfuls`,
+      showDate: true,
+    };
   }
 
   // function addTask(event: KeyboardEvent) {
@@ -279,9 +283,31 @@ export function Taskbook() {
       </div>
       <div className={classes.taskbook}>
         <Flex justify={"space-between"} align={"center"}>
-          <Text className={classes.title} fw={500} fz={32}>
-            {`${getTitle()}`}
-          </Text>
+          <Flex direction="column">
+            <Text
+              className={classes.title}
+              fw={500}
+              fz={32}
+              style={{ marginBottom: 0 }}
+            >
+              {title}
+            </Text>
+            {showDate && (
+              <Text
+                color="#00A884"
+                fz={20}
+                style={{ marginTop: 0, marginBottom: 0 }}
+              >
+                {new Date().toLocaleDateString(undefined, {
+                  weekday: "long",
+                  // year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Text>
+            )}
+          </Flex>
+
           <Flex className={classes.title} mr={44} gap={12}>
             {activeTag === "Archived" ? (
               <Menu shadow="md" width={200}>
@@ -298,7 +324,6 @@ export function Taskbook() {
                     return (
                       <Menu.Item
                         leftSection={<CustomIcon icon={tag.icon} />}
-                        // onClick={() => handleTagSelect(tag.label)}
                         key={tag.label}
                       >
                         {tag.label}
@@ -307,9 +332,8 @@ export function Taskbook() {
                   })}
                 </Menu.Dropdown>
               </Menu>
-            ) : (
-              <></>
-            )}
+            ) : null}
+
             <Menu shadow="md" width={200}>
               <Menu.Target>
                 <ActionIcon size="md" p={3} variant="default" radius="lg">
@@ -351,6 +375,7 @@ export function Taskbook() {
             </Menu>
           </Flex>
         </Flex>
+
         <div className={classes.divider} />
         {userTasks.map((task: TaskEntry) => {
           if (activeTag === "All") {
