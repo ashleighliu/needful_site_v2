@@ -4,7 +4,7 @@ import AppStore from "../../assets/AppStore.svg";
 import GooglePlay from "../../assets/GooglePlay.svg";
 import Canada from "../../assets/Canada.svg";
 import Location from "../../assets/Location.svg";
-import NeedfulLogo from "../../assets/NeedfulLogo.svg";
+import DoingByBeing from "../../assets/DoingByBeing.svg";
 import Phone from "../../assets/Phone.svg";
 import classes from "./Footer.module.css";
 
@@ -15,17 +15,7 @@ export function Footer() {
         <Grid.Col span="auto">
           <Box>
             <Center>
-              <Image src={NeedfulLogo} w={300} />
-            </Center>
-            <Center>
-              <Text
-                c="#888888"
-                size="sm"
-                fw={600}
-                className={classes.description}
-              >
-                Doing by being
-              </Text>
+              <Image src={DoingByBeing} w={300} />
             </Center>
             <Center>
               <MediaButtons />

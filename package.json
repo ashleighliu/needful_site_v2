@@ -19,6 +19,7 @@
     "storybook:build": "storybook build"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@mantine/carousel": "^7.11.1",
     "@mantine/core": "^7.11.1",
     "@mantine/dates": "^7.12.0",
