@@ -32,9 +32,11 @@ import {
   CopyButton,
   Tooltip,
   TextInput,
+  Modal,
+  Button,
 } from "@mantine/core";
 import { CustomIcon } from "../CustomIcon/CustomIcon";
-import { IconCopy, IconCheck } from "@tabler/icons-react";
+import { IconCopy, IconCheck, IconX } from "@tabler/icons-react";
 import {
   IconPlayerPlay,
   IconCaretDownFilled,
@@ -87,6 +89,8 @@ export function Task({
 }: TaskProps) {
   // State management
   const [opened, setOpened] = useState(false);
+  const [modalOpened, { open: openModal, close: closeModal }] =
+    useDisclosure(false);
   const [checked, setChecked] = useState(task.completed);
   const [isPlaying, setIsPlaying] = useState(false);
   const [dueDate, setDueDate] = useState<Date | null>(
@@ -417,7 +421,6 @@ export function Task({
           )}
         </Flex>
       </Flex>
-
       {/* Collapsible audio section */}
       <Flex w="75%">
         <Collapse in={opened} style={{ width: "100%" }}>
@@ -490,7 +493,52 @@ export function Task({
               )}
             </CopyButton>
           </Flex>
+          {/* Add View Transcript Button Below */}
+          {task.transcript && (
+            <UnstyledButton
+              style={{
+                marginTop: "12px",
+                marginLeft: "300px",
+                padding: "7px",
+                background: "#f1f1f1",
+                borderRadius: "8px",
+                width: "auto",
+              }}
+              onClick={openModal} // Updated from alert
+            >
+              <Text
+                align="center"
+                style={{ fontSize: "14px", color: "#4C4C4C" }}
+              >
+                View Transcript
+              </Text>
+            </UnstyledButton>
+          )}
         </Collapse>
+        <Modal
+          opened={modalOpened}
+          onClose={closeModal}
+          title="Transcript"
+          centered
+          closeButtonProps={{
+            icon: <IconX size={16} />,
+          }}
+        >
+          <Text>{task.transcript || "No transcript available"}</Text>
+          <Flex mt="md" justify="flex-end">
+            <CopyButton value={task.transcript || ""} timeout={1500}>
+              {({ copied, copy }) => (
+                <Button
+                  onClick={copy}
+                  color={copied ? "teal" : "blue"}
+                  variant="outline"
+                >
+                  {copied ? "Copied" : "Copy"}
+                </Button>
+              )}
+            </CopyButton>
+          </Flex>
+        </Modal>
       </Flex>
     </Flex>
   );

@@ -179,11 +179,14 @@ export function Taskbook() {
   ));
 
   function isExceptedTag() {
-    return (
-      activeTag === "Untagged" ||
-      activeTag === "All" ||
-      activeTag === "Archived"
-    );
+    return activeTag === "Untagged" || activeTag === "All";
+  }
+
+  function getTitle() {
+    if (activeTag === "Archived") {
+      return "Needfuls to Review";
+    }
+    return `${isExceptedTag() ? activeTag : activeTag.substring(0, activeTag.length - 1)} Needfuls`;
   }
 
   // function addTask(event: KeyboardEvent) {
@@ -277,7 +280,7 @@ export function Taskbook() {
       <div className={classes.taskbook}>
         <Flex justify={"space-between"} align={"center"}>
           <Text className={classes.title} fw={500} fz={32}>
-            {`${isExceptedTag() ? activeTag : activeTag.substring(0, activeTag.length - 1)} Needfuls`}
+            {`${getTitle()}`}
           </Text>
           <Flex className={classes.title} mr={44} gap={12}>
             {activeTag === "Archived" ? (
