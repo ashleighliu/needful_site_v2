@@ -506,10 +506,7 @@ export function Task({
               }}
               onClick={openModal} // Updated from alert
             >
-              <Text
-                align="center"
-                style={{ fontSize: "14px", color: "#4C4C4C" }}
-              >
+              <Text style={{ fontSize: "14px", color: "#4C4C4C" }}>
                 View Transcript
               </Text>
             </UnstyledButton>
