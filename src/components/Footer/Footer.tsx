@@ -77,11 +77,13 @@ export function Footer() {
                 c="#888888"
                 className={classes.link}
                 component="a"
-                href="/"
-                onClick={(event) => event.preventDefault()}
+                href="https://www.youtube.com/watch?v=LWfT5avdhQQ"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Get a tour
               </Text>
+
               <Text<"a">
                 c="#888888"
                 className={classes.link}

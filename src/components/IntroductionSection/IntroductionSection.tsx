@@ -146,24 +146,31 @@ export function IntroductionSection() {
         </Box>
       </Flex>
       <Center mt={100}>
-        <Button
-          fz="md"
-          radius="xl"
-          h={50}
-          w={250}
-          styles={{
-            root: {
-              backgroundColor: "#00A884", // Button background color
-              color: "white", // Text color
-              border: "none", // Remove outline
-              "&:hover": {
-                backgroundColor: "#005f00", // Darker green for hover effect
-              },
-            },
-          }}
+        <a
+          href="https://www.youtube.com/watch?v=LWfT5avdhQQ"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none" }}
         >
-          Get a Tour
-        </Button>
+          <Button
+            fz="md"
+            radius="xl"
+            h={50}
+            w={250}
+            styles={{
+              root: {
+                backgroundColor: "#00A884", // Button background color
+                color: "white", // Text color
+                border: "none", // Remove outline
+                "&:hover": {
+                  backgroundColor: "#005f00", // Darker green for hover effect
+                },
+              },
+            }}
+          >
+            Get a Tour
+          </Button>
+        </a>
       </Center>
     </Box>
   );
