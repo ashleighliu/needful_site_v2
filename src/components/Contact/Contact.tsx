@@ -32,14 +32,14 @@ export function Contact() {
 
     emailjs
       .send(
-        "service_qio4388", // Replace with your EmailJS service ID
-        "template_mv2ncmi", // Replace with your EmailJS template ID
+        "service_z0dcp0f", // Replace with your EmailJS service ID
+        "template_y6g4pch", // Replace with your EmailJS template ID
         {
           ...formData,
           inquiry_type: inquiryType,
           is_existing_customer: isExistingCustomer,
         },
-        "GDBpND8iESVP9uYQp" // Replace with your EmailJS public key
+        "jZMOwmyN-HjBBoCP4" // Replace with your EmailJS public key
       )
       .then(
         () => {

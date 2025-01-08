@@ -8,6 +8,7 @@ import YellowBubbles from "../../assets/YellowBubbles.svg";
 import GreenBubbles from "../../assets/GreenBubbles.svg";
 import classes from "./IntroductionSection.module.css";
 import NeedfulIconAnimated from "../../assets/NeedfulIconAnimated.mp4";
+import AnimatedNeedfulGif from "../../assets/AnimatedNeedfulGif.gif";
 
 export function IntroductionSection() {
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
