@@ -6,6 +6,7 @@ import Canada from "../../assets/Canada.svg";
 import Location from "../../assets/Location.svg";
 import DoingByBeing from "../../assets/DoingByBeing.svg";
 import Phone from "../../assets/Phone.svg";
+import QRCode from "../../assets/QRCode.svg";
 import classes from "./Footer.module.css";
 
 export function Footer() {
@@ -30,7 +31,7 @@ export function Footer() {
               </Text>
               <Flex>
                 <Center>
-                  <Image src={Location} h={20} w={20} mr={5} />
+                  <Image src={Location} h={15} w={15} mr={5} />
                 </Center>
                 <Text<"a">
                   c="#888888"
@@ -42,12 +43,12 @@ export function Footer() {
                   Toronto
                 </Text>
                 <Center>
-                  <Image src={Canada} h={20} w={20} ml={5} />
+                  <Image src={Canada} h={15} w={15} ml={5} />
                 </Center>
               </Flex>
               <Flex>
                 <Center>
-                  <Image src={Phone} h={17} w={17} mr={10} />
+                  <Image src={Phone} h={15} w={15} mr={10} />
                 </Center>
                 <Text<"a">
                   c="#888888"
@@ -95,8 +96,19 @@ export function Footer() {
               </Text>
             </div>
             <div>
-              <Image src={AppStore} onClick={() => {}} h={50} mb={10} />
-              <Image src={GooglePlay} onClick={() => {}} h={50} />
+              {/* QR Code and App Store icons */}
+              <Flex justify="center" align="center" gap={15} mt={10}>
+                {/* QR Code and App Store */}
+                <Flex direction="column" align="center" gap={4}>
+                  <Image src={QRCode} h={30} />
+                  <Image src={AppStore} onClick={() => {}} h={35} />
+                </Flex>
+                {/* QR Code and Play Store */}
+                <Flex direction="column" align="center" gap={4}>
+                  <Image src={QRCode} h={30} />
+                  <Image src={GooglePlay} onClick={() => {}} h={35} />
+                </Flex>
+              </Flex>
             </div>
           </div>
         </Grid.Col>
