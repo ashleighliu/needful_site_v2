@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import { TextInput, Button, Text } from '@mantine/core';
-import { IconArrowRight, IconX } from '@tabler/icons-react';
-import classes from './GrantAccessForm.module.css';
+import React, { useState } from "react";
+import { TextInput, Button, Text } from "@mantine/core";
+import { IconArrowRight, IconX } from "@tabler/icons-react";
+import { useSelector } from "react-redux";
+import classes from "./GrantAccessForm.module.css";
+import { getUserInfo } from "@/store/slices/userSlice";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/services/firebase";
 
 export function GrantAccessForm() {
-  const [inputEmail, setInputEmail] = useState('');
+  const [inputEmail, setInputEmail] = useState("");
   const [emails, setEmails] = useState<string[]>([]);
   const [emailError, setEmailError] = useState<string | null>(null);
+
+  const userInfo = useSelector(getUserInfo);
 
   // Custom email validation function
   const validateEmail = (email: string) => {
@@ -16,20 +22,20 @@ export function GrantAccessForm() {
 
   const handleAddEmail = () => {
     if (emails.length >= 12) {
-      setEmailError('You can only add up to 12 email addresses.');
+      setEmailError("You can only add up to 12 email addresses.");
       return;
     }
 
     if (validateEmail(inputEmail)) {
       if (!emails.includes(inputEmail)) {
         setEmails([...emails, inputEmail]);
-        setInputEmail(''); // Reset input field after adding
+        setInputEmail(""); // Reset input field after adding
         setEmailError(null); // Clear any existing error message
       } else {
-        setEmailError('Email already added.');
+        setEmailError("Email already added.");
       }
     } else {
-      setEmailError('Please enter a valid email address.');
+      setEmailError("Please enter a valid email address.");
     }
   };
 
@@ -37,13 +43,18 @@ export function GrantAccessForm() {
     setEmails(emails.filter((email) => email !== emailToRemove));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (emails.length > 0) {
-      console.log('Emails to grant access:', emails);
-      // Proceed with form submission logic, e.g., send emails to the backend
+      for (let email of emails) {
+        await addDoc(collection(db, "employees"), {
+          associatedOwnerId: userInfo.userId,
+          email,
+          name: email,
+        });
+      }
     } else {
-      alert('Please add at least one valid email address.');
+      alert("Please add at least one valid email address.");
     }
   };
 
@@ -52,9 +63,9 @@ export function GrantAccessForm() {
       <div className={classes.logo}></div>
       <Text className={classes.title}>Grant Access to Your Team</Text>
       <Text className={classes.description}>
-        Please enter the email addresses of up to 12 employees you wish to grant access to your
-        subscription. Ensure each email address is correct and associated with an active employee
-        account.
+        Please enter the email addresses of up to 12 employees you wish to grant
+        access to your subscription. Ensure each email address is correct and
+        associated with an active employee account.
       </Text>
 
       <form onSubmit={handleSubmit} className={classes.form}>
@@ -67,7 +78,7 @@ export function GrantAccessForm() {
             className={classes.input}
             radius="md"
             error={emailError} // Display error message
-            onKeyDown={(e) => e.key === 'Enter' && e.preventDefault()} // Prevent form submission on Enter key press
+            onKeyDown={(e) => e.key === "Enter" && e.preventDefault()} // Prevent form submission on Enter key press
             disabled={emails.length >= 12} // Disable input if 12 emails have been added
           />
           <Button

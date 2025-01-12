@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA1wsBytaA_dPxXVIta6_bLZlaQSlYl7SQ",
+  apiKey: "AIzaSyBlNnlOMbIpqU56ajlh7uXoo7Gxs5jXRAM",
   authDomain: "needful-6cfc6.firebaseapp.com",
   databaseURL: "https://needful-6cfc6-default-rtdb.firebaseio.com",
   projectId: "needful-6cfc6",
@@ -13,4 +14,5 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
 export const auth = getAuth(app);

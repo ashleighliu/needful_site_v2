@@ -37,7 +37,10 @@ export function SignUp() {
           onClick={() => navigate("/")}
         />
         <Stepper active={active} onStepClick={setActive} size="sm" m={20}>
-          <Stepper.Step description="Personal Information">
+          <Stepper.Step
+            description="Personal Information"
+            allowStepSelect={false}
+          >
             <Box>
               <Radio.Group value={type} onChange={setType}>
                 <Center>
@@ -82,17 +85,20 @@ export function SignUp() {
               </Center>
             </Box>
           </Stepper.Step>
-          <Stepper.Step description="Email Confirmation">
+          <Stepper.Step
+            description="Email Confirmation"
+            allowStepSelect={false}
+          >
             <Center>
               <EmailConfirmation next={next} />
             </Center>
           </Stepper.Step>
-          <Stepper.Step description="Set Password">
+          <Stepper.Step description="Set Password" allowStepSelect={false}>
             <Center>
               <SetPassword next={next} />
             </Center>
           </Stepper.Step>
-          <Stepper.Step description="Payment Details">
+          <Stepper.Step description="Payment Details" allowStepSelect={false}>
             <Center>
               <PaymentDetails />
             </Center>
