@@ -18,37 +18,98 @@ export function Contact() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const [fieldErrors, setFieldErrors] = useState({
+    user_name: "",
+    user_email: "",
+    inquiry_type: "",
+    is_existing_customer: "",
+    message: "",
+  });
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const { name, value } = e.target;
+
+    // Ensure 'name' is one of the valid keys of fieldErrors
+    setFieldErrors((prevErrors) => ({
+      ...prevErrors,
+      [name as keyof typeof prevErrors]: value.trim()
+        ? ""
+        : prevErrors[name as keyof typeof prevErrors], // Clear error if field has value
+    }));
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Initialize field-specific error states
+    const errors = {
+      user_name: "",
+      user_email: "",
+      inquiry_type: "",
+      is_existing_customer: "",
+      message: "",
+    };
+
+    // Validate each field
+    if (!formData.user_name.trim()) {
+      errors.user_name = "Name is required.";
+    }
+    if (!formData.user_email.trim()) {
+      errors.user_email = "Email is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.user_email)) {
+      errors.user_email = "Invalid email format.";
+    }
+    if (!inquiryType) {
+      errors.inquiry_type = "Inquiry type is required.";
+    }
+    if (!isExistingCustomer) {
+      errors.is_existing_customer = "Customer status is required.";
+    }
+    if (!formData.message.trim()) {
+      errors.message = "Message is required.";
+    }
+
+    // Check if there are any errors
+    if (Object.values(errors).some((error) => error !== "")) {
+      setFieldErrors(errors);
+      return;
+    }
+
+    // Clear field-specific errors on successful validation
+    setFieldErrors({
+      user_name: "",
+      user_email: "",
+      inquiry_type: "",
+      is_existing_customer: "",
+      message: "",
+    });
+
     setIsSubmitting(true);
 
     emailjs
       .send(
-        "service_n85uype", // Replace with your EmailJS service ID
-        "template_mv2ncmi", // Replace with your EmailJS template ID
+        "service_z0dcp0f", // Replace with your EmailJS service ID
+        "template_y6g4pch", // Replace with your EmailJS template ID
         {
-          from_name: formData.user_name, // Map to {{from_name}} in your template
-          from_email: formData.user_email, // Map to {{from_email}} in your template
+          from_name: formData.user_name,
+          from_email: formData.user_email,
           phone_number: formData.phone_number,
-          message: formData.message, // Map to {{message}} in your template
-          inquiry_type: inquiryType, // Additional field
-          is_existing_customer: isExistingCustomer, // Additional field
+          message: formData.message,
+          inquiry_type: inquiryType,
+          is_existing_customer: isExistingCustomer,
         },
-        "GDBpND8iESVP9uYQp" // Replace with your EmailJS public key
+        "jZMOwmyN-HjBBoCP4" // Replace with your EmailJS public key
       )
       .then(
         () => {
           setSuccessMessage("Your message has been sent successfully!");
-          setErrorMessage("");
           setFormData({
             user_name: "",
             user_email: "",
@@ -59,7 +120,6 @@ export function Contact() {
           setIsExistingCustomer(null);
         },
         (error) => {
-          setErrorMessage("Failed to send your message. Please try again.");
           console.error("Error:", error);
         }
       )
@@ -174,6 +234,19 @@ export function Contact() {
             onChange={handleChange}
             radius="sm"
             className={classes.formField}
+            error={
+              fieldErrors.user_name && (
+                <Text
+                  style={{
+                    marginTop: "8px",
+                    color: "red",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  {fieldErrors.user_name}
+                </Text>
+              )
+            }
           />
           <TextInput
             placeholder="Email"
@@ -183,6 +256,19 @@ export function Contact() {
             onChange={handleChange}
             radius="sm"
             className={classes.formField}
+            error={
+              fieldErrors.user_email && (
+                <Text
+                  style={{
+                    marginTop: "8px",
+                    color: "red",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  {fieldErrors.user_email}
+                </Text>
+              )
+            }
           />
           <TextInput
             placeholder="Phone Number (Optional)"
@@ -196,17 +282,57 @@ export function Contact() {
             placeholder="What is the nature of your inquiry?"
             data={["General Inquiry", "Support", "Partnership", "Other"]}
             value={inquiryType}
-            onChange={setInquiryType}
+            onChange={(value) => {
+              setInquiryType(value);
+              setFieldErrors((prevErrors) => ({
+                ...prevErrors,
+                inquiry_type: value ? "" : prevErrors.inquiry_type,
+              }));
+            }}
             radius="sm"
             className={classes.formField}
+            error={
+              fieldErrors.inquiry_type && (
+                <Text
+                  style={{
+                    marginTop: "8px",
+                    color: "red",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  {fieldErrors.inquiry_type}
+                </Text>
+              )
+            }
           />
           <Select
             placeholder="Are you an existing Needful customer?"
             data={["Yes", "No"]}
             value={isExistingCustomer}
-            onChange={setIsExistingCustomer}
+            onChange={(value) => {
+              setIsExistingCustomer(value);
+              setFieldErrors((prevErrors) => ({
+                ...prevErrors,
+                is_existing_customer: value
+                  ? ""
+                  : prevErrors.is_existing_customer,
+              }));
+            }}
             radius="sm"
             className={classes.formField}
+            error={
+              fieldErrors.is_existing_customer && (
+                <Text
+                  style={{
+                    marginTop: "8px",
+                    color: "red",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  {fieldErrors.is_existing_customer}
+                </Text>
+              )
+            }
           />
           <Textarea
             placeholder="Message"
@@ -215,7 +341,21 @@ export function Contact() {
             onChange={handleChange}
             radius="sm"
             className={classes.textareaField}
+            error={
+              fieldErrors.message && (
+                <Text
+                  style={{
+                    marginTop: "8px",
+                    color: "red",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  {fieldErrors.message}
+                </Text>
+              )
+            }
           />
+
           <Button
             type="submit"
             radius="sm"
