@@ -24,6 +24,13 @@
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: auto; /* Adjust height dynamically */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures content is evenly spaced */
+  padding: 10px; /* Reduce padding */
+  max-width: 95%;
+  margin: 0 15px; /* Add more margin to the sides */
 }
 
 .blogCard:hover {
@@ -33,19 +40,32 @@
 
 .blogImage {
   width: 100%;
-  height: 180px;
+  height: 140px; /* Shorter height for the image */
   object-fit: cover;
+  border-bottom: 1px solid #ddd; /* Optional: separates image from text */
 }
 
 .blogTitle {
   font-size: 1.2em;
   font-weight: bold;
-  margin: 15px 10px 10px;
+  margin: 10px 0 5px;
   color: #404040;
 }
 
 .blogExcerpt {
   font-size: 0.9em;
   color: #555;
-  margin: 0 10px 15px;
+  margin: 0 0 10px;
+  line-height: 1.4;
+}
+
+
+/* New styles for grid layout and responsiveness */
+.blogContainer .mantine-Grid-root {
+  row-gap: 30px; /* Add space between rows */
+}
+
+.blogContainer .mantine-Grid-col {
+  display: flex;
+  align-items: stretch; /* Ensure all cards align in height */
 }

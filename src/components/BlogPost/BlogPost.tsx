@@ -29,14 +29,18 @@ export function BlogPost() {
           {entry.title}
         </Title>
         <Text className={classes.postDate} color="dimmed">
-          Published: December 22, 2024
+          Published: January 15, 2025
         </Text>
       </header>
       <Image className={classes.postImage} src={entry.image} />
       <article className={classes.postContentContainer}>
-        <Text size="lg" className={classes.postContent}>
-          {entry.content}
-        </Text>
+        {entry.content.split("\n").map((line, index) => {
+          return (
+            <Text key={index} className={classes.postContent}>
+              {line}
+            </Text>
+          );
+        })}
       </article>
 
       <section className={classes.moreBlogsSection}>
