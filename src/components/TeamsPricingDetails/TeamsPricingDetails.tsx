@@ -103,6 +103,13 @@ export function TeamsPricingDetails() {
             ) => {
               (e.target as HTMLSpanElement).style.textDecoration = "none";
             }}
+            onClick={() => {
+              window.open(
+                "https://app.salesbricks.com/products/needful-subscription/new?sku=4f7f18f9-7952-4b73-a543-b8bb42a46a61&locked=yes",
+                "_blank",
+                "noopener,noreferrer"
+              );
+            }}
           >
             Get a custom rate for your organization!
             <IconArrowRight

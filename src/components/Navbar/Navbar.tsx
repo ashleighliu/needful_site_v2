@@ -40,11 +40,13 @@ export function Navbar() {
             style={hoveredTab === "home" ? tabHoverStyle : tabStyle}
             onMouseEnter={() => setHoveredTab("home")}
             onMouseLeave={() => setHoveredTab(null)}
+            onClick={() => (window.location.href = "https://needful.site")}
             c="#555555"
             visibleFrom="md"
           >
             Home
           </Text>
+
           <Text
             style={hoveredTab === "blog" ? tabHoverStyle : tabStyle}
             onMouseEnter={() => setHoveredTab("blog")}
@@ -58,7 +60,7 @@ export function Navbar() {
             Blog
           </Text>
 
-          <Text
+          {/* <Text
             style={hoveredTab === "about" ? tabHoverStyle : tabStyle}
             onMouseEnter={() => setHoveredTab("about")}
             onMouseLeave={() => setHoveredTab(null)}
@@ -66,7 +68,7 @@ export function Navbar() {
             visibleFrom="md"
           >
             About
-          </Text>
+          </Text> */}
           <Text
             style={hoveredTab === "contact" ? tabHoverStyle : tabStyle}
             onMouseEnter={() => setHoveredTab("contact")}

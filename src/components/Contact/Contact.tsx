@@ -11,6 +11,7 @@ export function Contact() {
   const [formData, setFormData] = useState({
     user_name: "",
     user_email: "",
+    phone_number: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,20 +33,28 @@ export function Contact() {
 
     emailjs
       .send(
-        "service_z0dcp0f", // Replace with your EmailJS service ID
-        "template_y6g4pch", // Replace with your EmailJS template ID
+        "service_n85uype", // Replace with your EmailJS service ID
+        "template_mv2ncmi", // Replace with your EmailJS template ID
         {
-          ...formData,
-          inquiry_type: inquiryType,
-          is_existing_customer: isExistingCustomer,
+          from_name: formData.user_name, // Map to {{from_name}} in your template
+          from_email: formData.user_email, // Map to {{from_email}} in your template
+          phone_number: formData.phone_number,
+          message: formData.message, // Map to {{message}} in your template
+          inquiry_type: inquiryType, // Additional field
+          is_existing_customer: isExistingCustomer, // Additional field
         },
-        "jZMOwmyN-HjBBoCP4" // Replace with your EmailJS public key
+        "GDBpND8iESVP9uYQp" // Replace with your EmailJS public key
       )
       .then(
         () => {
           setSuccessMessage("Your message has been sent successfully!");
           setErrorMessage("");
-          setFormData({ user_name: "", user_email: "", message: "" });
+          setFormData({
+            user_name: "",
+            user_email: "",
+            phone_number: "",
+            message: "",
+          });
           setInquiryType(null);
           setIsExistingCustomer(null);
         },
@@ -70,23 +79,87 @@ export function Contact() {
           </Text>
           <div className={classes.emailSection}>
             <Text className={classes.sectionTitle}>Email</Text>
-            <Text fz="md" className={classes.emailSectionText}>
-              needful@email.com
+            <Text
+              component="a"
+              href="mailto:admin@needful.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              fz="md"
+              className={classes.emailSectionText}
+              style={{ textDecoration: "underline", color: "inherit" }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#00A884")}
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.textDecoration = "none")
+              }
+            >
+              admin@needful.site
             </Text>
           </div>
           <div className={classes.socialsSection}>
             <Text className={classes.sectionTitle}>Socials</Text>
-            <Text fz="md" className={classes.socialsSectionText}>
-              <a href="https://www.instagram.com">Instagram</a>
+            <Text
+              fz="md"
+              className={classes.socialsSectionText}
+              style={{ marginBottom: "8px" }}
+            >
+              <a
+                href="https://www.instagram.com/needful.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#00A884")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "inherit")}
+              >
+                Instagram
+              </a>
             </Text>
-            <Text fz="md" className={classes.socialsSectionText}>
-              <a href="https://www.twitter.com">Twitter</a>
+            <Text
+              fz="md"
+              className={classes.socialsSectionText}
+              style={{ marginBottom: "8px" }}
+            >
+              <a
+                href="https://twitter.com/needfulapp/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#00A884")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "inherit")}
+              >
+                Twitter
+              </a>
             </Text>
-            <Text fz="md" className={classes.socialsSectionText}>
-              <a href="https://www.facebook.com">Facebook</a>
+            <Text
+              fz="md"
+              className={classes.socialsSectionText}
+              style={{ marginBottom: "8px" }}
+            >
+              <a
+                href="https://www.facebook.com/needfulapp/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#00A884")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "inherit")}
+              >
+                Facebook
+              </a>
             </Text>
-            <Text fz="md" className={classes.socialsSectionText}>
-              <a href="https://www.linkedin.com">LinkedIn</a>
+            <Text
+              fz="md"
+              className={classes.socialsSectionText}
+              style={{ marginBottom: "8px" }}
+            >
+              <a
+                href="https://www.linkedin.com/company/needfulapp/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ textDecoration: "underline", color: "inherit" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#00A884")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "inherit")}
+              >
+                LinkedIn
+              </a>
             </Text>
           </div>
         </div>
@@ -107,6 +180,14 @@ export function Contact() {
             type="email"
             name="user_email"
             value={formData.user_email}
+            onChange={handleChange}
+            radius="sm"
+            className={classes.formField}
+          />
+          <TextInput
+            placeholder="Phone Number (Optional)"
+            name="phone_number"
+            value={formData.phone_number}
             onChange={handleChange}
             radius="sm"
             className={classes.formField}
