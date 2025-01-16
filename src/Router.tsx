@@ -40,6 +40,14 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: "/signup/continue",
+    element: (
+      <PublicRoute>
+        <SignUpPage />
+      </PublicRoute>
+    ),
+  },
+  {
     path: "/welcome",
     element: (
       <PublicRoute>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   Group,
   Text,
@@ -26,10 +26,11 @@ type SignUpFormFields = {
 
 type IndividualSignUpProps = {
   next: () => void;
+  setEmail: Dispatch<SetStateAction<string>>;
 };
 
 export function IndividualSignUp(props: IndividualSignUpProps) {
-  const { next } = props;
+  const { next, setEmail } = props;
 
   const [gender, setGender] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -96,6 +97,7 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
           placeholder="Email Address"
           key={form.key("email")}
           {...form.getInputProps("email")}
+          onChange={(event) => setEmail(event.currentTarget.value)}
           variant="unstyled"
           error={
             formError

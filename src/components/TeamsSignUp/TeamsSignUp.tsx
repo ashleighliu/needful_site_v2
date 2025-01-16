@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   Group,
   Text,
@@ -11,16 +11,17 @@ import {
   Select,
   NumberInput,
   Box,
-} from '@mantine/core';
-import classes from './TeamsSignUp.module.css';
-import { useNavigate } from 'react-router-dom';
+} from "@mantine/core";
+import classes from "./TeamsSignUp.module.css";
+import { useNavigate } from "react-router-dom";
 
 type TeamsSignUpProps = {
   next: () => void;
+  setEmail: Dispatch<SetStateAction<string>>;
 };
 
 export function TeamsSignUp(props: TeamsSignUpProps) {
-  const { next } = props;
+  const { next, setEmail } = props;
 
   const [size, setSize] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export function TeamsSignUp(props: TeamsSignUpProps) {
             radius="sm"
             styles={{
               input: {
-                height: '50px',
+                height: "50px",
               },
             }}
             w={250}
@@ -46,27 +47,57 @@ export function TeamsSignUp(props: TeamsSignUpProps) {
             radius="sm"
             styles={{
               input: {
-                height: '50px',
+                height: "50px",
               },
             }}
             w={250}
           />
         </Grid.Col>
       </Grid>
-      <Fieldset legend={<Text size="xs">Company Name</Text>} radius="sm" pt={0} pb={10} mt={5}>
+      <Fieldset
+        legend={<Text size="xs">Company Name</Text>}
+        radius="sm"
+        pt={0}
+        pb={10}
+        mt={5}
+      >
         <TextInput placeholder="Company Name" variant="unstyled" />
       </Fieldset>
-      <Fieldset legend={<Text size="xs">Business Email</Text>} radius="sm" pt={0} pb={10} mt={5}>
-        <TextInput placeholder="Business Email" variant="unstyled" />
+      <Fieldset
+        legend={<Text size="xs">Business Email</Text>}
+        radius="sm"
+        pt={0}
+        pb={10}
+        mt={5}
+      >
+        <TextInput
+          placeholder="Business Email"
+          variant="unstyled"
+          onChange={(event) => setEmail(event.currentTarget.value)}
+        />
       </Fieldset>
       <Grid align="flex-end" mt={5}>
         <Grid.Col span={6}>
-          <Fieldset legend={<Text size="xs">Country</Text>} radius="sm" pt={0} pb={10}>
-            <Select placeholder="Country" data={['Canada', 'United States']} variant="unstyled" />
+          <Fieldset
+            legend={<Text size="xs">Country</Text>}
+            radius="sm"
+            pt={0}
+            pb={10}
+          >
+            <Select
+              placeholder="Country"
+              data={["Canada", "United States"]}
+              variant="unstyled"
+            />
           </Fieldset>
         </Grid.Col>
         <Grid.Col span={6}>
-          <Fieldset legend={<Text size="xs">Phone #</Text>} radius="sm" pt={0} pb={10}>
+          <Fieldset
+            legend={<Text size="xs">Phone #</Text>}
+            radius="sm"
+            pt={0}
+            pb={10}
+          >
             <NumberInput
               placeholder="Phone #"
               prefix="+1 "
@@ -108,24 +139,43 @@ export function TeamsSignUp(props: TeamsSignUpProps) {
         </Center>
       </Radio.Group>
 
-      {size === 'more' && (
+      {size === "more" && (
         <Box mt={10} w={500}>
           <Text fz="sm" fw={600}>
-            To proceed with your sign-up,{' '}
-            <Text<'a'> c="#00A884" className={classes.link} component="a" fz="sm">
+            To proceed with your sign-up,{" "}
+            <Text<"a">
+              c="#00A884"
+              className={classes.link}
+              component="a"
+              fz="sm"
+            >
               please contact our sales team for assistance.
             </Text>
           </Text>
-          <Text fz="sm">Our team will help tailor the best solution for your organization.</Text>
+          <Text fz="sm">
+            Our team will help tailor the best solution for your organization.
+          </Text>
         </Box>
       )}
       <Center>
-        <Button disabled={size === 'more'} mt={20} radius="sm" fullWidth onClick={next}>
+        <Button
+          disabled={size === "more"}
+          mt={20}
+          radius="sm"
+          fullWidth
+          onClick={next}
+        >
           CONTINUE
         </Button>
       </Center>
       <Center>
-        <Button mt={10} radius="sm" variant="outline" fullWidth onClick={() => navigate('/login')}>
+        <Button
+          mt={10}
+          radius="sm"
+          variant="outline"
+          fullWidth
+          onClick={() => navigate("/login")}
+        >
           BACK TO LOGIN
         </Button>
       </Center>
