@@ -3,9 +3,15 @@ import CheckEmail from "../../assets/CheckEmail.svg";
 import AppStore from "../../assets/AppStore.svg";
 import GooglePlay from "../../assets/GooglePlay.svg";
 
-export function VerifyEmail() {
+type VerifyEmailProps = {
+  signup?: boolean;
+};
+
+export function VerifyEmail(props: VerifyEmailProps) {
+  const { signup } = props;
+
   return (
-    <Box mt={200}>
+    <Box mt={signup ? 0 : 200}>
       <Center>
         <Image src={CheckEmail} w={100} />
       </Center>
