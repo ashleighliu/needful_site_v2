@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Grid, Image, Title, Text, Box } from "@mantine/core";
 import MeditatingWoman from "../../assets/MeditatingWoman.jpg";
+import Blog1 from "../../assets/Blog1.png";
 import classes from "./Blog.module.css";
 
 export const blogEntries = [
@@ -98,7 +99,7 @@ We’re excited to help create a world where great ideas are deliberately cultiv
 With Needful, you’re not just meditating—you’re building a future shaped by your best moments of insight.  
 
 Try Needful today.`,
-    image: MeditatingWoman,
+    image: Blog1,
   },
   {
     id: 2,

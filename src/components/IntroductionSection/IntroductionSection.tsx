@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Box, Button, Center, Flex, Image, Text, Title } from "@mantine/core";
+import { useMediaQuery } from "@mantine/hooks";
 import Features from "../../assets/Features.svg";
 import NeedfulExplainerVideo from "../../assets/NeedfulExplainerVideo.mp4";
 import ExplainerVideoThumbnail from "../../assets/ExplainerVideoThumbnail.svg";
@@ -68,13 +69,22 @@ export function IntroductionSection() {
       <Flex justify="center" align="center" wrap="wrap" gap="xl">
         <Box className={classes.segment}>
           <Center>
-            <video
-              className={classes.icon}
-              autoPlay
-              loop
-              muted
-              src={NeedfulIconAnimated}
-            />
+            {/* Conditionally render the video or gif based on screen size */}
+            {useMediaQuery("(max-width: 768px)") ? (
+              <img
+                className={classes.icon}
+                src={AnimatedNeedfulGif}
+                alt="Needful Animated Gif"
+              />
+            ) : (
+              <video
+                className={classes.icon}
+                autoPlay
+                loop
+                muted
+                src={NeedfulIconAnimated}
+              />
+            )}
           </Center>
         </Box>
         <Box className={classes.segment}>

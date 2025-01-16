@@ -98,6 +98,17 @@ export function Taskbook() {
     }
   };
 
+  const handleDeleteTask = async (id: string) => {
+    try {
+      const updatedTasks = userTasks.filter(
+        (task: TaskEntry) => task.id !== id
+      ); // Specify type for task
+      await updateTasks(updatedTasks);
+    } catch (error) {
+      console.log("Error deleting task:", error);
+    }
+  };
+
   const handleDueDateChange = async (id: string, dueDate: string | null) => {
     const updatedTasks = userTasks.map((t: TaskEntry) =>
       t.id === id ? { ...t, dueDate } : t
@@ -193,41 +204,6 @@ export function Taskbook() {
     };
   }
 
-  // function addTask(event: KeyboardEvent) {
-  //   if (event.code !== "Enter") {
-  //     return;
-  //   }
-  //   const input = event.target as HTMLInputElement;
-  //   if (input.value === "") {
-  //     return;
-  //   }
-  //   let exists = false;
-  //   tasks.forEach((task) => {
-  //     if (task.task === input.value && task.label === activeTag) {
-  //       exists = true;
-  //       return;
-  //     }
-  //   });
-  //   if (exists) {
-  //     return;
-  //   }
-  //   const label = activeTag === "All" ? "Untagged" : activeTag;
-  //   const task = input.value;
-  //   setTasks([
-  //     ...tasks,
-  //     {
-  //       label,
-  //       task,
-  //       hasAudio: false,
-  //       completed: false,
-  //       audioPath: null,
-  //       dueDate: null,
-  //       duration: null,
-  //     },
-  //   ]);
-  //   input.value = "";
-  // }
-
   const [opened, { toggle }] = useDisclosure(false);
 
   return (
@@ -309,125 +285,36 @@ export function Taskbook() {
           </Flex>
 
           <Flex className={classes.title} mr={44} gap={12}>
-            {activeTag === "Archived" ? (
-              <Menu shadow="md" width={200}>
-                <Menu.Target>
-                  <ActionIcon size="md" p={3} variant="default" radius="lg">
-                    <IconAlignCenter
-                      style={{ width: rem(30), height: rem(30) }}
-                    />
-                  </ActionIcon>
-                </Menu.Target>
-                <Menu.Dropdown>
-                  {tags.map((tag) => {
-                    if (tag.label === "All") return null;
-                    return (
-                      <Menu.Item
-                        leftSection={<CustomIcon icon={tag.icon} />}
-                        key={tag.label}
-                      >
-                        {tag.label}
-                      </Menu.Item>
-                    );
-                  })}
-                </Menu.Dropdown>
-              </Menu>
-            ) : null}
-
-            <Menu shadow="md" width={200}>
-              <Menu.Target>
-                <ActionIcon size="md" p={3} variant="default" radius="lg">
-                  <IconShare2 style={{ width: rem(30), height: rem(30) }} />
-                </ActionIcon>
-              </Menu.Target>
-              <Menu.Dropdown>
-                <Menu.Item leftSection={<IconStar size={20} />}>
-                  Add to favorites
-                </Menu.Item>
-                <Menu.Item leftSection={<IconArchive size={20} />}>
-                  Archive
-                </Menu.Item>
-                <Menu.Divider />
-                <Menu.Item leftSection={<IconTrash size={20} />} color="red">
-                  Delete
-                </Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
-
-            <Menu shadow="md" width={200}>
-              <Menu.Target>
-                <ActionIcon size="md" p={3} variant="default" radius="lg">
-                  <IconDots style={{ width: rem(30), height: rem(30) }} />
-                </ActionIcon>
-              </Menu.Target>
-              <Menu.Dropdown>
-                <Menu.Item leftSection={<IconBrandAsana size={20} />}>
-                  Import to Asana
-                </Menu.Item>
-                <Menu.Item leftSection={<IconBrandNotion size={20} />}>
-                  Import to Notion
-                </Menu.Item>
-                <Menu.Divider />
-                <Menu.Item leftSection={<IconShare size={20} />}>
-                  Share with Team
-                </Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
+            {/* Menu buttons */}
           </Flex>
         </Flex>
 
         <div className={classes.divider} />
         {userTasks.map((task: TaskEntry) => {
-          if (activeTag === "All") {
-            return (
-              <Task
-                task={task}
-                key={task.id}
-                handleDueDateChange={handleDueDateChange}
-                handleTaskValueChange={handleTaskValueChange}
-                handleTaskLabelChange={handleTaskLabelChange}
-                handleTaskCompleteChange={handleTaskCompleteChange}
-              />
-            );
-          }
-          if (activeTag === task.label || task.task === "") {
-            return (
-              <Task
-                task={task}
-                key={task.id}
-                handleDueDateChange={handleDueDateChange}
-                handleTaskValueChange={handleTaskValueChange}
-                handleTaskLabelChange={handleTaskLabelChange}
-                handleTaskCompleteChange={handleTaskCompleteChange}
-              />
-            );
-          }
-          if (activeTag === "Untagged" && !task.label) {
-            return (
-              <Task
-                task={task}
-                key={task.id}
-                handleDueDateChange={handleDueDateChange}
-                handleTaskValueChange={handleTaskValueChange}
-                handleTaskLabelChange={handleTaskLabelChange}
-                handleTaskCompleteChange={handleTaskCompleteChange}
-              />
-            );
-          }
           if (
-            activeTag === "Archived" &&
-            task.dueDate &&
-            new Date(task.dueDate) < new Date()
+            activeTag === "All" ||
+            activeTag === task.label ||
+            (activeTag === "Untagged" && !task.label) ||
+            (activeTag === "Archived" &&
+              task.dueDate &&
+              new Date(task.dueDate) < new Date())
           ) {
             return (
-              <Task
-                task={task}
+              <div
                 key={task.id}
-                handleDueDateChange={handleDueDateChange}
-                handleTaskValueChange={handleTaskValueChange}
-                handleTaskLabelChange={handleTaskLabelChange}
-                handleTaskCompleteChange={handleTaskCompleteChange}
-              />
+                className={classes.taskContainer}
+                style={{
+                  position: "relative",
+                }}
+              >
+                <Task
+                  task={task}
+                  handleDueDateChange={handleDueDateChange}
+                  handleTaskValueChange={handleTaskValueChange}
+                  handleTaskLabelChange={handleTaskLabelChange}
+                  handleTaskCompleteChange={handleTaskCompleteChange}
+                />
+              </div>
             );
           }
         })}

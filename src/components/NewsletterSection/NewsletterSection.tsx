@@ -23,6 +23,19 @@ export function NewsletterSection() {
     },
   });
 
+  // const handleSubmit = async (values: { email: string }) => {
+  //   if (!form.validate().hasErrors) {
+  //     const apiInstance = new SibApiV3Sdk.ContactsApi();
+
+  //     const createContact = new SibApiV3Sdk.CreateContact();
+
+  //     createContact.email = values.email;
+  //     createContact.listIds = [5];
+
+  //     apiInstance.createContact(createContact);
+  //   }
+  // };
+
   return (
     <Box className={classes.newsletter}>
       <Flex align="center" justify="center" wrap="wrap" gap={50}>
@@ -45,7 +58,6 @@ export function NewsletterSection() {
               <Group>
                 <TextInput
                   placeholder="Enter your email"
-                  key={form.key("email")}
                   {...form.getInputProps("email")}
                   className={classes.input}
                 />
