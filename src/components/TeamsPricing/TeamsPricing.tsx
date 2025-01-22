@@ -63,7 +63,7 @@ export function TeamsPricing() {
           <Box w={350}>
             <Advantage
               image={Lightbulb}
-              title="Culture Innovation"
+              title="Culture of Innovation"
               description="Create the optimal conditions for innovation by encouraging outside-the-box thinking"
             />
           </Box>
