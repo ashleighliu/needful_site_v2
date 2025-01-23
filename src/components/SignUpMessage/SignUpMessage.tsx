@@ -36,16 +36,14 @@ export function SignUpMessage(props: SignUpMessageProps) {
       {type && (
         <Box ml={10}>
           <Image src={Clipboard} h={120} w="auto" ml={10} mb={30} />
-          <Text c="#FFFFFF">
-            Get the full Needful meditation experience for
-          </Text>
+          <Text c="#FFFFFF">Get the Mindful Productivity experience for</Text>
           <Title mb={40} style={{ color: "#FFF492" }}>
             $0 today
           </Title>
           {type === "team" && (
             <Title order={3} mb={20} style={{ color: "#FFFFFF" }}>
-              Enjoy all features for $429.00 CAD per month, billed annually
-              after your 14-day trial.
+              Enjoy all features for $429.00 per month, billed annually after
+              your 14-day trial.
             </Title>
           )}
           <Stack>
