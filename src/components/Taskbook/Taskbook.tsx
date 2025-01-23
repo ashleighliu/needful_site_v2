@@ -47,6 +47,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setUserTasks, getUserTasks } from "../../store/slices/taskSlice";
 import { getUserInfo } from "../../store/slices/userSlice";
 import TaskService from "../../services/taskService";
+import { getCurrentDateFormatted } from "@/utils/dateFormatter";
 
 export function Taskbook() {
   const dispatch = useDispatch();
@@ -297,7 +298,7 @@ export function Taskbook() {
             (activeTag === "Untagged" && !task.label) ||
             (activeTag === "Archived" &&
               task.dueDate &&
-              new Date(task.dueDate) < new Date())
+              new Date(task.dueDate) < new Date(getCurrentDateFormatted()))
           ) {
             return (
               <div
