@@ -1,7 +1,6 @@
 import { Box, Button, Center, Flex, Image, Text, Title } from "@mantine/core";
 import CheckEmail from "../../assets/CheckEmail.svg";
-import AppStore from "../../assets/AppStore.svg";
-import GooglePlay from "../../assets/GooglePlay.svg";
+import { getAuth, sendSignInLinkToEmail } from "@firebase/auth";
 
 type VerifyEmailProps = {
   signup?: boolean;
@@ -9,6 +8,25 @@ type VerifyEmailProps = {
 
 export function VerifyEmail(props: VerifyEmailProps) {
   const { signup } = props;
+
+  const actionCodeSettings = {
+    // URL you want to redirect back to. The domain (www.example.com) for this
+    // URL must be in the authorized domains list in the Firebase Console.
+    url: signup
+      ? "http://www.needful.site/signup/continue"
+      : "http://www.needful.site/home",
+    // This must be true.
+    handleCodeInApp: true,
+  };
+
+  function sendLinkToEmail() {
+    const email = window.localStorage.getItem("emailForSignIn");
+    if (email == null) {
+      return;
+    }
+    const auth = getAuth();
+    sendSignInLinkToEmail(auth, email, actionCodeSettings);
+  }
 
   return (
     <Box mt={signup ? 0 : 200}>
@@ -35,6 +53,7 @@ export function VerifyEmail(props: VerifyEmailProps) {
             variant="filled"
             type="submit"
             style={{ width: "300px" }}
+            onClick={sendLinkToEmail}
           >
             Resend email
           </Button>

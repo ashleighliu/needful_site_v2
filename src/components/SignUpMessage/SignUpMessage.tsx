@@ -45,7 +45,7 @@ export function SignUpMessage(props: SignUpMessageProps) {
           {type === "team" && (
             <Title order={3} mb={20} style={{ color: "#FFFFFF" }}>
               Enjoy all features for $429.00 CAD per month, billed annually
-              after your 14-day trial. Cancel anytime.
+              after your 14-day trial.
             </Title>
           )}
           <Stack>
