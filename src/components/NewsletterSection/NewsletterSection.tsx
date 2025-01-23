@@ -23,18 +23,23 @@ export function NewsletterSection() {
     },
   });
 
-  // const handleSubmit = async (values: { email: string }) => {
-  //   if (!form.validate().hasErrors) {
-  //     const apiInstance = new SibApiV3Sdk.ContactsApi();
-
-  //     const createContact = new SibApiV3Sdk.CreateContact();
-
-  //     createContact.email = values.email;
-  //     createContact.listIds = [5];
-
-  //     apiInstance.createContact(createContact);
-  //   }
-  // };
+  const handleSubmit = async (values: { email: string }) => {
+    if (!form.validate().hasErrors) {
+      fetch("https://api.brevo.com/v3/contacts", {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "api-key":
+            "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",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          email: values.email,
+          listIds: [5],
+        }),
+      });
+    }
+  };
 
   return (
     <Box className={classes.newsletter}>
@@ -54,7 +59,7 @@ export function NewsletterSection() {
             <Text c="#555555" fw={600} mb={20} size="sm">
               Sign up to our newsletter
             </Text>
-            <form onSubmit={() => {}}>
+            <form onSubmit={form.onSubmit(handleSubmit)}>
               <Group>
                 <TextInput
                   placeholder="Enter your email"
