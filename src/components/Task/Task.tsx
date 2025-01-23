@@ -59,6 +59,7 @@ import BlackTag from "../../assets/BlackTag.svg";
 import WhiteTag from "../../assets/WhiteTag.svg";
 import Logo from "../../assets/Logo.svg";
 import TaskService from "@/services/taskService";
+import { getDateFormatted } from "@/utils/dateFormatter";
 
 // Define tags array
 export const tags: Tag[] = [
@@ -235,8 +236,8 @@ export function Task({
     }
   };
 
-  const onDueDateChange = (date: Date | null) => {
-    handleDueDateChange(task.id, date ? date.toISOString() : null);
+  const onDueDateChange = async (date: Date | null) => {
+    handleDueDateChange(task.id, date ? await getDateFormatted(date) : null);
     setDueDate(date);
   };
 

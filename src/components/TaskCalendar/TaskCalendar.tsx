@@ -34,6 +34,10 @@ import BlueTag from "../../assets/BlueTag.svg";
 import BlackTag from "../../assets/BlackTag.svg";
 import WhiteTag from "../../assets/WhiteTag.svg";
 import Logo from "../../assets/Logo.svg";
+import {
+  getCurrentDateFormatted,
+  getDateFormatted,
+} from "@/utils/dateFormatter";
 
 function isSameDay(d1: Date, d2: Date) {
   const y1 = d1.getFullYear();
@@ -58,10 +62,10 @@ export function TaskCalendar() {
   const userInfo = useSelector(getUserInfo);
   const userTasks = useSelector(getUserTasks);
 
-  const today = new Date().toISOString();
-  const tomorrow = new Date(
-    new Date().setDate(new Date().getDate() + 1)
-  ).toISOString();
+  const today = getCurrentDateFormatted();
+  const tomorrow = getDateFormatted(
+    new Date(new Date().setDate(new Date().getDate() + 1))
+  );
 
   const todayTasks = userTasks.filter(
     (userTask: TaskEntry) =>
@@ -265,12 +269,12 @@ export function TaskCalendar() {
                 }}
                 unstyled
                 onChange={(event) => setTaskValue(event.currentTarget.value)}
-                onKeyDown={(event) => {
+                onKeyDown={async (event) => {
                   if (event.key === "Enter") {
                     addTask(
                       Math.random().toString(36).substr(2, 9),
                       taskValue,
-                      currentDate.toISOString()
+                      await getDateFormatted(currentDate)
                     );
                   }
                 }}
