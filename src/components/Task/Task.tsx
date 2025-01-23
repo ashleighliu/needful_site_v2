@@ -47,6 +47,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import { DatePickerInput } from "@mantine/dates";
 import WaveSurfer from "wavesurfer.js";
+import { parseISO, startOfDay } from "date-fns";
 
 // Import assets
 import Wavelength from "../../assets/Wavelength.svg";
@@ -59,6 +60,7 @@ import BlackTag from "../../assets/BlackTag.svg";
 import WhiteTag from "../../assets/WhiteTag.svg";
 import Logo from "../../assets/Logo.svg";
 import TaskService from "@/services/taskService";
+import { getDateFormatted } from "@/utils/dateFormatter";
 
 // Define tags array
 export const tags: Tag[] = [
@@ -94,10 +96,11 @@ export function Task({
   const [checked, setChecked] = useState(task.completed);
   const [isPlaying, setIsPlaying] = useState(false);
   const [dueDate, setDueDate] = useState<Date | null>(
-    task.dueDate ? new Date(task.dueDate) : null
+    task.dueDate ? startOfDay(parseISO(task.dueDate)) : null
   );
   const [taskValue, setTaskValue] = useState(task.task);
-
+  console.log("$$$$$$$$$$$$$$$$$$$", task.dueDate);
+  console.log("###################", dueDate);
   // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const waveformRef = useRef<HTMLDivElement>(null);
@@ -235,8 +238,8 @@ export function Task({
     }
   };
 
-  const onDueDateChange = (date: Date | null) => {
-    handleDueDateChange(task.id, date ? date.toISOString() : null);
+  const onDueDateChange = async (date: Date | null) => {
+    handleDueDateChange(task.id, date ? await getDateFormatted(date) : null);
     setDueDate(date);
   };
 
