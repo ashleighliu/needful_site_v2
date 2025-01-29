@@ -37,7 +37,7 @@ export function SignUp() {
   const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be in the authorized domains list in the Firebase Console.
-    url: "http://www.needful.site/signup/continue",
+    url: "https://www.needful.site/signup/continue",
     // This must be true.
     handleCodeInApp: true,
   };
@@ -132,7 +132,7 @@ export function SignUp() {
           </Stepper.Step>
           <Stepper.Step description="Set Password" allowStepSelect={false}>
             <Center>
-              <SetPassword next={next} />
+              <SetPassword />
             </Center>
           </Stepper.Step>
           <Stepper.Step description="Payment Details" allowStepSelect={false}>

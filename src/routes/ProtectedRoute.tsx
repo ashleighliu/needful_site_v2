@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useSearchParams } from "react-router-dom";
 import {
   selectIsLoggedIn,
   selectIsAuthLoading,
@@ -8,16 +8,22 @@ import { Loader, Center, Container } from "@mantine/core";
 import AuthService from "@/services/authService";
 import { setUserInfo } from "@/store/slices/userSlice";
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   isSignInWithEmailLink,
   signInWithEmailLink,
 } from "firebase/auth";
+import { doc, getDoc } from "@firebase/firestore";
+import { db } from "@/services/firebase";
+import { useState } from "react";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [complete, setComplete] = useState(false);
   const dispatch = useDispatch();
   const auth = getAuth();
   // Confirm the link is a sign-in with email link.
@@ -42,9 +48,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
       .then(async (userCredential) => {
         // Signed in
         const user = userCredential.user;
-        const userData = await AuthService.getCurrentUserData(
-          userCredential.user.uid
-        );
+        const userData = await AuthService.getCurrentUserData(user.uid);
         window.localStorage.removeItem("emailForSignIn");
         dispatch(setUserInfo(userData));
       })
@@ -54,11 +58,43 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
       });
   }
 
+  async function handlePaymentRedirect(signupId: string) {
+    const docRef = doc(db, "redirects", signupId);
+    try {
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        docSnap.data();
+        createUserWithEmailAndPassword(
+          auth,
+          docSnap.data().email,
+          docSnap.data().password
+        ).then(async (userCredential) => {
+          const userData = await AuthService.getCurrentUserData(
+            userCredential.user.uid
+          );
+          console.log(userData);
+          dispatch(setUserInfo(userData));
+          window.localStorage.removeItem("emailForSignIn");
+          searchParams.delete("signupId");
+          setSearchParams(searchParams);
+          setComplete(true);
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching document:", error);
+    }
+  }
+
+  const signupId = searchParams.get("signupId");
+  if (signupId) {
+    handlePaymentRedirect(signupId);
+  }
+
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const location = useLocation();
   const isAuthLoading = useSelector(selectIsAuthLoading);
 
-  if (isAuthLoading) {
+  if (isAuthLoading || (!complete && signupId)) {
     return (
       <Container style={{ minWidth: "100%", minHeight: "100vh" }}>
         <Center style={{ minHeight: "100vh" }}>

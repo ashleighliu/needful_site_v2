@@ -6,16 +6,24 @@ import {
   Fieldset,
   PasswordInput,
 } from "@mantine/core";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/services/firebase";
+import { FormEvent, useState } from "react";
 
-type SetPasswordProps = {
-  next: () => void;
-};
+export function SetPassword() {
+  const [password, setPassword] = useState("");
 
-export function SetPassword(props: SetPasswordProps) {
-  const { next } = props;
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const docRef = await addDoc(collection(db, "redirects"), {
+      email: window.localStorage.getItem("emailForSignIn"),
+      password,
+    });
+    window.location.href = `https://app.salesbricks.com/products/needful-subscription/new?sku=4f7f18f9-7952-4b73-a543-b8bb42a46a61&locked=yes&meta_signupId=${docRef.id}`;
+  };
 
   return (
-    <form onSubmit={() => {}}>
+    <form onSubmit={(event) => handleSubmit(event)}>
       <Center>
         <Box w={540}>
           <Text>Set your password</Text>
@@ -32,6 +40,8 @@ export function SetPassword(props: SetPasswordProps) {
           <PasswordInput
             mt={10}
             w={500}
+            value={password}
+            onChange={(event) => setPassword(event.currentTarget.value)}
             styles={{
               input: {
                 border: "none",
@@ -60,14 +70,7 @@ export function SetPassword(props: SetPasswordProps) {
         </Fieldset>
       </Center>
       <Center>
-        <Button
-          mt={20}
-          onClick={() => {
-            window.location.href =
-              "https://app.salesbricks.com/products/needful-subscription/new?sku=4f7f18f9-7952-4b73-a543-b8bb42a46a61&locked=yes";
-          }}
-          w={540}
-        >
+        <Button mt={20} type="submit" w={540}>
           CONTINUE
         </Button>
       </Center>
