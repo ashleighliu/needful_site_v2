@@ -26,11 +26,12 @@ type SignUpFormFields = {
 
 type IndividualSignUpProps = {
   next: () => void;
+  email: string;
   setEmail: Dispatch<SetStateAction<string>>;
 };
 
 export function IndividualSignUp(props: IndividualSignUpProps) {
-  const { next, setEmail } = props;
+  const { next, email, setEmail } = props;
 
   const [gender, setGender] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -97,6 +98,7 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
           placeholder="Email Address"
           key={form.key("email")}
           {...form.getInputProps("email")}
+          value={email}
           onChange={(event) => setEmail(event.currentTarget.value)}
           variant="unstyled"
           error={

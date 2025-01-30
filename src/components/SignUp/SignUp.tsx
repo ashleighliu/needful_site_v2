@@ -114,10 +114,14 @@ export function SignUp() {
               </Radio.Group>
               <Center>
                 {type === "team" && (
-                  <TeamsSignUp next={next} setEmail={setEmail} />
+                  <TeamsSignUp next={next} email={email} setEmail={setEmail} />
                 )}
                 {type === "individual" && (
-                  <IndividualSignUp next={next} setEmail={setEmail} />
+                  <IndividualSignUp
+                    next={next}
+                    email={email}
+                    setEmail={setEmail}
+                  />
                 )}
               </Center>
             </Box>

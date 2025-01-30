@@ -17,11 +17,12 @@ import { useNavigate } from "react-router-dom";
 
 type TeamsSignUpProps = {
   next: () => void;
+  email: string;
   setEmail: Dispatch<SetStateAction<string>>;
 };
 
 export function TeamsSignUp(props: TeamsSignUpProps) {
-  const { next, setEmail } = props;
+  const { next, email, setEmail } = props;
 
   const [size, setSize] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -73,6 +74,7 @@ export function TeamsSignUp(props: TeamsSignUpProps) {
         <TextInput
           placeholder="Business Email"
           variant="unstyled"
+          value={email}
           onChange={(event) => setEmail(event.currentTarget.value)}
         />
       </Fieldset>
