@@ -21,6 +21,7 @@ import { Calendar } from "rsuite";
 import { IconCalendar, IconCaretDownFilled } from "@tabler/icons-react";
 import { DatePickerInput } from "@mantine/dates";
 import "rsuite/Calendar/styles/index.css";
+import { parseISO, startOfDay } from "date-fns";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setUserTasks, getUserTasks } from "../../store/slices/taskSlice";
@@ -70,13 +71,13 @@ export function TaskCalendar() {
   const todayTasks = userTasks.filter(
     (userTask: TaskEntry) =>
       userTask.dueDate != null &&
-      isSameDay(new Date(today), new Date(userTask.dueDate))
+      isSameDay(new Date(today), startOfDay(parseISO(userTask.dueDate)))
   );
 
   const tomorrowTasks = userTasks.filter(
     (userTask: TaskEntry) =>
       userTask.dueDate != null &&
-      isSameDay(new Date(tomorrow), new Date(userTask.dueDate))
+      isSameDay(new Date(tomorrow), startOfDay(parseISO(userTask.dueDate)))
   );
 
   const getIcons = (label: string | null) => {
@@ -190,7 +191,8 @@ export function TaskCalendar() {
   function renderCell(date: Date) {
     const today = userTasks.filter(
       (userTask: TaskEntry) =>
-        userTask.dueDate != null && isSameDay(date, new Date(userTask.dueDate))
+        userTask.dueDate != null &&
+        isSameDay(date, startOfDay(parseISO(userTask.dueDate)))
     );
     const display = today.filter((_: TaskEntry, index: number) => index < 2);
 
