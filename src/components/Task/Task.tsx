@@ -99,8 +99,6 @@ export function Task({
     task.dueDate ? startOfDay(parseISO(task.dueDate)) : null
   );
   const [taskValue, setTaskValue] = useState(task.task);
-  console.log("$$$$$$$$$$$$$$$$$$$", task.dueDate);
-  console.log("###################", dueDate);
   // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const waveformRef = useRef<HTMLDivElement>(null);

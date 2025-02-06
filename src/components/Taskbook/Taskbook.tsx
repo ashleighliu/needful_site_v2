@@ -48,6 +48,7 @@ import { setUserTasks, getUserTasks } from "../../store/slices/taskSlice";
 import { getUserInfo } from "../../store/slices/userSlice";
 import TaskService from "../../services/taskService";
 import { getCurrentDateFormatted } from "@/utils/dateFormatter";
+import { parseISO, startOfDay, isEqual } from "date-fns";
 
 export function Taskbook() {
   const dispatch = useDispatch();
@@ -58,27 +59,66 @@ export function Taskbook() {
   const userInfo = useSelector(getUserInfo);
   const userTasks = useSelector(getUserTasks);
 
+  const [filteredTasks, setFilteredTasks] = useState(userTasks);
+
+  const filterTasks = (tasks, activeTag: string) => {
+    let tempTasks;
+    if (
+      activeTag !== "Archived" &&
+      activeTag !== "Untagged" &&
+      activeTag !== "All"
+    ) {
+      tempTasks = tasks.filter(
+        (task) =>
+          (task.label === activeTag &&
+            isEqual(
+              startOfDay(parseISO(task.dueDate)),
+              startOfDay(new Date())
+            )) ||
+          task.task === ""
+      );
+    }
+    if (activeTag === "All") {
+      tempTasks = tasks.filter(
+        (task) =>
+          isEqual(startOfDay(parseISO(task.dueDate)), startOfDay(new Date())) ||
+          task.task === ""
+      );
+    }
+    if (activeTag === "Untagged") {
+      tempTasks = tasks.filter(
+        (task) =>
+          (task.label === null &&
+            isEqual(
+              startOfDay(parseISO(task.dueDate)),
+              startOfDay(new Date())
+            )) ||
+          task.task === ""
+      );
+    }
+    if (activeTag === "Archived") {
+      tempTasks = tasks.filter(
+        (task) =>
+          startOfDay(parseISO(task.dueDate)).getTime() <
+            startOfDay(new Date()).getTime() ||
+          task.task === "" ||
+          task.dueDate === null
+      );
+    }
+    return tempTasks;
+  };
+
+  useEffect(() => {
+    const tempFilteredTasks = filterTasks(userTasks, activeTag);
+    setFilteredTasks(tempFilteredTasks);
+  }, [activeTag, userTasks]);
+
   const setCurrentTasks = async (email: string) => {
     const currentTasks = await TaskService.getCurrentTasks(email);
-    console.log(
-      "Here is the CurrentTasks =====================> ",
-      currentTasks
-    );
     if (currentTasks) {
-      // dispatch(setIsAudioDownloaded(false));
-
-      // currentTasks.map(async (item: Task) => {
-      //   if (item.hasAudio) {
-      //     await TaskService.downloadAudio(item.audioPath);
-      //   }
-      // });
-
-      // dispatch(setIsAudioDownloaded(true));
-
       dispatch(setUserTasks([...currentTasks]));
     } else {
       console.log("Failed to retrieve tasks");
-      // dispatch(setIsAudioDownloaded(true));
     }
   };
 
@@ -96,17 +136,6 @@ export function Taskbook() {
       dispatch(setUserTasks(currentTasks));
     } catch (error) {
       console.log("During update the task error occurred:", error);
-    }
-  };
-
-  const handleDeleteTask = async (id: string) => {
-    try {
-      const updatedTasks = userTasks.filter(
-        (task: TaskEntry) => task.id !== id
-      ); // Specify type for task
-      await updateTasks(updatedTasks);
-    } catch (error) {
-      console.log("Error deleting task:", error);
     }
   };
 
@@ -147,7 +176,6 @@ export function Taskbook() {
   };
 
   const handleTaskCompleteChange = async (id: string, completed: boolean) => {
-    console.log("========================>", completed);
     const updatedTasks = userTasks.map((t: TaskEntry) =>
       t.id === id ? { ...t, completed } : t
     );
@@ -291,33 +319,24 @@ export function Taskbook() {
         </Flex>
 
         <div className={classes.divider} />
-        {userTasks.map((task: TaskEntry) => {
-          if (
-            activeTag === "All" ||
-            activeTag === task.label ||
-            (activeTag === "Untagged" && !task.label) ||
-            (activeTag === "Archived" &&
-              task.dueDate &&
-              new Date(task.dueDate) < new Date(getCurrentDateFormatted()))
-          ) {
-            return (
-              <div
-                key={task.id}
-                className={classes.taskContainer}
-                style={{
-                  position: "relative",
-                }}
-              >
-                <Task
-                  task={task}
-                  handleDueDateChange={handleDueDateChange}
-                  handleTaskValueChange={handleTaskValueChange}
-                  handleTaskLabelChange={handleTaskLabelChange}
-                  handleTaskCompleteChange={handleTaskCompleteChange}
-                />
-              </div>
-            );
-          }
+        {filteredTasks.map((task: TaskEntry) => {
+          return (
+            <div
+              key={task.id}
+              className={classes.taskContainer}
+              style={{
+                position: "relative",
+              }}
+            >
+              <Task
+                task={task}
+                handleDueDateChange={handleDueDateChange}
+                handleTaskValueChange={handleTaskValueChange}
+                handleTaskLabelChange={handleTaskLabelChange}
+                handleTaskCompleteChange={handleTaskCompleteChange}
+              />
+            </div>
+          );
         })}
       </div>
     </>
