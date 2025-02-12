@@ -21,6 +21,17 @@ export function Footer() {
             <Center>
               <MediaButtons />
             </Center>
+            {/* Blog link - visible only in `sm` viewport */}
+            <Center hiddenFrom="md" mt="md">
+              <Text<"a">
+                c="#888888"
+                className={classes.link}
+                component="a"
+                href="/blog"
+              >
+                Discover the Needful Blog
+              </Text>
+            </Center>
           </Box>
         </Grid.Col>
         <Grid.Col span="auto" visibleFrom="md">
@@ -84,7 +95,6 @@ export function Footer() {
               >
                 Get a tour
               </Text>
-
               <Text<"a">
                 c="#888888"
                 className={classes.link}
