@@ -61,50 +61,57 @@ export function Taskbook() {
 
   const [filteredTasks, setFilteredTasks] = useState(userTasks);
 
-  const filterTasks = (tasks, activeTag: string) => {
-    let tempTasks;
+  const filterTasks = (tasks: TaskEntry[], activeTag: string): TaskEntry[] => {
+    let tempTasks: TaskEntry[] = [];
+
     if (
       activeTag !== "Archived" &&
       activeTag !== "Untagged" &&
       activeTag !== "All"
     ) {
       tempTasks = tasks.filter(
-        (task) =>
+        (task: TaskEntry) =>
           (task.label === activeTag &&
             isEqual(
-              startOfDay(parseISO(task.dueDate)),
+              startOfDay(parseISO(task.dueDate ?? "")),
               startOfDay(new Date())
             )) ||
           task.task === ""
       );
     }
+
     if (activeTag === "All") {
       tempTasks = tasks.filter(
-        (task) =>
-          isEqual(startOfDay(parseISO(task.dueDate)), startOfDay(new Date())) ||
-          task.task === ""
+        (task: TaskEntry) =>
+          isEqual(
+            startOfDay(parseISO(task.dueDate ?? "")),
+            startOfDay(new Date())
+          ) || task.task === ""
       );
     }
+
     if (activeTag === "Untagged") {
       tempTasks = tasks.filter(
-        (task) =>
-          (task.label === null &&
+        (task: TaskEntry) =>
+          (task.label === "" &&
             isEqual(
-              startOfDay(parseISO(task.dueDate)),
+              startOfDay(parseISO(task.dueDate ?? "")),
               startOfDay(new Date())
             )) ||
           task.task === ""
       );
     }
+
     if (activeTag === "Archived") {
       tempTasks = tasks.filter(
-        (task) =>
-          startOfDay(parseISO(task.dueDate)).getTime() <
+        (task: TaskEntry) =>
+          startOfDay(parseISO(task.dueDate ?? "")).getTime() <
             startOfDay(new Date()).getTime() ||
           task.task === "" ||
           task.dueDate === null
       );
     }
+
     return tempTasks;
   };
 
@@ -114,7 +121,8 @@ export function Taskbook() {
   }, [activeTag, userTasks]);
 
   const setCurrentTasks = async (email: string) => {
-    const currentTasks = await TaskService.getCurrentTasks(email);
+    const currentTasks: TaskEntry[] | null =
+      await TaskService.getCurrentTasks(email);
     if (currentTasks) {
       dispatch(setUserTasks([...currentTasks]));
     } else {
@@ -124,14 +132,12 @@ export function Taskbook() {
 
   const updateTasks = async (updatedTasks: TaskEntry[]) => {
     try {
-      const nonEmptyTasks = updatedTasks.filter(
-        (t) => t.task && t.task.trim() !== ""
+      const nonEmptyTasks: TaskEntry[] = updatedTasks.filter(
+        (t: TaskEntry) => t.task && t.task.trim() !== ""
       );
 
-      const currentTasks = await TaskService.updateTasks(
-        nonEmptyTasks,
-        userInfo.email
-      );
+      const currentTasks: TaskEntry[] =
+        (await TaskService.updateTasks(nonEmptyTasks, userInfo.email)) ?? [];
 
       dispatch(setUserTasks(currentTasks));
     } catch (error) {
@@ -140,11 +146,13 @@ export function Taskbook() {
   };
 
   const handleDueDateChange = async (id: string, dueDate: string | null) => {
-    const updatedTasks = userTasks.map((t: TaskEntry) =>
+    const updatedTasks: TaskEntry[] = userTasks.map((t: TaskEntry) =>
       t.id === id ? { ...t, dueDate } : t
     );
 
-    const updatedTask = updatedTasks.find((t: TaskEntry) => t.id === id);
+    const updatedTask: TaskEntry | undefined = updatedTasks.find(
+      (t: TaskEntry) => t.id === id
+    );
 
     if (updatedTask && updatedTask.task.trim() !== "") {
       await updateTasks(updatedTasks);
@@ -152,11 +160,13 @@ export function Taskbook() {
   };
 
   const handleTaskValueChange = async (id: string, taskValue: string) => {
-    const updatedTasks = userTasks.map((t: TaskEntry) =>
+    const updatedTasks: TaskEntry[] = userTasks.map((t: TaskEntry) =>
       t.id === id ? { ...t, task: taskValue } : t
     );
 
-    const updatedTask = updatedTasks.find((t: TaskEntry) => t.id === id);
+    const updatedTask: TaskEntry | undefined = updatedTasks.find(
+      (t: TaskEntry) => t.id === id
+    );
 
     if (updatedTask && updatedTask.task.trim() !== "") {
       await updateTasks(updatedTasks);
@@ -164,11 +174,13 @@ export function Taskbook() {
   };
 
   const handleTaskLabelChange = async (id: string, taskLabel: string) => {
-    const updatedTasks = userTasks.map((t: TaskEntry) =>
+    const updatedTasks: TaskEntry[] = userTasks.map((t: TaskEntry) =>
       t.id === id ? { ...t, label: taskLabel } : t
     );
 
-    const updatedTask = updatedTasks.find((t: TaskEntry) => t.id === id);
+    const updatedTask: TaskEntry | undefined = updatedTasks.find(
+      (t: TaskEntry) => t.id === id
+    );
 
     if (updatedTask && updatedTask.task.trim() !== "") {
       await updateTasks(updatedTasks);
@@ -176,11 +188,13 @@ export function Taskbook() {
   };
 
   const handleTaskCompleteChange = async (id: string, completed: boolean) => {
-    const updatedTasks = userTasks.map((t: TaskEntry) =>
+    const updatedTasks: TaskEntry[] = userTasks.map((t: TaskEntry) =>
       t.id === id ? { ...t, completed } : t
     );
 
-    const updatedTask = updatedTasks.find((t: TaskEntry) => t.id === id);
+    const updatedTask: TaskEntry | undefined = updatedTasks.find(
+      (t: TaskEntry) => t.id === id
+    );
 
     if (updatedTask && updatedTask.task.trim() !== "") {
       await updateTasks(updatedTasks);
@@ -319,25 +333,21 @@ export function Taskbook() {
         </Flex>
 
         <div className={classes.divider} />
-        {filteredTasks.map((task: TaskEntry) => {
-          return (
-            <div
-              key={task.id}
-              className={classes.taskContainer}
-              style={{
-                position: "relative",
-              }}
-            >
-              <Task
-                task={task}
-                handleDueDateChange={handleDueDateChange}
-                handleTaskValueChange={handleTaskValueChange}
-                handleTaskLabelChange={handleTaskLabelChange}
-                handleTaskCompleteChange={handleTaskCompleteChange}
-              />
-            </div>
-          );
-        })}
+        {filteredTasks.map((task: TaskEntry) => (
+          <div
+            key={task.id}
+            className={classes.taskContainer}
+            style={{ position: "relative" }}
+          >
+            <Task
+              task={task}
+              handleDueDateChange={handleDueDateChange}
+              handleTaskValueChange={handleTaskValueChange}
+              handleTaskLabelChange={handleTaskLabelChange}
+              handleTaskCompleteChange={handleTaskCompleteChange}
+            />
+          </div>
+        ))}
       </div>
     </>
   );
