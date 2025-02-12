@@ -8,6 +8,7 @@ import {
   Container,
   Group,
   Grid,
+  Button,
 } from "@mantine/core";
 import { blogEntries } from "../Blog/Blog";
 import classes from "./BlogPost.module.css";
@@ -48,6 +49,26 @@ export function BlogPost() {
           />
         ))}
       </article>
+      <Group justify="center" mt="xl">
+        <Button
+          fz="md"
+          radius="xl"
+          h={50}
+          w={250}
+          styles={{
+            root: {
+              backgroundColor: "#00A884", // Button background color
+              color: "white", // Text color
+              border: "none", // Remove outline
+              "&:hover": {
+                backgroundColor: "#005f00", // Darker green for hover effect
+              },
+            },
+          }}
+        >
+          Try for free
+        </Button>
+      </Group>
 
       <section className={classes.moreBlogsSection}>
         <Title order={2} className={classes.moreBlogsTitle}>
