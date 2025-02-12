@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&display=swap');
 
-/* src/pages/blog/blog.css */
+:root {
+  --font-primary: 'Urbanist', sans-serif;
+}
 
 .blog-container {
-  font-family: Arial, sans-serif;
+  font-family: var(--font-primary);
   color: #333;
   max-width: 800px;
   margin: 0 auto;
@@ -18,11 +21,13 @@
 .blog-header h1 {
   font-size: 2.5em;
   margin-bottom: 10px;
+  font-family: var(--font-primary);
 }
 
 .blog-header p {
   font-size: 1.2em;
   color: #555;
+  font-family: var(--font-primary);
 }
 
 .blog-main {
@@ -39,23 +44,28 @@
 .blog-post h2 {
   font-size: 1.8em;
   color: #222;
+  font-family: var(--font-primary);
 }
 
 .blog-post .post-date {
   font-size: 0.9em;
   color: #888;
   margin-bottom: 15px;
+  font-family: var(--font-primary);
 }
 
 .blog-post p {
   margin-bottom: 15px;
+  font-family: var(--font-primary);
 }
 
+/* Blog Footer */
 .blog-footer {
   text-align: center;
   margin-top: 40px;
   font-size: 0.9em;
   color: #777;
+  font-family: var(--font-primary);
 }
 
 /* Individual Blog Post Styles */
@@ -63,7 +73,7 @@
   margin: 0 auto;
   padding: 40px 20px;
   max-width: 1000px;
-  font-family: Arial, sans-serif;
+  font-family: var(--font-primary);
 }
 
 .postHeader {
@@ -75,12 +85,14 @@
   font-size: 3em;
   font-weight: bold;
   color: #333;
+  font-family: var(--font-primary);
 }
 
 .postDate {
   font-size: 1em;
   color: #888;
   margin-top: 10px;
+  font-family: var(--font-primary);
 }
 
 .postImage {
@@ -99,6 +111,7 @@
   font-size: 1.2em;
   line-height: 1.8;
   color: #555;
+  font-family: var(--font-primary);
 }
 
 /* More Blogs Section */
@@ -113,6 +126,7 @@
   font-size: 1.8em;
   color: #333;
   margin-bottom: 30px;
+  font-family: var(--font-primary);
 }
 
 .blogLink {
@@ -144,10 +158,12 @@
   font-weight: bold;
   margin: 15px 10px 10px;
   color: #404040;
+  font-family: var(--font-primary);
 }
 
 .blogExcerpt {
   font-size: 0.9em;
   color: #555;
   margin: 0 10px 15px;
+  font-family: var(--font-primary);
 }

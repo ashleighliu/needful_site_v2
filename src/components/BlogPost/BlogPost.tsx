@@ -6,10 +6,12 @@ import {
   Text,
   Box,
   Container,
+  Group,
   Grid,
 } from "@mantine/core";
 import { blogEntries } from "../Blog/Blog";
 import classes from "./BlogPost.module.css";
+import { MediaButtons } from "../MediaButtons/MediaButtons";
 
 // BlogPost Component (for individual blog pages)
 export function BlogPost() {
@@ -28,19 +30,23 @@ export function BlogPost() {
         <Title order={1} className={classes.postTitle}>
           {entry.title}
         </Title>
-        <Text className={classes.postDate} color="dimmed">
-          Published: January 15, 2025
-        </Text>
+        <Group justify="center" mt="md">
+          <MediaButtons />
+        </Group>
       </header>
+
       <Image className={classes.postImage} src={entry.image} />
       <article className={classes.postContentContainer}>
-        {entry.content.split("\n").map((line, index) => {
-          return (
-            <Text key={index} className={classes.postContent}>
-              {line}
-            </Text>
-          );
-        })}
+        {entry.content.split(/\n\n+/).map((paragraph, index) => (
+          <Text
+            key={index}
+            className={classes.postContent}
+            dangerouslySetInnerHTML={{
+              __html: paragraph.replace(/\n/g, "<br>"),
+            }}
+            style={{ marginBottom: "20px" }} // Ensures extra spacing for paragraphs
+          />
+        ))}
       </article>
 
       <section className={classes.moreBlogsSection}>
