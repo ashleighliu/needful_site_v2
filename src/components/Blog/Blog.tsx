@@ -185,7 +185,7 @@ export function Blog() {
       </Title>
       <Grid gutter="xl">
         {blogEntries.map((entry) => (
-          <Grid.Col key={entry.id} span={6}>
+          <Grid.Col key={entry.id} span={{ xs: 12, md: 6 }}>
             <Link to={`/blog/${entry.id}`} className={classes.blogLink}>
               <Box className={classes.blogCard}>
                 <Image
