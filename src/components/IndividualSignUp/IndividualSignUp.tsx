@@ -19,6 +19,7 @@ import FacebookBlue from "../../assets/FacebookBlue.svg";
 import Google from "../../assets/Google.svg";
 import classes from "./IndividualSignUp.module.css";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../services/firebase";
 
 type SignUpFormFields = {
   email: string;
@@ -36,13 +37,11 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
   const [gender, setGender] = useState<string | null>(null);
   const navigate = useNavigate();
   const form = useForm({
-    mode: "uncontrolled",
     initialValues: {
       email: "",
     },
   });
 
-  const auth = getAuth();
   const [formError, setFormError] = useState(false);
 
   function signUserUp(values: SignUpFormFields) {
@@ -98,8 +97,10 @@ export function IndividualSignUp(props: IndividualSignUpProps) {
           placeholder="Email Address"
           key={form.key("email")}
           {...form.getInputProps("email")}
-          value={email}
-          onChange={(event) => setEmail(event.currentTarget.value)}
+          onChange={(event) => {
+            form.setFieldValue("email", event.currentTarget.value);
+            setEmail(event.currentTarget.value);
+          }}
           variant="unstyled"
           error={
             formError
