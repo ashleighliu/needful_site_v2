@@ -7,6 +7,8 @@ import Location from "../../assets/Location.svg";
 import DoingByBeing from "../../assets/DoingByBeing.svg";
 import Phone from "../../assets/Phone.svg";
 import QRCode from "../../assets/QRCode.svg";
+import AppStoreQR from "../../assets/AppStoreQR.svg";
+import GooglePlayQR from "../../assets/GooglePlayQR.svg";
 import classes from "./Footer.module.css";
 
 export function Footer() {
@@ -110,13 +112,13 @@ export function Footer() {
               <Flex justify="center" align="center" gap={15} mt={10}>
                 {/* QR Code and App Store */}
                 <Flex direction="column" align="center" gap={4}>
-                  <Image src={QRCode} h={30} />
+                  <Image src={AppStoreQR} h={30} />
                   <Image src={AppStore} onClick={() => {}} h={35} />
                 </Flex>
                 {/* QR Code and Play Store */}
                 <Flex direction="column" align="center" gap={4}>
                   <Image src={QRCode} h={30} />
-                  <Image src={GooglePlay} onClick={() => {}} h={35} />
+                  <Image src={GooglePlayQR} onClick={() => {}} h={35} />
                 </Flex>
               </Flex>
             </div>
