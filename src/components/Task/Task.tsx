@@ -119,8 +119,8 @@ export function Task({
         return BlueTag;
       case "Questions":
         return BlackTag;
+      case "":
       case "Untagged":
-        return WhiteTag;
       case null:
         return WhiteTag;
       default:
@@ -262,10 +262,13 @@ export function Task({
 
   return (
     <Flex
-      direction="column"
+      direction="row"
+      align="center"
+      justify="space-between"
       w="100%"
-      onMouseEnter={() => setIsHovered(true)} // Add this line
-      onMouseLeave={() => setIsHovered(false)} // Add this line
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{ padding: "8px 12px", borderRadius: "4px" }}
     >
       <Flex mt={25} gap="xs" align="center" w="100%">
         {/* Main content area (75%) */}
@@ -307,7 +310,6 @@ export function Task({
               }}
               onBlur={() => onTaskValueChange(task.id, taskValue)}
               readOnly={checked}
-              placeholder={task.task === "" ? "Write a task..." : ""}
             />
             {!checked && task.hasAudio && (
               <UnstyledButton onClick={() => setOpened(!opened)}>
@@ -340,6 +342,27 @@ export function Task({
                       />
                     )}
                   </Center>
+                  {isHovered && (
+                    <Tooltip label="Delete" withArrow position="right">
+                      <ActionIcon
+                        variant="transparent"
+                        onClick={() => handleTaskDelete(task.id)}
+                        style={{
+                          cursor: "pointer",
+                          opacity: 0.7,
+                          transition: "opacity 0.2s ease",
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.opacity = "1")
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.opacity = "0.7")
+                        }
+                      >
+                        <IconX size={20} color="red" />
+                      </ActionIcon>
+                    </Tooltip>
+                  )}
                 </Flex>
               </UnstyledButton>
             )}

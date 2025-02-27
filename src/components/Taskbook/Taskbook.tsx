@@ -61,8 +61,14 @@ export function Taskbook() {
 
   const [filteredTasks, setFilteredTasks] = useState(userTasks);
 
+  const isUntagged = (label: string) => {
+    return label === "" || label === null || label === "Untagged";
+  };
+
   const filterTasks = (tasks: TaskEntry[], activeTag: string): TaskEntry[] => {
     let tempTasks: TaskEntry[] = [];
+
+    console.log(tasks);
 
     if (activeTag === "All") {
       tempTasks = tasks.filter(
@@ -77,7 +83,7 @@ export function Taskbook() {
     } else if (activeTag === "Untagged") {
       tempTasks = tasks.filter(
         (task: TaskEntry) =>
-          task.label === "" &&
+          isUntagged(task.label) &&
           (task.dueDate === null ||
             isEqual(
               startOfDay(parseISO(task.dueDate ?? "")),
@@ -347,6 +353,29 @@ export function Taskbook() {
             />
           </div>
         ))}
+        <Checkbox
+          disabled
+          mt={34}
+          label={
+            <TextInput
+              placeholder="Write a task..."
+              styles={{
+                input: {
+                  border: "none",
+                  outline: "none",
+                  fontSize: "20px",
+                },
+              }}
+              unstyled
+              ref={newTask}
+            />
+          }
+          styles={{
+            root: {
+              width: "1000px",
+            },
+          }}
+        />
       </div>
     </>
   );
