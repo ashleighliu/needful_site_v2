@@ -64,51 +64,42 @@ export function Taskbook() {
   const filterTasks = (tasks: TaskEntry[], activeTag: string): TaskEntry[] => {
     let tempTasks: TaskEntry[] = [];
 
-    if (
-      activeTag !== "Archived" &&
-      activeTag !== "Untagged" &&
-      activeTag !== "All"
-    ) {
-      tempTasks = tasks.filter(
-        (task: TaskEntry) =>
-          (task.label === activeTag &&
-            isEqual(
-              startOfDay(parseISO(task.dueDate ?? "")),
-              startOfDay(new Date())
-            )) ||
-          task.task === ""
-      );
-    }
-
     if (activeTag === "All") {
       tempTasks = tasks.filter(
         (task: TaskEntry) =>
-          isEqual(
-            startOfDay(parseISO(task.dueDate ?? "")),
-            startOfDay(new Date())
-          ) || task.task === ""
-      );
-    }
-
-    if (activeTag === "Untagged") {
-      tempTasks = tasks.filter(
-        (task: TaskEntry) =>
-          (task.label === "" &&
+          task.task.trim() !== "" &&
+          (task.dueDate === null ||
             isEqual(
               startOfDay(parseISO(task.dueDate ?? "")),
               startOfDay(new Date())
-            )) ||
-          task.task === ""
+            ))
       );
-    }
-
-    if (activeTag === "Archived") {
+    } else if (activeTag === "Untagged") {
       tempTasks = tasks.filter(
         (task: TaskEntry) =>
+          task.label === "" &&
+          (task.dueDate === null ||
+            isEqual(
+              startOfDay(parseISO(task.dueDate ?? "")),
+              startOfDay(new Date())
+            ))
+      );
+    } else if (activeTag === "Archived") {
+      tempTasks = tasks.filter(
+        (task: TaskEntry) =>
+          task.dueDate !== null &&
           startOfDay(parseISO(task.dueDate ?? "")).getTime() <
-            startOfDay(new Date()).getTime() ||
-          task.task === "" ||
-          task.dueDate === null
+            startOfDay(new Date()).getTime()
+      );
+    } else {
+      tempTasks = tasks.filter(
+        (task: TaskEntry) =>
+          task.label === activeTag &&
+          (task.dueDate === null ||
+            isEqual(
+              startOfDay(parseISO(task.dueDate ?? "")),
+              startOfDay(new Date())
+            ))
       );
     }
 
@@ -199,6 +190,13 @@ export function Taskbook() {
     if (updatedTask && updatedTask.task.trim() !== "") {
       await updateTasks(updatedTasks);
     }
+  };
+
+  const handleTaskDelete = async (id: string) => {
+    const updatedTasks: TaskEntry[] = userTasks.filter(
+      (t: TaskEntry) => t.id !== id
+    );
+    await updateTasks(updatedTasks);
   };
 
   useEffect(() => {
@@ -345,6 +343,7 @@ export function Taskbook() {
               handleTaskValueChange={handleTaskValueChange}
               handleTaskLabelChange={handleTaskLabelChange}
               handleTaskCompleteChange={handleTaskCompleteChange}
+              handleTaskDelete={handleTaskDelete}
             />
           </div>
         ))}

@@ -51,7 +51,6 @@ import { parseISO, startOfDay } from "date-fns";
 
 // Import assets
 import Wavelength from "../../assets/Wavelength.svg";
-import testAudio from "./testAudio.mp3";
 import GreenTag from "../../assets/GreenTag.svg";
 import MagentaTag from "../../assets/MagentaTag.svg";
 import YellowTag from "../../assets/YellowTag.svg";
@@ -75,11 +74,11 @@ export const tags: Tag[] = [
 
 interface TaskProps {
   task: TaskEntry;
-  // onTaskUpdate?: (updatedTask: TaskEntry) => void;
   handleDueDateChange: (id: string, dueDate: string | null) => void;
   handleTaskValueChange: (id: string, taskValue: string) => void;
   handleTaskLabelChange: (id: string, taskLabel: string) => void;
   handleTaskCompleteChange: (id: string, completed: boolean) => void;
+  handleTaskDelete: (id: string) => void; // Add this line
 }
 
 export function Task({
@@ -88,6 +87,7 @@ export function Task({
   handleTaskValueChange,
   handleTaskLabelChange,
   handleTaskCompleteChange,
+  handleTaskDelete, // Add this line
 }: TaskProps) {
   // State management
   const [opened, setOpened] = useState(false);
@@ -99,6 +99,7 @@ export function Task({
     task.dueDate ? startOfDay(parseISO(task.dueDate)) : null
   );
   const [taskValue, setTaskValue] = useState(task.task);
+  const [isHovered, setIsHovered] = useState(false); // Add this line
   // Refs
   const containerRef = useRef<HTMLDivElement>(null);
   const waveformRef = useRef<HTMLDivElement>(null);
@@ -260,7 +261,12 @@ export function Task({
   };
 
   return (
-    <Flex direction="column" w="100%">
+    <Flex
+      direction="column"
+      w="100%"
+      onMouseEnter={() => setIsHovered(true)} // Add this line
+      onMouseLeave={() => setIsHovered(false)} // Add this line
+    >
       <Flex mt={25} gap="xs" align="center" w="100%">
         {/* Main content area (75%) */}
         <Flex
@@ -371,54 +377,76 @@ export function Task({
           )}
         </Flex>
 
-        {/* Date picker area (25%) */}
-        <Flex style={{ width: "25%" }}>
+        {/* Date picker area (30%) */}
+        <Flex
+          style={{ width: "30%", marginRight: "16px" }} // Adjust width and margin
+          align="center"
+          justify="flex-end"
+        >
           {checked ? (
             <></>
           ) : (
-            <DatePickerInput
-              leftSection={
-                <IconCalendar
-                  style={{
-                    width: rem(18),
-                    height: rem(18),
+            <>
+              <DatePickerInput
+                leftSection={
+                  <IconCalendar
+                    style={{
+                      width: rem(18),
+                      height: rem(18),
+                      opacity: checked ? 0.5 : 1,
+                      transition: "opacity 0.2s ease",
+                    }}
+                    stroke={1.5}
+                  />
+                }
+                rightSection={
+                  <IconCaretDownFilled
+                    style={{
+                      width: rem(12),
+                      height: rem(12),
+                      opacity: checked ? 0.5 : 1,
+                      transition: "opacity 0.2s ease",
+                    }}
+                  />
+                }
+                placeholder="Due Date"
+                value={dueDate}
+                onChange={onDueDateChange}
+                size="sm"
+                fw={700}
+                styles={{
+                  input: {
+                    border: "none",
+                    outline: "none",
+                    width: "100%",
+                    fontSize: "12px",
+                    fontWeight: 700,
                     opacity: checked ? 0.5 : 1,
                     transition: "opacity 0.2s ease",
-                  }}
-                  stroke={1.5}
-                />
-              }
-              rightSection={
-                <IconCaretDownFilled
+                  },
+                  wrapper: {
+                    width: "100%",
+                  },
+                }}
+                minDate={today}
+              />
+              {isHovered && ( // Add this line
+                <ActionIcon
+                  variant="transparent"
+                  onClick={() => handleTaskDelete(task.id)}
                   style={{
-                    width: rem(12),
-                    height: rem(12),
-                    opacity: checked ? 0.5 : 1,
+                    marginLeft: "8px",
+                    cursor: "pointer",
+                    opacity: 0.7,
                     transition: "opacity 0.2s ease",
                   }}
-                />
-              }
-              placeholder="Due Date"
-              value={dueDate}
-              onChange={onDueDateChange}
-              size="sm"
-              fw={700}
-              styles={{
-                input: {
-                  border: "none",
-                  outline: "none",
-                  width: "100%",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  opacity: checked ? 0.5 : 1,
-                  transition: "opacity 0.2s ease",
-                },
-                wrapper: {
-                  width: "100%",
-                },
-              }}
-              minDate={today}
-            />
+                  onMouseEnter={(e) => (e.currentTarget.style.opacity = "1")}
+                  onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.7")}
+                >
+                  <IconX size={18} />
+                </ActionIcon>
+              )}
+            </>
           )}
         </Flex>
       </Flex>
