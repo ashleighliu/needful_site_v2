@@ -402,7 +402,7 @@ export function Task({
 
         {/* Date picker area (30%) */}
         <Flex
-          style={{ width: "30%", marginRight: "16px" }} // Adjust width and margin
+          style={{ width: "30%", position: "relative" }} // Remove marginRight, add position relative
           align="center"
           justify="flex-end"
         >
@@ -453,12 +453,13 @@ export function Task({
                 }}
                 minDate={today}
               />
-              {isHovered && ( // Add this line
+              {isHovered && (
                 <ActionIcon
                   variant="transparent"
                   onClick={() => handleTaskDelete(task.id)}
                   style={{
-                    marginLeft: "8px",
+                    position: "absolute",
+                    right: "-28px", // Position it outside the Flex container
                     cursor: "pointer",
                     opacity: 0.7,
                     transition: "opacity 0.2s ease",
