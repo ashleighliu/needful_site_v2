@@ -4,8 +4,19 @@ import AppStore from "../../assets/AppStore.svg";
 import GooglePlay from "../../assets/GooglePlay.svg";
 import QRCode from "../../assets/QRCode.svg";
 import classes from "./IndividualSignUp.module.css";
+import { Dispatch, SetStateAction } from "react";
 
-export function IndividualSignUp() {
+interface IndividualSignUpProps {
+  next: () => void;
+  email: string;
+  setEmail: Dispatch<SetStateAction<string>>;
+}
+
+export function IndividualSignUp({
+  next,
+  email,
+  setEmail,
+}: IndividualSignUpProps) {
   const navigate = useNavigate();
 
   return (
